@@ -1,4 +1,4 @@
-import Logo from '@ui/logo/Logo';
+import Logo from '@UI/logo/Logo';
 import classes from './Header.module.scss';
 
 function Header() {

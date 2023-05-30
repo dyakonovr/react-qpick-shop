@@ -34,11 +34,12 @@ a {
   text-decoration: none;
 }
 
-.root {
-  min-height: 100%;
-}
+// .root {
+//   min-height: 100%;
+// }
 
 .main {
+  padding: var(--medium-offset) 0;
   flex: 1 1 auto;
 }
 
