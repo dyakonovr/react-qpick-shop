@@ -1,0 +1,33 @@
+.header {
+  display: flex;
+  align-items: center;
+  padding: var(--small-offset) 0;
+
+  &__right {
+    display: flex;
+    align-items: center;
+    margin: 0 0 0 auto;
+    gap: var(--big-offset);
+  }
+
+  &__btn {
+    border: none;
+    padding: 0;
+    display: block;
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center center;
+    cursor: pointer;
+  }
+
+  &__favourite {
+    background-image: url("../../../assets/svg/icon-heart.svg");
+  }
+
+  &__cart {
+    background-image: url("../../../assets/svg/icon-cart.svg");
+  }
+}
