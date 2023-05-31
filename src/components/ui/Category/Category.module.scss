@@ -1,11 +1,4 @@
 .category {
-  &__title {
-    display: block;
-    font-weight: 600;
-    font-size: 20px;
-    color: var(--color-gray);
-  }
-
   &__items {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

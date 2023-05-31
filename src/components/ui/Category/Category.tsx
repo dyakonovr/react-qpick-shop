@@ -4,7 +4,7 @@ import classes from './Category.module.scss';
 function Category() {
   return (
     <>
-      <strong className={classes.category__title}>Чехлы</strong>
+      <strong className="subtitle subtitle--gray">Чехлы</strong>
       <ul className={classes.category__items}>
         <Card />
         <Card />

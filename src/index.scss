@@ -2,3 +2,37 @@
 @import "styles/_fonts.scss";
 @import "styles/_vars.scss";
 @import "styles/_settings.scss";
+
+.rows-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--medium-offset);
+}
+
+.subtitle {
+  display: block;
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--color-black);
+
+  &--gray {
+    color: var(--color-gray);
+  }
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--color-black);
+  border-radius: 20px;
+  color: var(--color-white);
+  background-color: var(--color-black);
+  transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+
+  &:hover {
+    color: var(--color-black);
+    background-color: var(--color-white);
+  }
+}

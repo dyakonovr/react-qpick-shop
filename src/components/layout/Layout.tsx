@@ -1,6 +1,8 @@
-import Catalog from "@screens/Catalog/Catalog";
-import Footer from "./Footer/Footer";
 import Header from "./Header/Header";
+import Footer from "./Footer/Footer";
+import Catalog from "@screens/Catalog/Catalog";
+import Favourites from "@screens/Favourites/Favourites";
+import Cart from "../screens/Cart/Cart";
 
 
 function Layout() {
@@ -8,7 +10,9 @@ function Layout() {
     <div className="container">
       <Header />
       <div className='main'>
-        <Catalog />
+        {/* <Catalog /> */}
+        {/* <Favourites /> */}
+        <Cart />
       </div>
       <Footer />
     </div>

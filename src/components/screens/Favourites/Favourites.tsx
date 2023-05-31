@@ -1,15 +1,13 @@
 import Category from '@UI/Category/Category';
-import Banner from '@UI/Banner/Banner';
 
-function Catalog() {
+function Favourites() {
   return (
     <section className="rows-container">
-      <Banner />
-      <Category />
+      <strong className="subtitle">Избранное</strong>
       <Category />
       <Category />
     </section>
   );
 };
 
-export default Catalog;
+export default Favourites;
