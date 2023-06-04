@@ -1,5 +1,6 @@
 import classes from './Cart.module.scss';
 import cartImage from '@assets/svg/cart.svg';
+import deliveryMapImage from "@assets/delivery-map.jpg";
 import { useRef } from 'react';
 
 function Cart() {
@@ -8,25 +9,25 @@ function Cart() {
   const minusBtnRef = useRef<HTMLButtonElement>(null);
 
   // Функции
-  function handleBtnClick(param: string) {
-    if (quantityRef.current !== null) {
-      const value = Number(quantityRef.current.innerHTML);
+  // function handleBtnClick(param: string) {
+  //   if (quantityRef.current !== null) {
+  //     const value = Number(quantityRef.current.innerHTML);
 
-      if (param === "plus" && value < 10) {
-        quantityRef.current.innerHTML = String(value + 1);
-        if (plusBtnRef.current !== null) plusBtnRef.current.removeAttribute("disabled"); 
-      } else if (param === "plus" && value === 10) {
-        if (plusBtnRef.current !== null) plusBtnRef.current.setAttribute("disabled", "disabled"); 
-      }
+  //     if (param === "plus" && value < 10) {
+  //       quantityRef.current.innerHTML = String(value + 1);
+  //       if (plusBtnRef.current !== null) plusBtnRef.current.removeAttribute("disabled"); 
+  //     } else if (param === "plus" && value === 10) {
+  //       if (plusBtnRef.current !== null) plusBtnRef.current.setAttribute("disabled", "disabled"); 
+  //     }
 
-      if (param === "minus" && value > 1) {
-        quantityRef.current.innerHTML = String(value - 1);
-        if (minusBtnRef.current !== null) minusBtnRef.current.removeAttribute("disabled"); 
-      } else if (param === "minus" && value === 1) {
-        if (minusBtnRef.current !== null) minusBtnRef.current.setAttribute("disabled", "disabled"); 
-      }
-    }
-  }
+  //     if (param === "minus" && value > 1) {
+  //       quantityRef.current.innerHTML = String(value - 1);
+  //       if (minusBtnRef.current !== null) minusBtnRef.current.removeAttribute("disabled"); 
+  //     } else if (param === "minus" && value === 1) {
+  //       if (minusBtnRef.current !== null) minusBtnRef.current.setAttribute("disabled", "disabled"); 
+  //     }
+  //   }
+  // }
   // Функции END
 
   return (
@@ -56,19 +57,30 @@ function Cart() {
                   <button
                     className={`${classes.item__btn} ${classes["item__btn--minus"]}`}
                     ref={minusBtnRef}
-                    onClick={() => handleBtnClick("minus")}>
+                    // onClick={() => handleBtnClick("minus")}
+                  >
                     </button>
                   <span className={classes.item__quantity} ref={quantityRef}>1</span>
                   <button
                     className={`${classes.item__btn} ${classes["item__btn--plus"]}`}
                     ref={plusBtnRef}
-                    onClick={() => handleBtnClick("plus")}>
+                    // onClick={() => handleBtnClick("plus")}
+                  >
                     </button>
                 </div>
                 <span className={classes["item__total-price"]}>2 456 Руб.</span>
               </div>
             </li>
           </ul>
+          <div className={classes.cart__delivery}>
+            <strong className="subtitle">Доставка</strong>
+            <div className={classes["cart__delivery-image"]}><img src={deliveryMapImage} alt="" /></div>
+            <div className={classes["cart__delivery-footer"]}>
+              <p className={classes["cart__delivery-text"]}>Доставка курьером</p>
+              <button className={classes["cart__delivery-btn"]}></button>
+              <span className={classes["cart__delivery-price"]}>499 Руб.</span>
+            </div>
+          </div>
         </div>
         <div className={classes.cart__right}>
           <div className={classes.cart__wrapper}>

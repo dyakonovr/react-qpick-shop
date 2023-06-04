@@ -8,6 +8,7 @@ export default defineConfig({
       '@assets' : path.resolve(__dirname, './src/assets'),
       '@UI' : path.resolve(__dirname, './src/components/UI'),
       '@screens' : path.resolve(__dirname, './src/components/screens'),
+      '@interfaces' : path.resolve(__dirname, './src/interfaces'),
     },
   },
   plugins: [react()],

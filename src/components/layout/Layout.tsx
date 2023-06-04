@@ -2,7 +2,8 @@ import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
 import Catalog from "@screens/Catalog/Catalog";
 import Favourites from "@screens/Favourites/Favourites";
-import Cart from "../screens/Cart/Cart";
+import Cart from "@screens/Cart/Cart";
+import Order from "@screens/Order/Order";
 
 
 function Layout() {
@@ -12,7 +13,8 @@ function Layout() {
       <div className='main'>
         {/* <Catalog /> */}
         {/* <Favourites /> */}
-        <Cart />
+        {/* <Cart /> */}
+        <Order />
       </div>
       <Footer />
     </div>

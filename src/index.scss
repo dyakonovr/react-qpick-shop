@@ -36,3 +36,34 @@
     background-color: var(--color-white);
   }
 }
+
+.block {
+  padding: var(--medium-offset);
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border-radius);
+  background-color: var(--color-white);
+}
+
+
+// react-select
+
+.towns-select {
+  &__control {
+    height: 45px !important;
+    border-radius: 15px !important;
+    background-color: #d6d6d6 !important;
+  }
+
+  &__indicator {
+    color: #8e8e8e !important;
+  }
+
+  &__menu {
+    border-radius: var(--border-radius);
+    background-color: #d6d6d6 !important;
+  }
+
+  &__option {
+    cursor: pointer !important;
+  }
+}
