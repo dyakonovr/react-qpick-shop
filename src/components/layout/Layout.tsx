@@ -4,6 +4,7 @@ import Catalog from "@screens/Catalog/Catalog";
 import Favourites from "@screens/Favourites/Favourites";
 import Cart from "@screens/Cart/Cart";
 import Order from "@screens/Order/Order";
+import Item from "@screens/Item/Item";
 
 
 function Layout() {
@@ -14,7 +15,8 @@ function Layout() {
         {/* <Catalog /> */}
         {/* <Favourites /> */}
         {/* <Cart /> */}
-        <Order />
+        {/* <Order /> */}
+        <Item />
       </div>
       <Footer />
     </div>

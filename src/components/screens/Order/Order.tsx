@@ -31,7 +31,7 @@ function Order() {
     //       <div className={classes["form__delivery-image"]}><img src={deliveryMapImage} alt='' /></div>
     //       <strong className={classes.form__subtitle}>Адрес доставки</strong>
     //       <form className={classes.column}>
-    //         <Select options={townsSelectOptions} placeholder="Город" classNamePrefix="towns-select" />
+    //         <Select options={townsSelectOptions} placeholder="Город" classNamePrefix="select" />
     //         <Input placeholder="Улица / Район" />
     //         <div className={classes.form__table}>
     //           <Input placeholder='Дом' />
@@ -63,7 +63,7 @@ function Order() {
     //       </div>
     //       <div className={`block ${classes.column}`}>
     //         <strong className={`${classes.title}`}>Способ оплаты</strong>
-    //           <Select options={accountsSelectOptions} placeholder="Выберите счет для оплаты" classNamePrefix="towns-select" />
+    //           <Select options={accountsSelectOptions} placeholder="Выберите счет для оплаты" classNamePrefix="select" />
     //           <Input placeholder="Промокод" />
     //       </div>
     //       <div className={`block ${classes.column}`}>
