@@ -12,11 +12,11 @@ function Layout() {
     <div className="container">
       <Header />
       <div className='main'>
-        {/* <Catalog /> */}
+        <Catalog />
         {/* <Favourites /> */}
         {/* <Cart /> */}
         {/* <Order /> */}
-        <Item />
+        {/* <Item /> */}
       </div>
       <Footer />
     </div>

@@ -1,19 +1,21 @@
+import classes from './Card.module.scss';
 import LikeButton from '../LikeButton/LikeButton';
 import Price from '@UI/Price/Price';
-import classes from './Card.module.scss';
+import IProduct from '@interfaces/store/IProduct';
+import { normalizeText } from '@functions/normalizeText';
 
-function Card() {
+const Card: React.FC<IProduct> = ({ id, categoryId, name, currentPrice, oldPrice, images, rating }) => {
   return (
-    <li className={classes.card}>
-      <LikeButton />
+    <li className={classes.card} data-id={id} data-category-id={categoryId}>
+      <LikeButton productId={id} />
       <div className={classes.card__img}>
-        <img src={image} alt="Apple BYZ S8521" />
+        <img src={image} alt={name} />
       </div>
       <div className={classes.card__wrapper}>
-        <strong className={classes.card__title}>Apple BYZ S8521</strong>
-        <Price oldPrice="2345 Rub" currentPrice="2212 Rub" />
+        <strong className={classes.card__title}>{normalizeText(name)}</strong>
+        <Price oldPrice={oldPrice} currentPrice={currentPrice} />
       </div>
-      <span className={classes.card__grade}>4.7</span>
+      <span className={classes.card__grade}>{Number.isInteger(rating) ? `${rating}.0` : rating}</span>
     </li>
   );
 };
