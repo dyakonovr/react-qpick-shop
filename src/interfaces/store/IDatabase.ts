@@ -1,5 +1,7 @@
+import IProduct from "./IProduct";
+import ICategoriesObject from './ICategoriesObject';
+
 export default interface IDatabase {
-  categories: object,
-  products: object[],
-  promoCodes: object
+  categories: ICategoriesObject,
+  products: IProduct[],
 }

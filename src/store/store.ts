@@ -2,7 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import databaseSlice from './database/DatabaseSlice';
 import favouritesSlice from './favourites/FavouritesSlice';
 
-const rootReducer = combineReducers({ databaseSlice });
+const rootReducer = combineReducers({ databaseSlice, favouritesSlice });
 const store = configureStore({
   reducer: rootReducer,
 });

@@ -4,8 +4,7 @@ import IDatabaseState from '@interfaces/store/IDatabaseState';
 
 const initialState: IDatabaseState = {
   data: templateDatabase,
-  // isLoading: true,
-  // error: ''
+  promoCodes: { "promocode 1": "124", "15 percent": "15%", "4624267": "2%"}
 }
  
 const databaseSlice = createSlice({

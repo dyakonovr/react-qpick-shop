@@ -12,8 +12,8 @@ function Layout() {
     <div className="container">
       <Header />
       <div className='main'>
-        <Catalog />
-        {/* <Favourites /> */}
+        {/* <Catalog /> */}
+        <Favourites />
         {/* <Cart /> */}
         {/* <Order /> */}
         {/* <Item /> */}

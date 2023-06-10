@@ -1,3 +1,3 @@
 export default interface IFavouritesState {
-  idList: number[]
+  idList: number[],
 }

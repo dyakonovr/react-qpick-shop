@@ -1,3 +1,4 @@
 export default interface IDatabaseState {
-  data: object
+  data: object,
+  promoCodes: object
 } 

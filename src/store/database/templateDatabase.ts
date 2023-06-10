@@ -18,5 +18,4 @@ export const templateDatabase: IDatabase = {
     {id: 11, categoryId: 0, name: "Беспроводная зарядка 3", info: {"Тип зарядки": "Type-C", "Время работы": "0 часов", "Количество кнопок": "2 шт", "Характеристика": "1 чирика"}, currentPrice: 5111, images: [], rating: 0.8},
     {id: 12, categoryId: 0, name: "Беспроводная зарядка 4", info: {"Тип зарядки": "Проводом", "Время работы": "18 часов", "Количество кнопок": "35 шт", "Характеристика": "ё чирика"}, currentPrice: 367, images: [], rating: 2.1},
   ],
-  promoCodes: { "promocode 1": "124", "15 percent": "15%", "4624267": "2%"}
 };
