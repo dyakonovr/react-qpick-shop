@@ -20,7 +20,13 @@
     fill: var(--color-black);
   }
 
-  &--active path {
-    fill: var(--color-black);
+  &--active {
+    path {
+      fill: var(--color-black);
+    }
+
+    &:hover path {
+      fill: transparent;
+    }
   }
 }
