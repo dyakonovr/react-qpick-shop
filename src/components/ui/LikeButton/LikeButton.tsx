@@ -1,11 +1,12 @@
-import ILikeButton from '@interfaces/components/ILikeButton';
 import classes from './LikeButton.module.scss'
 import { useRef } from 'react';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { addFavouriteItem, removeFavouriteItem } from '@store/favourites/FavouritesSlice';
+import { useAppSelector } from '@hooks/useAppSelector';
 
-const LikeButton: React.FC<ILikeButton> = ({ productId, btnIsActive }) => {
+function LikeButton({ productId }: {productId: number}) {
   const dispatch = useAppDispatch();
+  const btnIsActive = useAppSelector(state => state.favouritesSlice.idList.includes(productId));
   const btnRef = useRef<HTMLButtonElement>(null);
 
   // Функции

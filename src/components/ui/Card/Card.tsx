@@ -8,13 +8,10 @@ import { useAppSelector } from '@hooks/useAppSelector';
 import { normalizeRating } from '@functions/normalizeRating';
 
 const Card: React.FC<IProduct> = ({ id, categoryId, name, currentPrice, oldPrice, images, rating }) => {
-  const { idList } = useAppSelector(state => state.favouritesSlice);
-  const isFavouriteProduct = idList.includes(id);
-
   return (
     <li className={classes.card} data-id={id} data-category-id={categoryId}>
-      <LikeButton productId={id} btnIsActive={isFavouriteProduct} />
-      <Link to="/item">
+      <LikeButton productId={id} />
+      <Link to={`/item?id=${id}`}>
         <div className={classes.card__img}>
           <img src={image} alt={name} />
         </div>

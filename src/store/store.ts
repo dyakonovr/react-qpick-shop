@@ -1,8 +1,9 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import databaseSlice from './database/DatabaseSlice';
 import favouritesSlice from './favourites/FavouritesSlice';
+import cartSlice from './cart/CartSlice';
 
-const rootReducer = combineReducers({ databaseSlice, favouritesSlice });
+const rootReducer = combineReducers({ databaseSlice, favouritesSlice, cartSlice });
 const store = configureStore({
   reducer: rootReducer,
 });

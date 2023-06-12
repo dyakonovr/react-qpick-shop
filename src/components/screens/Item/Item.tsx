@@ -1,14 +1,25 @@
 import LikeButton from '@UI/LikeButton/LikeButton';
 import classes from './Item.module.scss';
 import Price from '../../UI/Price/Price';
+import { useAppSelector } from '@hooks/useAppSelector';
+import { useSearchParams } from 'react-router-dom';
+import IProduct from '@interfaces/store/IProduct';
 
 function Item() {
+  const [searchParams, _] = useSearchParams();
+  const productId = Number(searchParams.get("id"));
+  const { categories, products } = useAppSelector(state => state.databaseSlice.data);
+
+  const currentProduct = products.find((product: IProduct) => product.id === productId);
+  const currentCategory = categories[currentProduct.categoryId];
+  const infoObject = currentProduct.info;
+
   return (
     <section className={classes.item}>
-      <strong className={`subtitle subtitle--gray`}>Category</strong>
+      <strong className={`subtitle subtitle--gray`}>{currentCategory}</strong>
       <div className={`block ${classes.content}`}>
         <div className={classes.content__main}>
-          <LikeButton />
+          <LikeButton productId={productId} />
           <div className={classes.content__photos}>
               <div><img src={image} alt="Photo 1" /></div>
               <div><img src={image} alt="Photo 2" /></div>
@@ -17,8 +28,11 @@ function Item() {
               <div><img src={image} alt="Photo 5" /></div>
           </div>
           <div className={classes.content__footer}>
-            <strong className={classes.content__title}>Name of product</strong>
-            <Price currentPrice="2345 Rub" isBigFont={true} />
+            <strong className={classes.content__title}>{currentProduct.name}</strong>
+            <Price
+              currentPrice={currentProduct.currentPrice}
+              oldPrice={currentProduct.oldPrice ? currentProduct.oldPrice : false}
+              isBigFont={true} />
           </div>
         </div>
       </div>
@@ -26,12 +40,9 @@ function Item() {
         <div className={classes.info__wrapper}>
             <strong className={`subtitle block ${classes.info__title}`}>Описание и характеристики</strong>
             <div className={classes.info__container}>
-              <p className={classes.info__text}>Активное шумоподавление: Нет</p>
-              <p className={classes.info__text}>Активное шумоподавление: Нет</p>
-              <p className={classes.info__text}>Активное шумоподавление: Нет</p>
-              <p className={classes.info__text}>Активное шумоподавление: Нет</p>
-              <p className={classes.info__text}>Активное шумоподавление: Нет</p>
-              <p className={classes.info__text}>Активное шумоподавление: Нет</p>
+              {Object.keys(infoObject).map((key: string) => {
+                return (<p className={classes.info__text} key={key}>{key}: {infoObject[key]}</p>)
+              })}
           </div>
         </div>
         <div className={classes.info__btns}>

@@ -5,7 +5,8 @@ import Quantity from '@UI/Quantity/Quantity';
 import { useAppSelector } from '@hooks/useAppSelector';
 
 function Header() {
-  const { quantity } = useAppSelector(state => state.favouritesSlice);
+  const favouritesQuantity = useAppSelector(state => state.favouritesSlice.quantity);
+  const cartQuantity = useAppSelector(state => state.cartSlice.quantity);
 
   return (
     <header className={classes.header}>
@@ -14,12 +15,12 @@ function Header() {
       <div className={classes.header__right}>
         <Link to="/favourites"
           className={[classes.header__btn, classes.header__favourite].join(' ')}>
-          <Quantity quantity={quantity} />
+          <Quantity quantity={favouritesQuantity} />
         </Link>
         <Link to="/cart"
           className={[classes.header__btn, classes.header__cart].join(' ')}>
-          <Quantity quantity={10} />
-          </Link>
+          <Quantity quantity={cartQuantity} />
+        </Link>
       </div>
     </header>
   );

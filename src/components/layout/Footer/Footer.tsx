@@ -1,5 +1,6 @@
 import Logo from '@UI/logo/Logo';
 import classes from './Footer.module.scss'
+import { Link } from 'react-router-dom';
 
 function Footer() {
   return (
@@ -7,9 +8,9 @@ function Footer() {
       <Logo />
 
       <ul className={classes.footer__menu}>
-        <li><a href="#" className={classes.footer__link}>Избранное</a></li>
-        <li><a href="#" className={classes.footer__link}>Контакты</a></li>
-        <li><a href="#" className={classes.footer__link}>Корзина</a></li>
+        <li><Link to="/favourites" className={classes.footer__link}>Избранное</Link></li>
+        <li><Link to="/" className={classes.footer__link}>Контакты</Link></li>
+        <li><Link to="/cart" className={classes.footer__link}>Корзина</Link></li>
       </ul>
 
       <a href="#" className={classes.footer__link}>Условия сервиса</a>
