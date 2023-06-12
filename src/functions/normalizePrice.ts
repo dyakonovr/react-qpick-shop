@@ -1,3 +1,3 @@
 export function normalizePrice(price: number) {
-  return `${price} ₽`;
+  return `${price.toLocaleString("ru-RU")} ₽`;
 }

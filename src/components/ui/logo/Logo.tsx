@@ -1,8 +1,9 @@
-import classes from './Logo.module.scss'
+import classes from './Logo.module.scss';
+import { Link } from "react-router-dom";
 
 function Logo() {
   return (
-    <a href='/' className={classes.logo}>QPICK</a>
+    <Link to='/' className={classes.logo}>QPICK</Link>
   );
 };
 

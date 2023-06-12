@@ -11,12 +11,9 @@
   }
 
   &__btn {
-    border: none;
-    padding: 0;
     display: block;
     width: 20px;
     height: 20px;
-    background: transparent;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-position: center center;
@@ -24,10 +21,10 @@
   }
 
   &__favourite {
-    background-image: url("../../../assets/svg/icon-heart.svg");
+    background-image: url("@assets/svg/icon-heart.svg");
   }
 
   &__cart {
-    background-image: url("../../../assets/svg/icon-cart.svg");
+    background-image: url("@assets/svg/icon-cart.svg");
   }
 }

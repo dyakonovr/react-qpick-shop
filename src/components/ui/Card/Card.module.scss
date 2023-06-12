@@ -6,13 +6,19 @@
   border-radius: var(--border-radius);
   background-color: var(--color-white);
   transition: transform 0.2s ease-in-out;
-  cursor: pointer;
+
+  a { // <Link> для react-router-dom 
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
 
   &__img {
     margin: 0 auto 55px;
 
     img {
       display: block;
+      margin: 0 auto;
     }
   }
 

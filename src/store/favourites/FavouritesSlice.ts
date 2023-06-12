@@ -3,6 +3,7 @@ import IFavouritesState from '@interfaces/store/IFavouritesState';
 
 const initialState: IFavouritesState = {
   idList: [1, 2, 5, 9],
+  quantity: 4,
 }
  
 const favouritesSlice = createSlice({
@@ -11,11 +12,12 @@ const favouritesSlice = createSlice({
   reducers: {
     addFavouriteItem(state, action: PayloadAction<number>) {
       state.idList.push(action.payload);
+      state.quantity++;
     },
 
     removeFavouriteItem(state, action: PayloadAction<number>) {
-      const productIndex = state.idList.indexOf(action.payload);
-      state.idList = state.idList.filter((id: number) => id !== productIndex);
+      state.idList = state.idList.filter((id: number) => id !== action.payload);
+      state.quantity--;
     }
   }
 });
