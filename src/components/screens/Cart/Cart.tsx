@@ -4,31 +4,73 @@ import deliveryMapImage from "@assets/delivery-map.jpg";
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '@hooks/useAppSelector';
-import { IProduct } from '@interfaces/store/IProduct';
 import { removeItemFromCart } from '@store/cart/CartSlice';
 import { normalizePrice } from '@functions/normalizePrice';
 import { useAppDispatch } from '@hooks/useAppDispatch';
+import ICartProduct from '@interfaces/store/cart/ICartProduct';
+import { decrementProductQuantity, incrementProductQuantity } from '../../../store/cart/CartSlice';
 
 function Cart() {
   const dispatch = useAppDispatch();
 
-  const itemsListRef = useRef<HTMLUListElement>(null);
-  const plusBtnRef = useRef<HTMLButtonElement>(null);
-  const minusBtnRef = useRef<HTMLButtonElement>(null);
+  // const itemsListRef = useRef<HTMLUListElement>(null);
 
-  const { products } = useAppSelector(state => state.databaseSlice.data);
-  const { idList, quantity } = useAppSelector(state => state.cartSlice);
-
-  const cartProducts = quantity !== 0 ? products.filter((product: IProduct) => idList.includes(product.id)) : null;
+  const { products, quantity, deliveryPrice, totalPrice } = useAppSelector(state => state.cartSlice);
 
   // Функции
   function handleDeleteBtnClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     const btn = e.target as HTMLButtonElement;
     const productId = Number(btn.getAttribute("data-product-id"));
-    const item = btn.parentElement as HTMLElement;
-    item.remove();
-
     dispatch(removeItemFromCart(productId));
+  }
+
+  function handleQuantityBtnsClick(e: React.MouseEvent<HTMLElement, MouseEvent>) {
+    const clickedElement = e.target as HTMLElement;
+    if (clickedElement.tagName !== "BUTTON") return;
+
+    const type: string = clickedElement.dataset.type || "";
+    const productId = Number(clickedElement.getAttribute("data-product-id"));
+
+    if(type === "plus") dispatch(incrementProductQuantity(productId));
+    else if(type === "minus") dispatch(decrementProductQuantity(productId));
+  }
+
+  function createProductCards() {
+    return products.map((product: ICartProduct) => {
+      return (<li className={[classes.cart__item, classes.item].join(' ')} key={product.id}>
+        <button
+          className={classes["item__btn-delete"]}
+          onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleDeleteBtnClick(e)}
+          data-product-id={product.id}
+        ></button>
+        <div className={classes.item__content}>
+          <div className={classes.item__image}><img src={photo} alt={product.name} /></div>
+          <div className={classes.item__info}>
+              <strong className={classes.item__title}>{product.name}</strong>
+              <span className={classes.item__price}>{normalizePrice(product.price)}</span>
+          </div>
+        </div>
+        <div className={classes.item__footer}>
+          <div className={classes.item__counter}
+            onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => handleQuantityBtnsClick(e)}>
+            <button
+              disabled={product.quantity <= 1 ? true : false}
+              data-type="minus"
+              data-product-id={product.id}
+              className={`${classes.item__btn} ${classes["item__btn--minus"]}`}>
+              </button>
+            <span className={classes.item__quantity}>{product.quantity}</span>
+            <button
+              disabled={product.quantity >= 10 ? true : false}
+              data-product-id={product.id}
+              data-type="plus"
+              className={`${classes.item__btn} ${classes["item__btn--plus"]}`}>
+            </button>
+        </div>
+          <span className={classes["item__total-price"]}>{normalizePrice(product.price * product.quantity)}</span>
+      </div>
+    </li>
+    )})
   }
   // Функции END
 
@@ -47,41 +89,8 @@ function Cart() {
           <strong className="subtitle">Корзина</strong>
           <div className={classes.cart__container}>
             <div className={classes.cart__left}>
-              <ul className={classes.cart__list} ref={itemsListRef}>
-                {cartProducts.map((product: IProduct) => {
-                  return (<li className={[classes.cart__item, classes.item].join(' ')} key={product.id}>
-                    <button
-                      className={classes["item__btn-delete"]}
-                      onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleDeleteBtnClick(e)}
-                      data-product-id={product.id}
-                    ></button>
-                    <div className={classes.item__content}>
-                      <div className={classes.item__image}><img src={photo} alt="" /></div>
-                      <div className={classes.item__info}>
-                          <strong className={classes.item__title}>{product.name}</strong>
-                          <span className={classes.item__price}>{normalizePrice(product.currentPrice)}</span>
-                      </div>
-                    </div>
-                    <div className={classes.item__footer}>
-                      <div className={classes.item__counter}>
-                        <button
-                          className={`${classes.item__btn} ${classes["item__btn--minus"]}`}
-                          ref={minusBtnRef}
-                          // onClick={() => handleBtnClick("minus")}
-                        >
-                          </button>
-                        <span className={classes.item__quantity}>1</span>
-                        <button
-                          className={`${classes.item__btn} ${classes["item__btn--plus"]}`}
-                          ref={plusBtnRef}
-                          // onClick={() => handleBtnClick("plus")}
-                        >
-                        </button>
-                    </div>
-                    <span className={classes["item__total-price"]}>2 456 Руб.</span>
-                  </div>
-                </li>
-                )})}
+              <ul className={classes.cart__list}>
+                {createProductCards()}
               </ul>
               <div className={classes.cart__delivery}>
                 <strong className="subtitle">Доставка</strong>
@@ -89,14 +98,14 @@ function Cart() {
                 <div className={classes["cart__delivery-footer"]}>
                   <p className={classes["cart__delivery-text"]}>Доставка курьером</p>
                   <button className={classes["cart__delivery-btn"]}></button>
-                  <span className={classes["cart__delivery-price"]}>499 Руб.</span>
+                  <span className={classes["cart__delivery-price"]}>{normalizePrice(deliveryPrice)}</span>
                 </div>
               </div>
             </div>
             <div className={classes.cart__right}>
               <div className={classes.cart__wrapper}>
                 <span className={classes.cart__text}>ИТОГО</span>
-                <span className={classes.cart__total}>2 345 Руб.</span>
+                <span className={classes.cart__total}>{normalizePrice(totalPrice)}</span>
               </div>
               <Link to="/order" className={["link", classes.cart__link].join(' ')}>Перейти к оформлению</Link>
             </div>

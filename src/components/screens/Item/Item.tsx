@@ -4,8 +4,15 @@ import Price from '../../UI/Price/Price';
 import { useAppSelector } from '@hooks/useAppSelector';
 import { useSearchParams } from 'react-router-dom';
 import IProduct from '@interfaces/store/IProduct';
+import { useAppDispatch } from '@hooks/useAppDispatch';
+import { addItemToCart } from '../../../store/cart/CartSlice';
+import { useRef } from 'react';
 
 function Item() {
+  const dispatch = useAppDispatch();
+
+  const addToCartBtnRef = useRef<HTMLButtonElement>(null);
+
   const [searchParams, _] = useSearchParams();
   const productId = Number(searchParams.get("id"));
   const { categories, products } = useAppSelector(state => state.databaseSlice.data);
@@ -13,6 +20,17 @@ function Item() {
   const currentProduct = products.find((product: IProduct) => product.id === productId);
   const currentCategory = categories[currentProduct.categoryId];
   const infoObject = currentProduct.info;
+
+  // Функции
+  function handleBtnToCart() {
+    const obj = { id: currentProduct.id, image: "", price: currentProduct.currentPrice, name: currentProduct.name, quantity: 1 };
+    dispatch(addItemToCart(obj));
+    if (addToCartBtnRef.current) {
+      addToCartBtnRef.current.setAttribute("disabled", "disabled");
+      addToCartBtnRef.current.innerHTML = "Добавлено в корзину";
+    } 
+  }
+  // Функции END
 
   return (
     <section className={classes.item}>
@@ -47,7 +65,7 @@ function Item() {
         </div>
         <div className={classes.info__btns}>
           <a className={`link ${classes.info__btn}`} href='#'>Купить!</a>
-          <a className={`link ${classes.info__btn}`} href='#'>Добавить в корзину</a>
+          <button type='button' className={`link ${classes.info__btn}`} onClick={handleBtnToCart} ref={addToCartBtnRef}>Добавить в корзину</button>
         </div>
       </div>
     </section>

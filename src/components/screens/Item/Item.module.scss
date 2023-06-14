@@ -54,7 +54,6 @@
       gap: var(--small-offset);
       border-radius: 0 0 15px 15px;
       padding: var(--medium-offset);
-      // background-color: #f9f9f9;
     }
 
     &__text {
@@ -75,6 +74,13 @@
       height: 45px;
       font-size: 15px;
       font-weight: 500;
+      cursor: pointer;
+
+      &:disabled {
+        color: var(--color-black);
+        background-color: var(--color-white);
+        cursor: default;
+      }
     }
   }
 }
