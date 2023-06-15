@@ -3,5 +3,6 @@ export default interface IInput {
   isNumber?: boolean,
   id?: number,
   maxLength?: number,
-  onlyNumbers?: boolean
+  onlyNumbers?: boolean,
+  isPromoCode?: boolean
 }

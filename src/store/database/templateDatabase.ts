@@ -1,7 +1,7 @@
 import IDatabase from "@interfaces/store/IDatabase";
 
 export const templateDatabase: IDatabase = {
-  categories: { 2: "Телефоны", 1: "Наушники", 0: "Беспроводные зарядки" },
+  categories: { 1: "Телефоны", 2: "Наушники", 0: "Беспроводные зарядки" },
   products: [
     {id: 1, categoryId: 1, name: "Iphone 11 Pro", info: {"Тип зарядки": "USB", "Время работы": "12 часов", "Количество кнопок": "15 шт", "Характеристика": "4 чирика"}, currentPrice: 141, images: [], rating: 4.3},
     {id: 2, categoryId: 1, name: "Iphone 11 Pro Max", info: {"Тип зарядки": "Type-C", "Время работы": "128 часов", "Количество кнопок": "23 шт", "Характеристика": "3 чирика"}, currentPrice: 3551, oldPrice: 12424, images: [], rating: 4.9},

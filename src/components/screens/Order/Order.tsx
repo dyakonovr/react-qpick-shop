@@ -8,6 +8,8 @@ import ICartProduct from '@interfaces/store/cart/ICartProduct';
 import IOrder from '@interfaces/store/orders/IOrder';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { addNewOrder } from '@store/orders/ordersSlice';
+import { useNavigate } from 'react-router-dom';
+import { clearCart } from '@store/cart/CartSlice';
 
 
 const townsSelectOptions = [
@@ -18,18 +20,31 @@ const townsSelectOptions = [
 ];
 
 const bankAccountsSelectOptions = [
-  {value: 'kaspi.kz', label: 'Счет на kaspi.kz'},
-  {value: 'sberbank', label: 'Счет Сбербанк *2462'},
-  {value: 'tinkoff', label: 'Счет Тинькофф *2295'},
+  {value: 'Счет на kaspi.kz', label: 'Счет на kaspi.kz'},
+  {value: 'Счет Сбербанк *2462', label: 'Счет Сбербанк *2462'},
+  {value: 'Счет Тинькофф *2295', label: 'Счет Тинькофф *2295'},
 ];
 
 function Order() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  const { products, deliveryPrice, totalPrice } = useAppSelector(state => state.cartSlice);
+  const { products, deliveryPrice, totalPrice, promoCode } = useAppSelector(state => state.cartSlice);
   const { lastOrderId } = useAppSelector(state => state.ordersSlice);
 
   // Функции
+  function getOrderTotalPrice() {
+    if (promoCode) {
+      if (typeof promoCode === "string") { // Т.е. промокод со скидкой в виде %
+        return Math.round(totalPrice + deliveryPrice) * (1 - (parseFloat(promoCode) / 100));
+      } else {
+        return totalPrice + deliveryPrice - promoCode;
+      }
+    } else {
+      return totalPrice + deliveryPrice;
+    }
+  }
+
   function createProducts() {
     return products.map((product: ICartProduct) => {
       return (
@@ -46,9 +61,11 @@ function Order() {
     const formObject = formValidate();
     
     if (formObject) { // Форма заполнена правильно
-      const orderObject: IOrder = { ...formObject, id: lastOrderId + 1, price: totalPrice + deliveryPrice, products };
+      const orderObject: IOrder = { ...formObject, id: lastOrderId + 1, price: getOrderTotalPrice(), products };
       dispatch(addNewOrder(orderObject));
-    }
+      dispatch(clearCart());
+      navigate(`/success-order?id=${lastOrderId + 1}`);
+    } else alert("Проверьте Вашу форму.");
   }
 
   function formValidate() {
@@ -70,7 +87,7 @@ function Order() {
       return { fullAdress, bankAccount, clientNumber };
     }
 
-    return {};
+    return false;
   }
   // Функции END
 
@@ -107,16 +124,27 @@ function Order() {
                 <p className={`${classes["order-list__text"]} ${classes.text}`}>Доставка</p>
                 <span className={`${classes["order-list__price"]} ${classes.price}`}>{normalizePrice(deliveryPrice)}</span>
               </div>
+              {promoCode &&
+                <div className={classes["order-list__row"]}>
+                  <p className={`${classes["order-list__text"]} ${classes.text}`}>Промокод</p>
+                  <span className={`${classes["order-list__price"]} ${classes.price}`}>
+                    {typeof promoCode === "string" ? `-${promoCode}` : normalizePrice(promoCode * -1)}
+                  </span>
+                </div>
+              }
               <div className={classes["order-list__row"]}>
                 <p className={`${classes["order-list__text"]} ${classes.text}`}>К оплате</p>
-                <span className={`${classes["order-list__price"]} ${classes.price}`}>{normalizePrice(totalPrice + deliveryPrice)}</span>
+                <span
+                  className={`${classes["order-list__price"]} ${classes.price}`}>
+                  {normalizePrice(getOrderTotalPrice())}
+                </span>
               </div>
             </div>
           </div>
           <div className={`block ${classes.column}`}>
             <strong className={`${classes.title}`}>Способ оплаты</strong>
               <Select options={bankAccountsSelectOptions} placeholder="Выберите счет для оплаты" classNamePrefix="select" id="bank-account-select" />
-              <Input placeholder="Промокод" maxLength={15} />
+              <Input placeholder="Промокод (ENTER для ввода)" maxLength={15} isPromoCode={true} />
           </div>
           <div className={`block ${classes.column}`}>
             <strong className={classes.title}>Номер получателя</strong>
@@ -126,8 +154,6 @@ function Order() {
         </div>
       </div>
     </section>
-
-    // <div className={`block ${classes.success}`}>Номер вашего заказа №123123, с Вами свяжется наш менеджер.</div>
   );
 };
 

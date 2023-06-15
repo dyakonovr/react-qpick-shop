@@ -1,0 +1,11 @@
+.success {
+  margin: var(--medium-offset) auto 0;
+  width: max-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--big-offset) calc(var(--big-offset) * 2);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-black);
+}

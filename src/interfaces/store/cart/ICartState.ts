@@ -5,4 +5,5 @@ export default interface ICartState {
   quantity: number,
   deliveryPrice: number,
   totalPrice: number,
+  promoCode: string,
 }

@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice, current } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import ICartState from '@interfaces/store/ICartState';
 import ICartProduct from '@interfaces/store/cart/ICartProduct';
 
@@ -7,6 +7,7 @@ const initialState: ICartState = {
   quantity: 2,
   deliveryPrice: 499,
   totalPrice: 1000,
+  promoCode: "",
 };
  
 const cartSlice = createSlice({
@@ -48,9 +49,20 @@ const cartSlice = createSlice({
         currentObj.quantity -= 1;
         state.totalPrice -= currentObj.price;
       }
+    },
+
+    setPromoCode(state, action: PayloadAction<string>) {
+      state.promoCode = action.payload;
+    },
+
+    clearCart(state) {
+      state.products = [];
+      state.quantity = 0;
+      state.totalPrice = 0;
+      state.promoCode = "";
     }
   }
 });
 
-export const { addItemToCart, removeItemFromCart, incrementProductQuantity, decrementProductQuantity } = cartSlice.actions;
+export const { addItemToCart, removeItemFromCart, incrementProductQuantity, decrementProductQuantity, setPromoCode, clearCart } = cartSlice.actions;
 export default cartSlice.reducer;
