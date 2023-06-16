@@ -23,13 +23,13 @@ function Input(props: IInput) {
 
   if (isNumber) { // Если это ввод телефона
     return (
-      <div className={classes.input_wrapper}>
+      <div className="input_wrapper">
         <InputMask mask="+7 (999)-999-99-99" maskChar="_" alwaysShowMask="true" id={id} />
       </div>
     );
   } else if (isPromoCode) { // Если это инпут для промокода
     return (
-      <div className={classes.input_wrapper}>
+      <div className="input_wrapper">
         <input
           type="text" id={id}
           maxLength={maxLength}
@@ -39,7 +39,7 @@ function Input(props: IInput) {
     );
   } else {
     return (
-      <div className={classes.input_wrapper}>
+      <div className="input_wrapper">
         <input
           type="text" id={id}
           maxLength={maxLength}
