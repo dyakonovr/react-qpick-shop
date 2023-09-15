@@ -1,9 +1,9 @@
-import Logo from '@UI/logo/Logo';
+import Logo from 'UI/Logo/Logo';
 import classes from './Header.module.scss';
 import { Link } from 'react-router-dom';
-import Quantity from '@UI/Quantity/Quantity';
-import { useAppSelector } from '@hooks/useAppSelector';
-import SearchInput from '@UI/SearchInput/SearchInput';
+import Quantity from 'UI/Quantity/Quantity';
+import { useAppSelector } from 'hooks/useAppSelector';
+import SearchInput from 'UI/SearchInput/SearchInput';
 
 function Header() {
   const favouritesQuantity = useAppSelector(state => state.favouritesSlice.quantity);
@@ -14,13 +14,11 @@ function Header() {
       <Logo />
       <SearchInput placeholder="Поиск..." />
       <div className={classes.header__right}>
-        <Link to="/favourites"
-          className={[classes.header__btn, classes.header__favourite].join(' ')}>
-          <Quantity quantity={favouritesQuantity} />
+        <Link to="/favourites" className={[classes.header__btn, classes.header__favourite].join(' ')}>
+          {favouritesQuantity !== 0 && <Quantity quantity={favouritesQuantity} />}
         </Link>
-        <Link to="/cart"
-          className={[classes.header__btn, classes.header__cart].join(' ')}>
-          <Quantity quantity={cartQuantity} />
+        <Link to="/cart" className={[classes.header__btn, classes.header__cart].join(' ')}>
+          {cartQuantity !== 0 && <Quantity quantity={cartQuantity} />}
         </Link>
       </div>
     </header>

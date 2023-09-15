@@ -1,4 +1,4 @@
-import IDatabase from "@interfaces/store/IDatabase";
+import IDatabase from "interfaces/store/database/IDatabase";
 
 export const templateDatabase: IDatabase = {
   categories: { 1: "Телефоны", 2: "Наушники", 0: "Беспроводные зарядки" },

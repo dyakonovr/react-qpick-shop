@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom";
-import Catalog from "@screens/Catalog/Catalog";
-import Item from "@screens/Item/Item";
-import Order from "@screens/Order/Order";
-import Favourites from "@screens/Favourites/Favourites";
-import Cart from "@screens/Cart/Cart";
-import SuccessOrder from "@screens/SuccessOrder/SuccessOrder";
+import Cart from "screens/Cart/Cart";
+import Catalog from "screens/Catalog/Catalog";
+import Favourites from "screens/Favourites/Favourites";
+import Item from "screens/Item/Item";
+import Order from "screens/Order/Order";
+import SuccessOrder from "screens/SuccessOrder/SuccessOrder";
 
 function Paths() {
   return (

@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import ICartState from '@interfaces/store/ICartState';
-import ICartProduct from '@interfaces/store/cart/ICartProduct';
+import ICartState from 'interfaces/store/ICartState';
+import ICartProduct from 'interfaces/store/cart/ICartProduct';
 
 const initialState: ICartState = {
   products: [{ id: 1, name: "TITLE", price: 500, image: "", quantity: 1 }, { id: 2, name: "TITLE", price: 500, image: "", quantity: 1 }],
@@ -51,7 +51,7 @@ const cartSlice = createSlice({
       }
     },
 
-    setPromoCode(state, action: PayloadAction<string>) {
+    setPromoCode(state, action: PayloadAction<string | number>) {
       state.promoCode = action.payload;
     },
 

@@ -1,10 +1,10 @@
-import LikeButton from '@UI/LikeButton/LikeButton';
+import LikeButton from 'UI/LikeButton/LikeButton';
 import classes from './Item.module.scss';
 import Price from '../../UI/Price/Price';
-import { useAppSelector } from '@hooks/useAppSelector';
+import { useAppSelector } from 'hooks/useAppSelector';
 import { useSearchParams } from 'react-router-dom';
-import IProduct from '@interfaces/store/IProduct';
-import { useAppDispatch } from '@hooks/useAppDispatch';
+import IProduct from 'interfaces/store/database/IProduct';
+import { useAppDispatch } from 'hooks/useAppDispatch';
 import { addItemToCart } from '../../../store/cart/CartSlice';
 import { useRef } from 'react';
 

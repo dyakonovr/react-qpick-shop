@@ -1,13 +1,12 @@
-import classes from './Card.module.scss';
-import LikeButton from '../LikeButton/LikeButton';
-import Price from '@UI/Price/Price';
+import { normalizeRating } from 'functions/normalizeRating';
+import { normalizeText } from 'functions/normalizeText';
+import Price from 'UI/Price/Price';
+import IProduct from 'interfaces/store/database/IProduct';
 import { Link } from "react-router-dom";
-import IProduct from '@interfaces/store/IProduct';
-import { normalizeText } from '@functions/normalizeText';
-import { useAppSelector } from '@hooks/useAppSelector';
-import { normalizeRating } from '@functions/normalizeRating';
+import LikeButton from '../LikeButton/LikeButton';
+import classes from './Card.module.scss';
 
-const Card: React.FC<IProduct> = ({ id, categoryId, name, currentPrice, oldPrice, images, rating }) => {
+function Card({ id, categoryId, name, currentPrice, oldPrice, images, rating }: IProduct) {
   return (
     <li className={classes.card} data-id={id} data-category-id={categoryId}>
       <LikeButton productId={id} />

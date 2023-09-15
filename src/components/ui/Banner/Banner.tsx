@@ -1,5 +1,5 @@
 import classes from './Banner.module.scss';
-import bannerImg from '@assets/banner.jpg';
+import bannerImg from 'assets/img/banner.jpg';
 
 function Banner() {
   return (

@@ -1,6 +1,5 @@
-import IDatabase from "@interfaces/store/IDatabase";
-import IProduct from "@interfaces/store/IProduct";
 import Category from "../Category/Category";
+import IDatabase from 'interfaces/store/database/IDatabase';
 
 function Categories({ categories, products }: IDatabase) {
   function createCategories() {
@@ -8,19 +7,17 @@ function Categories({ categories, products }: IDatabase) {
     
     for (const categoryId in categories) {
       const categoryName = categories[categoryId];
-      const currentProducts = products.filter((product: IProduct) => product.categoryId === Number(categoryId));
+      const currentProducts = products.filter((product) => product.categoryId === Number(categoryId));
 
       categoryComponentsList.push(
-        <Category categoryName={categoryName} categoryId={categoryId} products={currentProducts} key={categoryId} />
+        <Category categoryName={categoryName} products={currentProducts} key={categoryId} />
       );
     }
 
     return categoryComponentsList;
   }
 
-  return (
-    <>{createCategories()}</>
-  );
+  return createCategories();
 };
 
 export default Categories;

@@ -1,5 +1,5 @@
-import Banner from '@UI/Banner/Banner';
-import { useAppSelector } from '@hooks/useAppSelector';
+import Banner from 'UI/Banner/Banner';
+import { useAppSelector } from 'hooks/useAppSelector';
 import Categories from '../../UI/Categories/Categories';
 
 function Catalog() {

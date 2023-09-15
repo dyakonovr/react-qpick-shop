@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import IDatabaseState from 'interfaces/store/database/IDatabaseState';
 import { templateDatabase } from './templateDatabase';
-import IDatabaseState from '@interfaces/store/IDatabaseState';
 
 const initialState: IDatabaseState = {
   data: templateDatabase,
@@ -10,11 +10,7 @@ const initialState: IDatabaseState = {
 const databaseSlice = createSlice({
   name: 'database',
   initialState,
-  reducers: {
-    chatFetchingSuccess(state, action: PayloadAction<number>) { // <number> = тип, к-ый приходит из action
-      state.data = action.payload;
-    },
-  }
+  reducers: {}
 });
 
 export default databaseSlice.reducer;

@@ -1,8 +1,8 @@
 import { Link, useLocation, useSearchParams } from "react-router-dom";
 import classes from "./SearchInput.module.scss";
-import { useAppSelector } from "@hooks/useAppSelector";
-import IProduct from "@interfaces/store/database/IProduct";
-import { compareTermAndProduct } from "@functions/compareTermAndProduct";
+import { useAppSelector } from "hooks/useAppSelector";
+import IProduct from "interfaces/store/database/IProduct";
+import { compareTermAndProduct } from "functions/compareTermAndProduct";
 import { useEffect, useRef } from "react";
 
 function SearchInput({ placeholder }: { placeholder: string }) {

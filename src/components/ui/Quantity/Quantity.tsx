@@ -1,21 +1,16 @@
 import classes from './Quantity.module.scss'
 
-function Quantity({ quantity }: {quantity: number}) {
+interface IQuantityProps {
+  quantity: number
+}
+
+function Quantity({ quantity }: IQuantityProps) {
+  const quantityClasses = quantity <= 9 ? classes.quantity : `${classes.quantity} ${classes["quantity--small"]}`;
+
   return (
-    <>
-      {quantity !== 0
-        ?
-        <div className={classes.quantity_wrapper}>
-          {quantity <= 9
-            ?
-            <span className={classes.quantity}>{quantity}</span>
-            :
-            <span className={`${classes.quantity} ${classes["quantity--small"]}`}>9+</span>
-          }
-        </div>
-        : false
-        }
-    </>
+    <div className={classes.quantity_wrapper}>
+      <span className={quantityClasses}>{quantity <= 9 ? quantity : "9+"}</span>
+    </div>
   );
 };
 

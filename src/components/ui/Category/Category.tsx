@@ -1,27 +1,18 @@
-import Card from '../Card/Card';
+import IProduct from "interfaces/store/database/IProduct";
+import Card from "../Card/Card";
 import classes from './Category.module.scss';
-import ICategory from '@interfaces/components/ICategory';
 
-const Category: React.FC<ICategory> = ({ categoryName, categoryId, products }) => {
-  // Функции  
-  function createCards() {
-    const cardComponentsList = [];
+interface ICategoryProps {
+  categoryName: string,
+  products: IProduct[]
+}
 
-    for (const product of products) {
-      cardComponentsList.push(
-        <Card {...product} key={product.id} />
-      );
-    }
-
-    return cardComponentsList
-  }
-  // Функции END
-
+function Category({ categoryName, products }: ICategoryProps) {
   return (
     <>
       <strong className="subtitle subtitle--gray">{categoryName}</strong>
       <ul className={classes.category__items}>
-        {createCards()}
+        {products.map(product => <Card {...product} key={product.id} />)}
       </ul>
     </>
   );

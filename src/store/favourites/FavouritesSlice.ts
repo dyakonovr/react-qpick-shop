@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import IFavouritesState from '@interfaces/store/IFavouritesState';
+import IFavouritesState from 'interfaces/store/IFavouritesState';
 
 const initialState: IFavouritesState = {
   idList: [1, 2, 5, 9],

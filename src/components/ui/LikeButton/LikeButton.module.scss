@@ -6,6 +6,8 @@
   cursor: pointer;
 
   svg {
+    width: 25px;
+    height: 25px;
     transform: translate(-6px, 0);
   }
 
@@ -13,7 +15,7 @@
     fill: transparent;
     stroke: var(--color-black);
     stroke-width: 2px;
-    transition: fill 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
   }
 
   &:hover path {
@@ -23,6 +25,7 @@
   &--active {
     path {
       fill: var(--color-black);
+      stroke-width: 2px;
     }
   }
 }

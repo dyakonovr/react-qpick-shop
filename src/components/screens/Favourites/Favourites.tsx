@@ -1,6 +1,6 @@
-import { useAppSelector } from '@hooks/useAppSelector';
-import IProduct from '@interfaces/store/IProduct';
-import IDatabase from '@interfaces/store/IDatabase';
+import { useAppSelector } from 'hooks/useAppSelector';
+import IProduct from 'interfaces/store/database/IProduct';
+import IDatabase from 'interfaces/store/database/IDatabase';
 import Categories from '../../UI/Categories/Categories';
 
 function Favourites() {
