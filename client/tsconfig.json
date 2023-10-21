@@ -19,15 +19,20 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "baseUrl": "src",
+    // "baseUrl": "src",
+    // "paths": {
+    //   "assets/*": ["assets/*"],
+    //   "UI/*": ["components/UI/*"],
+    //   "screens/*": ["components/screens/*"],
+    //   "interfaces/*": ["interfaces/*"],
+    //   "store/*": ["store/*"],
+    //   "hooks/*": ["hooks/*"],
+    //   "functions/*": ["functions/*"]
+    // }
+
+    "baseUrl": ".",
     "paths": {
-      "assets/*": ["assets/*"],
-      "UI/*": ["components/UI/*"],
-      "screens/*": ["components/screens/*"],
-      "interfaces/*": ["interfaces/*"],
-      "store/*": ["store/*"],
-      "hooks/*": ["hooks/*"],
-      "functions/*": ["functions/*"]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src"],
