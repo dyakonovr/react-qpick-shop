@@ -1,11 +1,11 @@
 import deliveryMapImage from "assets/img/delivery-map.jpg";
 import cartImage from 'assets/img/svg/cart.svg';
-import { normalizePrice } from 'functions/normalizePrice';
-import { useAppSelector } from 'hooks/useAppSelector';
-import ICartProduct from 'interfaces/store/cart/ICartProduct';
+import { normalizePrice } from '@/functions/normalizePrice';
+import { useAppSelector } from '@/hooks/useAppSelector';
+// import ICartProduct from '@/interfaces/store/cart/ICartProduct';
 import { Link } from 'react-router-dom';
 import classes from './Cart.module.scss';
-import CartProduct from "UI/CartProduct/CartProduct";
+// import CartProduct from "UI/CartProduct/CartProduct";
 
 interface IFilledCartProps {
   deliveryPrice: number,

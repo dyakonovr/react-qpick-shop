@@ -1,20 +1,22 @@
+import { IPathObject } from "@/interfaces/IPathsObject";
 import { Route, Routes } from "react-router-dom";
-import Cart from "screens/Cart/Cart";
-import Catalog from "screens/Catalog/Catalog";
-import Favourites from "screens/Favourites/Favourites";
-import Item from "screens/Item/Item";
-import Order from "screens/Order/Order";
-import SuccessOrder from "screens/SuccessOrder/SuccessOrder";
+import { adminPaths } from "./AdminPaths";
 
 function Paths() {
+  const paths: IPathObject = [
+    ...adminPaths
+  ];
+
   return (
     <Routes>
-      <Route path="/" element={<Catalog />} />
+      {/* <Route path="/" element={<Catalog />} />
       <Route path="/item" element={<Item />} />
       <Route path="/order" element={<Order />} />
       <Route path="/favourites" element={<Favourites />} />
       <Route path="/cart" element={<Cart />} />
-      <Route path="/success-order" element={<SuccessOrder />} />
+      <Route path="/success-order" element={<SuccessOrder />} /> */}
+      {/* <Route path="/admin" element={<AdminPaths />} /> */}
+      {paths.map(obj => <Route path={obj.path} element={obj.element} />)}
     </Routes>
   );
 }

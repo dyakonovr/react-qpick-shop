@@ -1,14 +1,14 @@
-import Input from "UI/Input/Input";
+// import Input from "UI/Input/Input";
 import deliveryMapImage from "assets/img/delivery-map.jpg";
-import { normalizePrice } from 'functions/normalizePrice';
-import { useAppDispatch } from 'hooks/useAppDispatch';
-import { useAppSelector } from 'hooks/useAppSelector';
-import ICartProduct from 'interfaces/store/cart/ICartProduct';
-import IOrder from 'interfaces/store/orders/IOrder';
+import { normalizePrice } from '@/functions/normalizePrice';
+import { useAppDispatch } from '@/hooks/useAppDispatch';
+import { useAppSelector } from '@/hooks/useAppSelector';
+// import ICartProduct from '@/interfaces/store/cart/ICartProduct';
+// import IOrder from 'interfaces/store/orders/IOrder';
 import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
-import { clearCart } from 'store/cart/CartSlice';
-import { addNewOrder } from 'store/orders/ordersSlice';
+import { clearCart } from '@/store/cart/CartSlice';
+import { addNewOrder } from '@/store/orders/ordersSlice';
 import classes from './Order.module.scss';
 
 

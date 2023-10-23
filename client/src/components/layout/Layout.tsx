@@ -8,10 +8,10 @@ function Layout() {
   return (
     <div className="container">
       <BrowserRouter>
-        <ScrollToTop />
-        <Header />
+        {/* <ScrollToTop /> */}
+        {/* <Header /> */}
         <div className='main'><Paths /></div>
-        <Footer />
+        {/* <Footer /> */}
       </BrowserRouter>
     </div>
   );

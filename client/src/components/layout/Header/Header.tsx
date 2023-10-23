@@ -1,8 +1,8 @@
-import Logo from 'UI/Logo/Logo';
+// import Logo from 'UI/Logo/Logo';
 import classes from './Header.module.scss';
 import { Link } from 'react-router-dom';
-import Quantity from 'UI/Quantity/Quantity';
-import { useAppSelector } from 'hooks/useAppSelector';
+// import Quantity from 'UI/Quantity/Quantity';
+// import { useAppSelector } from 'hooks/useAppSelector';
 import SearchInput from 'UI/SearchInput/SearchInput';
 
 function Header() {
