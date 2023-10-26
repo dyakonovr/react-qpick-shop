@@ -25,12 +25,12 @@ export const Basket = sequelize.define('basket', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 });
 
-export const Type = sequelize.define('type', {
+export const Category = sequelize.define('category', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
 });
 
-export const models = { User, Basket, BasketProduct, Type, Product };
+export const models = { User, Basket, BasketProduct, Type: Category, Product };
 
 // СВЯЗИ
 
@@ -40,8 +40,8 @@ Basket.belongsTo(User);
 Basket.hasMany(BasketProduct);
 BasketProduct.belongsTo(Basket);
 
-Type.hasMany(Product);
-Product.belongsTo(Type);
+Category.hasMany(Product);
+Product.belongsTo(Category);
 
 Product.hasMany(BasketProduct);
 BasketProduct.belongsTo(Product);

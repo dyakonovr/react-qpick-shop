@@ -1,12 +1,14 @@
-import { Provider } from 'react-redux';
-import Layout from '@/components/layout/Layout';
-import store from "@/store/store";
 import { Toaster } from "@/components/ui/toaster";
+import store from "@/store/store";
+import { Provider } from 'react-redux';
+import Paths from "./components/routes/Paths";
 
 function App() {
   return (
     <Provider store={store}>
-      <Layout />
+      <div className="container">
+        <Paths />
+      </div>
       <Toaster />
     </Provider>
   )

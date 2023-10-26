@@ -31,7 +31,7 @@ class UserController {
     const user = await User.findOne({ where: { email } });
     if (!user) return next(ApiError.internal("Такого пользователя не найдено"));
 
-    const comparePassword = bcrypt.compare(password, user.password);
+    const comparePassword = await bcrypt.compare(password, user.password);
     if (!comparePassword) return next(ApiError.internal("Указан неверный пароль"));
 
     const token = generateJWT(user.id, email, user.role);

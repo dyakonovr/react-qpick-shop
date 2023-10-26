@@ -1,6 +1,6 @@
-import Logo from 'UI/logo/Logo';
 import { Link } from 'react-router-dom';
 import classes from './Footer.module.scss';
+import Logo from "@/components/shared/Logo/Logo";
 
 function Footer() {
   return (

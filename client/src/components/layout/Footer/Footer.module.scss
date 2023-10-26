@@ -44,19 +44,19 @@
     background-position: center center;
 
     &_vk {
-      background-image: url("assets/img/svg/icon-vk.svg");
+      background-image: url("@/assets/img/svg/icon-vk.svg");
     }
 
     &_inst {
-      background-image: url("assets/img/svg/icon-inst.svg");
+      background-image: url("@/assets/img/svg/icon-inst.svg");
     }
 
     &_tg {
-      background-image: url("assets/img/svg/icon-tg.svg");
+      background-image: url("@/assets/img/svg/icon-tg.svg");
     }
 
     &_whatsapp {
-      background-image: url("assets/img/svg/icon-whatsapp.svg");
+      background-image: url("@/assets/img/svg/icon-whatsapp.svg");
     }
   }
 }
