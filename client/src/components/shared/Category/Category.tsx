@@ -1,6 +1,6 @@
-import IProduct from "interfaces/store/database/IProduct";
-import Card from "../Card/Card";
+import { IProduct } from "@/interfaces/IProduct";
 import classes from './Category.module.scss';
+import Card from "../Card/Card";
 
 interface ICategoryProps {
   categoryName: string,

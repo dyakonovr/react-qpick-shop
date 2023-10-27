@@ -1,16 +1,18 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import IDatabaseState from 'interfaces/store/database/IDatabaseState';
-import { templateDatabase } from './templateDatabase';
+import { createSlice } from '@reduxjs/toolkit';
+import { IProduct } from './../../interfaces/IProduct';
 
-const initialState: IDatabaseState = {
-  data: templateDatabase,
-  promoCodes: { "promocode 1": 124, "15 percent": "15%", "4624267": "2%"}
+interface IProductsState {
+  products: IProduct[]
+}
+
+const initialState: IProductsState = {
+  products: [],
 }
  
-const databaseSlice = createSlice({
-  name: 'database',
+const productsSlice = createSlice({
+  name: 'products',
   initialState,
   reducers: {}
 });
 
-export default databaseSlice.reducer;
+export default productsSlice.reducer;

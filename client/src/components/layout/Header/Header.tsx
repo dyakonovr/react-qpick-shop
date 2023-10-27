@@ -2,6 +2,7 @@
 import Logo from "@/components/shared/Logo/Logo";
 import classes from './Header.module.scss';
 import { Link } from 'react-router-dom';
+import { PagePaths } from "@/enum/PagePaths";
 // import Quantity from 'UI/Quantity/Quantity';
 // import { useAppSelector } from 'hooks/useAppSelector';
 // import SearchInput from 'UI/SearchInput/SearchInput';
@@ -21,6 +22,7 @@ function Header() {
         <Link to="/cart" className={[classes.header__btn, classes.header__cart].join(' ')}>
           {/* {cartQuantity !== 0 && <Quantity quantity={cartQuantity} />} */}
         </Link>
+        <Link to={PagePaths.AUTHENTICATION.LOGIN}>Войти</Link>
       </div>
     </header>
   );

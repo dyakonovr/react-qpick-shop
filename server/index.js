@@ -1,6 +1,6 @@
 import express from "express";
 import { sequelize } from './db.js';
-// import { models } from "./models/models.js";
+import { models } from "./models/models.js";
 import cors from "cors";
 import { router } from "./routes/routes.js";
 import ErrorHandlingMiddleware from "./middleware/errorHandlingMiddleware.js";

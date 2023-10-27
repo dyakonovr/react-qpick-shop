@@ -5,27 +5,29 @@ import { toast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
 import * as z from "zod";
+import { createProduct } from "../../api/createProduct";
+import { IProductWithoutId } from "@/interfaces/IProduct";
 
 const profileFormSchema = z.object({
-  name: z.string(),
-  typeId: z.string(),
-  price: z.string(),
-  rating: z.string(),
+  name: z.string().min(3, {message: "Минимальная длина имени товара - 3 символа"}),
+  categoryId: z.string().min(0, {message: "TypeID не может быть меньше 0"}),
+  price: z.string().min(0, {message: "Минимальная цена продукта - 0"}),
+  rating: z.string().min(0, {message: "Минимальный рейтинг - 0"}),
   info: z.array(
     z.object({
-      value: z.string(),
+      value: z.string().min(10, {message: "Минимальная длина характеристики - 10 символов"}),
     })
-  ),
-  urls: z.array(
+  ).min(1, {message: "Минимум должна быть одна характеристика"}),
+  imgs: z.array(
     z.object({
       value: z.string().url({ message: "Введите валидную ссылку на фотографию." }),
     })
-  )
+  ).min(1, {message: "Минимум должна быть одна ссылка на фотографию"})
 })
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
-export function ProductForm() {
+export function AdminProductForm() {
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues: {
@@ -33,14 +35,14 @@ export function ProductForm() {
       rating: "",
       price: "",
       info: [],
-      typeId: "",
-      urls: []
+      categoryId: "",
+      imgs: []
     },
     mode: "onChange",
   })
 
   const { fields: urlsFields, append: urlsAppend } = useFieldArray({
-    name: "urls",
+    name: "imgs",
     control: form.control,
   });
 
@@ -49,16 +51,38 @@ export function ProductForm() {
     control: form.control,
   });
 
-  function onSubmit(data: ProfileFormValues) {
-    console.log('!', data);
+  // Функции
+  async function onSubmit(data: ProfileFormValues) {
+    const product: IProductWithoutId = {
+      name: data.name,
+      rating: Number(data.rating),
+      price: Number(data.price),
+      categoryId: Number(data.categoryId),
+      imgs: data.imgs.map(obj => obj.value),
+      info: data.info.map(obj => obj.value),
+    };
 
-    toast({
-      title: "Создание товара",
-      description: (
-        <span>Выполнено успешно</span>
-      ),
-    });
+    const response = await createProduct(product);
+
+    if (typeof response === "string") {
+      toast({
+        title: "Создание товара",
+        description: (
+          <span>Произошла ошибка: {response}</span>
+        ),
+      });
+      return;
+    } else {
+      console.log(response);
+      toast({
+        title: "Создание товара",
+        description: (
+          <span>Успешно!</span>
+        ),
+      });
+    }
   }
+  // Функции END
 
   return (
     <Form {...form}>
@@ -79,7 +103,7 @@ export function ProductForm() {
 
         <FormField
           control={form.control}
-          name="typeId"
+          name="categoryId"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Категория (id)</FormLabel>
@@ -154,7 +178,7 @@ export function ProductForm() {
             <FormField
               control={form.control}
               key={field.id}
-              name={`urls.${index}.value`}
+              name={`imgs.${index}.value`}
               render={({ field }) => (
                 <FormItem className="mt-3">
                   <FormControl>

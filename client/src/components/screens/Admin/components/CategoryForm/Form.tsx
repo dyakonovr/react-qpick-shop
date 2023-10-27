@@ -5,14 +5,15 @@ import { toast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { createCategory } from "../../api/createCategory";
 
 const profileFormSchema = z.object({
-  name: z.string(),
+  name: z.string().min(3, {message: "Минимальная длина названия категории - 3 символа"}),
 })
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
-export function CategoryForm() {
+export function AdminCategoryForm() {
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues: {
@@ -21,15 +22,26 @@ export function CategoryForm() {
     mode: "onChange",
   })
 
-  function onSubmit(data: ProfileFormValues) {
-    console.log('!', data);
+  async function onSubmit(data: ProfileFormValues) {
+    const response = await createCategory(data.name);
 
-    toast({
-      title: "Создание категории",
-      description: (
-        <span>Выполнено успешно</span>
-      ),
-    });
+    if (typeof response === "string") {
+      toast({
+        title: "Создание категории",
+        description: (
+          <span>Произошла ошибка: {response}</span>
+        ),
+      });
+      return;
+    } else {
+      console.log(response);
+      toast({
+        title: "Создание категории",
+        description: (
+          <span>Успешно!</span>
+        ),
+      });
+    }
   }
 
   return (

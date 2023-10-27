@@ -1,18 +1,19 @@
 import { Separator } from "@/components/ui/separator"
 import { SidebarNav } from "@/components/ui/sidebar-nav"
+import { PagePaths } from "@/enum/PagePaths"
 
 const sidebarNavItems = [
   {
     title: "Создать товар",
-    href: "/admin",
+    href: PagePaths.ADMIN.PRODUCT,
   },
   {
     title: "Создать категорию",
-    href: "/admin/category",
+    href: PagePaths.ADMIN.CATEGORY,
   },
   {
     title: "Создать пользователя",
-    href: "/admin/create-user",
+    href: PagePaths.ADMIN.USER,
   },
 ]
 

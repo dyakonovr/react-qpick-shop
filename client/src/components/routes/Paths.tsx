@@ -1,19 +1,24 @@
+import { PagePaths } from "@/enum/PagePaths";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "../layout/Layout";
 import Admin from "../screens/Admin/Admin";
-import { ProductForm } from "../screens/Admin/components/ProductForm/Form";
+import { AdminCategoryForm } from "../screens/Admin/components/CategoryForm/Form";
+import { AdminProductForm } from "../screens/Admin/components/ProductForm/Form";
+import { AdminUserForm } from "../screens/Admin/components/UserForm/Form";
 import AuthForm from "../screens/Auth/Auth";
-import Catalog from "../screens/Catalog/Catalog";
+import Home from "../screens/Home/Home";
 
 function Paths() {
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<AuthForm />} />
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Catalog />} />
-          <Route path="admin" element={<Admin><ProductForm /></Admin>} />
+        <Route path={PagePaths.AUTHENTICATION.LOGIN} element={<AuthForm />} />
+        <Route path={PagePaths.HOME} element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path={PagePaths.ADMIN.PRODUCT} element={<Admin><AdminProductForm /></Admin>} />
+          <Route path={PagePaths.ADMIN.CATEGORY} element={<Admin><AdminCategoryForm /></Admin>} />
+          <Route path={PagePaths.ADMIN.USER} element={<Admin><AdminUserForm /></Admin>} />
         </Route>
       </Routes>
     </BrowserRouter>

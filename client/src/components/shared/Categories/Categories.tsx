@@ -20,6 +20,7 @@ function Categories() {
   // return createCategories();
 
   return <div>Categories</div>
+  // return <Card />
 };
 
 export default Categories;

@@ -30,7 +30,7 @@ export const Category = sequelize.define('category', {
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
 });
 
-export const models = { User, Basket, BasketProduct, Type: Category, Product };
+export const models = { User, Basket, BasketProduct, Category, Product };
 
 // СВЯЗИ
 
