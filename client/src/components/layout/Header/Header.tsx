@@ -5,6 +5,7 @@ import { PagePaths } from "@/enum/PagePaths";
 import { useAppSelector } from "@/hooks/useAppSelector";
 import { useAppDispatch } from "@/hooks/useAppDispatch";
 import { clearUser } from "@/store/user/UserSlice";
+import { Roles } from "@/enum/Roles";
 // import Quantity from 'UI/Quantity/Quantity';
 
 function Header() {
@@ -25,6 +26,7 @@ function Header() {
         <Link to="/cart" className={[classes.header__btn, classes.header__cart].join(' ')}>
           {/* {cartQuantity !== 0 && <Quantity quantity={cartQuantity} />} */}
         </Link>
+        {role === Roles.ADMIN ? <Link to={PagePaths.ADMIN.PRODUCT}>Админка</Link> : null}
         <Link
           to={PagePaths.AUTHENTICATION.LOGIN}
           onClick={userIsAuth ? () => dispatch(clearUser()) : undefined}
