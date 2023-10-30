@@ -9,6 +9,7 @@ export const ServerPaths = {
     GET_ALL: "/product"
   },
   CATEGORY: {
-    CREATE: "/category"
+    CREATE: "/category",
+    GET_ALL: "/category",
   }
 }

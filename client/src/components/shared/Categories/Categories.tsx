@@ -1,25 +1,22 @@
+import { ICategory } from "@/interfaces/ICategory";
 import Category from "../Category/Category";
+import { IProduct } from "@/interfaces/IProduct";
 // import IDatabase from 'interfaces/store/database/IDatabase';
 
-function Categories() {
-  // function createCategories() {
-  //   const categoryComponentsList = [];
-    
-  //   for (const categoryId in categories) {
-  //     const categoryName = categories[categoryId];
-  //     const currentProducts = products.filter((product) => product.categoryId === Number(categoryId));
+interface ICategoriesProps {
+  categories: ICategory[],
+  products: IProduct[]
+}
 
-  //     categoryComponentsList.push(
-  //       <Category categoryName={categoryName} products={currentProducts} key={categoryId} />
-  //     );
-  //   }
+function Categories({categories, products}: ICategoriesProps) {
 
-  //   return categoryComponentsList;
-  // }
+  return (
+    <>
+      {}
+    </>
+  );
 
-  // return createCategories();
-
-  return <div>Categories</div>
+  // return <div>Categories</div>
   // return <Card />
 };
 

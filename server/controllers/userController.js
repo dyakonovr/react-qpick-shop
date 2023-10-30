@@ -8,39 +8,47 @@ function generateJWT(id, email, role) {
 }
 
 class UserController {
-  async registration(req, res) {
-    const { email, password, role } = req.body;
-    if (!email || !password) return next(ApiError.badRequest("Неккоректный email или пароль"));
+  async registration(req, res, next) {
+    try {
+      const { email, password, role } = req.body;
+      if (!email || !password) return next(ApiError.badRequest("Неккоректный email или пароль"));
 
-    const candidate = await User.findOne({ where: { email } });
+      const candidate = await User.findOne({ where: { email } });
 
-    if (candidate) return next(ApiError.badRequest("Пользователь с таким email уже существует"));
+      if (candidate) return next(ApiError.badRequest("Пользователь с таким email уже существует"));
 
-    const hashPassword = await bcrypt.hash(password, 5);
-    const user = await User.create({ email, role, password: hashPassword });
-    const basket = await Basket.create({ userId: user.id });
+      const hashPassword = await bcrypt.hash(password, 5);
+      const user = await User.create({ email, role, password: hashPassword });
+      const basket = await Basket.create({ userId: user.id });
 
-    const token = generateJWT(user.id, email, user.role);
-    
-    return res.json({ token });
+      const token = generateJWT(user.id, email, user.role);
+
+      return res.json({ token });
+    } catch (error) {
+      return next(ApiError.badRequest(error));
+    }
   }
 
   async login(req, res, next) {
-    const { email, password } = req.body;
-    
-    const user = await User.findOne({ where: { email } });
-    if (!user) return next(ApiError.internal("Такого пользователя не найдено"));
+    try {
+      const { email, password } = req.body;
 
-    const comparePassword = await bcrypt.compare(password, user.password);
-    if (!comparePassword) return next(ApiError.internal("Указан неверный пароль"));
+      const user = await User.findOne({ where: { email } });
+      if (!user) return next(ApiError.internal("Такого пользователя не найдено"));
 
-    const token = generateJWT(user.id, email, user.role);
-    return res.json({ token });
+      const comparePassword = await bcrypt.compare(password, user.password);
+      if (!comparePassword) return next(ApiError.internal("Указан неверный пароль"));
+
+      const token = generateJWT(user.id, email, user.role);
+      return res.json({ token, role: user.role });
+    } catch (error) {
+      return next(ApiError.badRequest(error));
+    }
   }
 
   async isAuth(req, res) {
     const token = generateJWT(req.user.id, req.user.email, req.user.role);
-    return res.json({ token });
+    return res.json({ token, role: req.user.role });
   }
 }
 

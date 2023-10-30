@@ -2,11 +2,14 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
+import { PagePaths } from "@/enum/PagePaths";
+import { useAppDispatch } from "@/hooks/useAppDispatch";
+import { setUser } from "@/store/user/UserSlice";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import * as z from "zod";
 import login from "./api/login";
-import { useNavigate } from "react-router-dom";
 
 const profileFormSchema = z.object({
   email: z.string().email({message: "Введите валидный почтовый адрес"}),
@@ -20,6 +23,7 @@ type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
 export function AuthForm() {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
@@ -41,8 +45,8 @@ export function AuthForm() {
         ),
       });
     } else {
-      localStorage.setItem("token", response.token);
-      navigate("/");
+      dispatch(setUser(response));
+      navigate(PagePaths.HOME);
     }
   }
 

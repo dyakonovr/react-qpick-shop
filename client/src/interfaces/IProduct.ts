@@ -5,7 +5,9 @@ export interface IProduct {
   rating: number,
   categoryId: number,
   imgs: string[],
-  info: string[]
+  info: string[],
+  // createdAt: string,
+  // updatedAt: string
 }
 
 export type IProductWithoutId = Omit<IProduct, "id">;

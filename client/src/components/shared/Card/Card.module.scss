@@ -38,8 +38,7 @@
   &__grade {
     margin: auto 0 0;
     display: flex;
-    align-items: flex-end;
-    font-size: var(--color-gray);
+    color: var(--color-gray);
     font-size: 17px;
     font-weight: 600;
 
@@ -49,7 +48,7 @@
       margin: 0 var(--small-offset) 0 0;
       width: 23px;
       height: 23px;
-      background-image: url("assets/img/svg/icon-star.svg");
+      background-image: url("@/assets/img/svg/icon-star.svg");
       background-position: center;
       background-size: 100% 100%;
       background-repeat: no-repeat;

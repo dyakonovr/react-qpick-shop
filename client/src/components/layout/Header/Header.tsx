@@ -1,15 +1,18 @@
-// import Logo from 'UI/Logo/Logo';
 import Logo from "@/components/shared/Logo/Logo";
 import classes from './Header.module.scss';
 import { Link } from 'react-router-dom';
 import { PagePaths } from "@/enum/PagePaths";
+import { useAppSelector } from "@/hooks/useAppSelector";
+import { useAppDispatch } from "@/hooks/useAppDispatch";
+import { clearUser } from "@/store/user/UserSlice";
 // import Quantity from 'UI/Quantity/Quantity';
-// import { useAppSelector } from 'hooks/useAppSelector';
-// import SearchInput from 'UI/SearchInput/SearchInput';
 
 function Header() {
   // const favouritesQuantity = useAppSelector(state => state.favouritesSlice.quantity);
   // const cartQuantity = useAppSelector(state => state.cartSlice.quantity);
+  const dispatch = useAppDispatch();
+  const userIsAuth = useAppSelector(state => Boolean(state.userSlice.token));
+  const role = useAppSelector(state => state.userSlice.role);
 
   return (
     <header className={classes.header}>
@@ -22,7 +25,12 @@ function Header() {
         <Link to="/cart" className={[classes.header__btn, classes.header__cart].join(' ')}>
           {/* {cartQuantity !== 0 && <Quantity quantity={cartQuantity} />} */}
         </Link>
-        <Link to={PagePaths.AUTHENTICATION.LOGIN}>Войти</Link>
+        <Link
+          to={PagePaths.AUTHENTICATION.LOGIN}
+          onClick={userIsAuth ? () => dispatch(clearUser()) : undefined}
+        >
+          {userIsAuth ? "Выйти" : "Войти"}
+        </Link>
       </div>
     </header>
   );
