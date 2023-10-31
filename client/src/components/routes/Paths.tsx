@@ -16,7 +16,7 @@ function Paths() {
         <Route path={PagePaths.AUTHENTICATION.LOGIN} element={<AuthForm />} />
         <Route path={PagePaths.HOME} element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path={PagePaths.ADMIN.PRODUCT} element={<Admin><AdminProductForm /></Admin>} />
+          <Route path={PagePaths.ADMIN.HOME} element={<Admin><AdminProductForm /></Admin>} />
           <Route path={PagePaths.ADMIN.CATEGORY} element={<Admin><AdminCategoryForm /></Admin>} />
           <Route path={PagePaths.ADMIN.USER} element={<Admin><AdminUserForm /></Admin>} />
         </Route>

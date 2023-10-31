@@ -16,8 +16,11 @@ const categoriesSlice = createSlice({
     setCategories(state, action: PayloadAction<ICategory[]>) {
       state.categories = action.payload;
     },
+    addCategory(state, action: PayloadAction<ICategory>) {
+      state.categories.push(action.payload);
+    }
   }
 });
 
-export const { setCategories } = categoriesSlice.actions;
+export const { setCategories, addCategory } = categoriesSlice.actions;
 export default categoriesSlice.reducer;

@@ -1,7 +1,7 @@
 export const PagePaths = {
   HOME: "/",
   ADMIN: {
-    PRODUCT: "/admin",
+    HOME: "/admin",
     CATEGORY: "/admin/category",
     USER: "/admin/create-user"
   },

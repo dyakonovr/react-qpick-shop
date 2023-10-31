@@ -1,12 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "@/components/ui/use-toast";
+import { useAppDispatch } from "@/hooks/useAppDispatch";
+import { useAppSelector } from "@/hooks/useAppSelector";
+import { IProductWithoutId } from "@/interfaces/IProduct";
+import { addProduct } from "@/store/products/ProductsSlice";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
 import * as z from "zod";
 import { createProduct } from "../../api/createProduct";
-import { IProductWithoutId } from "@/interfaces/IProduct";
 
 const profileFormSchema = z.object({
   name: z.string().min(3, {message: "Минимальная длина имени товара - 3 символа"}),
@@ -17,7 +21,7 @@ const profileFormSchema = z.object({
     z.object({
       value: z.string().min(10, {message: "Минимальная длина характеристики - 10 символов"}),
     })
-  ).min(1, {message: "Минимум должна быть одна характеристика"}),
+  ).min(3, {message: "Минимум должна быть одна характеристика"}),
   imgs: z.array(
     z.object({
       value: z.string().url({ message: "Введите валидную ссылку на фотографию." }),
@@ -28,6 +32,7 @@ const profileFormSchema = z.object({
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
 export function AdminProductForm() {
+  // Валидация и настройка формы
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues: {
@@ -50,6 +55,11 @@ export function AdminProductForm() {
     name: "info",
     control: form.control,
   });
+  
+  // Валидация и настройка формы END
+
+  const dispatch = useAppDispatch();
+  const categories = useAppSelector(state => state.categoriesSlice.categories);
 
   // Функции
   async function onSubmit(data: ProfileFormValues) {
@@ -73,7 +83,7 @@ export function AdminProductForm() {
       });
       return;
     } else {
-      console.log(response);
+      dispatch(addProduct(response));
       toast({
         title: "Создание товара",
         description: (
@@ -106,10 +116,17 @@ export function AdminProductForm() {
           name="categoryId"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Категория (id)</FormLabel>
-              <FormControl>
-                <Input placeholder="ID" type="number" {...field} />
-              </FormControl>
+              <FormLabel>Категория</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Выберите категорию из списка" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {categories.map(category => <SelectItem value={String(category.id)}>{category.name} (id: {category.id})</SelectItem>)}
+                </SelectContent>
+              </Select>
               <FormMessage />
             </FormItem>
           )}
@@ -122,7 +139,7 @@ export function AdminProductForm() {
             <FormItem>
               <FormLabel>Цена</FormLabel>
               <FormControl>
-                <Input placeholder="223" type="number" {...field} />
+                <Input placeholder="223" type="number" min={0} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -136,7 +153,7 @@ export function AdminProductForm() {
             <FormItem>
               <FormLabel>Рейтинг</FormLabel>
               <FormControl>
-                <Input placeholder="5.0" type="number" {...field} />
+                <Input placeholder="5.0" type="number" step={0.1} min={0} max={5} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

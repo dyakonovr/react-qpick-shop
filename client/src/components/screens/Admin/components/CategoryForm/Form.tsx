@@ -6,6 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { createCategory } from "../../api/createCategory";
+import { useAppDispatch } from "@/hooks/useAppDispatch";
+import { addCategory } from "@/store/categories/CategoriesSlice";
 
 const profileFormSchema = z.object({
   name: z.string().min(3, {message: "Минимальная длина названия категории - 3 символа"}),
@@ -14,6 +16,9 @@ const profileFormSchema = z.object({
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
 export function AdminCategoryForm() {
+  const dispatch = useAppDispatch();
+  
+  // Валидация и настройка формы
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues: {
@@ -21,7 +26,9 @@ export function AdminCategoryForm() {
     },
     mode: "onChange",
   })
+  // Валидация и настройка формы END
 
+  // Функции
   async function onSubmit(data: ProfileFormValues) {
     const response = await createCategory(data.name);
 
@@ -34,7 +41,7 @@ export function AdminCategoryForm() {
       });
       return;
     } else {
-      console.log(response);
+      dispatch(addCategory(response));
       toast({
         title: "Создание категории",
         description: (
@@ -43,6 +50,7 @@ export function AdminCategoryForm() {
       });
     }
   }
+  // Функции END
 
   return (
     <Form {...form}>

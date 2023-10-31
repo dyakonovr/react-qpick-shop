@@ -5,7 +5,7 @@ import { PagePaths } from "@/enum/PagePaths"
 const sidebarNavItems = [
   {
     title: "Создать товар",
-    href: PagePaths.ADMIN.PRODUCT,
+    href: PagePaths.ADMIN.HOME,
   },
   {
     title: "Создать категорию",
