@@ -19,6 +19,6 @@ function Category({ category, products }: ICategoryProps) {
       </ul>
     </>
   );
-};
+}
 
 export default Category;

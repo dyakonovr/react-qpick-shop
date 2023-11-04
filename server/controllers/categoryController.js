@@ -7,6 +7,13 @@ class CategoryController {
     return res.json(category);
   }
 
+  async getOne(req, res) {
+    const { id } = req.params;
+    const category = await Category.findOne({ where: { id } });
+
+    return res.json(category);
+  }
+
   async getAll(req, res) {
     const categories = await Category.findAll();
     return res.json(categories);

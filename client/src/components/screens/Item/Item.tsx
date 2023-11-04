@@ -1,43 +1,89 @@
-import LikeButton from 'UI/LikeButton/LikeButton';
+// import LikeButton from 'UI/LikeButton/LikeButton';
+import { PagePaths } from "@/enum/PagePaths";
 import classes from './Item.module.scss';
-import Price from '../../UI/Price/Price';
-import { useAppSelector } from 'hooks/useAppSelector';
-import { useSearchParams } from 'react-router-dom';
-import IProduct from 'interfaces/store/database/IProduct';
-import { useAppDispatch } from 'hooks/useAppDispatch';
-import { addItemToCart } from '../../../store/cart/CartSlice';
-import { useRef } from 'react';
+// import Price from '../../UI/Price/Price';
+import { useAppSelector } from '@/hooks/useAppSelector';
+import { useAuth } from "@/hooks/useAuth";
+import { useEffect, useRef, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import getOneProduct from "./api/getOneProduct";
+import { toast } from "@/components/ui/use-toast";
+import { IProduct } from "@/interfaces/IProduct";
+import { ICategory } from "@/interfaces/ICategory";
+import getOneCategory from "./api/getOneCategory";
 
 function Item() {
-  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const isAuth = useAuth();
+   
+  const [product, setProduct] = useState<IProduct | null>(null);
+  const [category, setCategory] = useState<ICategory | null>(null);
 
   const addToCartBtnRef = useRef<HTMLButtonElement>(null);
 
   const [searchParams, _] = useSearchParams();
   const productId = Number(searchParams.get("id"));
-  const { categories, products } = useAppSelector(state => state.databaseSlice.data);
+  const categories = useAppSelector(state => state.categoriesSlice.categories);
+  const products = useAppSelector(state => state.productsSlice.products);
 
-  const currentProduct = products.find((product: IProduct) => product.id === productId);
-  const currentCategory = categories[currentProduct.categoryId];
-  const infoObject = currentProduct.info;
+  // Обработка получения объекта товара
+  useEffect(() => {
+    if (products.length !== 0) setProduct(products.find(product => product.id === productId) || null);
+    else fetchProduct(productId);
+  }, []);
+
+  // Обработка получения объекта категории
+  useEffect(() => {
+    if (product === null) return;
+
+    if (categories.length === 0) fetchCategory(product.categoryId);
+    else setCategory(categories.find(category => category.id === product.categoryId) || null);
+  }, [product]);
 
   // Функции
+  async function fetchProduct(id: string | number) {
+    const response = await getOneProduct(id);
+
+    if (typeof response === "string") {
+      toast({
+        title: "Загрузка товара",
+        description: (
+          <span>Произошла ошибка: {response}</span>
+        ),
+      });
+      return null;
+    }
+
+    setProduct(response);
+  }
+
+  async function fetchCategory(id: string | number) {
+    const response = await getOneCategory(id);
+
+    if (typeof response === "string") {
+      toast({
+        title: "Загрузка категории товара",
+        description: (
+          <span>Произошла ошибка: {response}</span>
+        ),
+      });
+      return null;
+    }
+
+    setCategory(response);
+  }
+
   function handleBtnToCart() {
-    const obj = { id: currentProduct.id, image: "", price: currentProduct.currentPrice, name: currentProduct.name, quantity: 1 };
-    dispatch(addItemToCart(obj));
-    if (addToCartBtnRef.current) {
-      addToCartBtnRef.current.setAttribute("disabled", "disabled");
-      addToCartBtnRef.current.innerHTML = "Добавлено в корзину";
-    } 
+    console.log('!');
   }
   // Функции END
 
   return (
     <section className={classes.item}>
-      <strong className={`subtitle subtitle--gray`}>{currentCategory}</strong>
+      <strong className={`subtitle subtitle--gray`}>{category?.name}</strong>
       <div className={`block ${classes.content}`}>
         <div className={classes.content__main}>
-          <LikeButton productId={productId} />
+          {/* <LikeButton productId={productId} /> */}
           <div className={classes.content__photos}>
               <div><img src={image} alt="Photo 1" /></div>
               <div><img src={image} alt="Photo 2" /></div>
@@ -46,11 +92,11 @@ function Item() {
               <div><img src={image} alt="Photo 5" /></div>
           </div>
           <div className={classes.content__footer}>
-            <strong className={classes.content__title}>{currentProduct.name}</strong>
-            <Price
+            <strong className={classes.content__title}>{product?.name}</strong>
+            {/* <Price
               currentPrice={currentProduct.currentPrice}
               oldPrice={currentProduct.oldPrice ? currentProduct.oldPrice : false}
-              isBigFont={true} />
+              isBigFont={true} /> */}
           </div>
         </div>
       </div>
@@ -58,14 +104,14 @@ function Item() {
         <div className={classes.info__wrapper}>
             <strong className={`subtitle block ${classes.info__title}`}>Описание и характеристики</strong>
             <div className={classes.info__container}>
-              {Object.keys(infoObject).map((key: string) => {
-                return (<p className={classes.info__text} key={key}>{key}: {infoObject[key]}</p>)
-              })}
+            {product && product.info.map((infoString, index) => <p className={classes.info__text} key={index} >{infoString}</p>)}
           </div>
         </div>
         <div className={classes.info__btns}>
           <a className={`link ${classes.info__btn}`} href='#'>Купить!</a>
-          <button type='button' className={`link ${classes.info__btn}`} onClick={handleBtnToCart} ref={addToCartBtnRef}>Добавить в корзину</button>
+          <button type='button' className={`link ${classes.info__btn}`}
+            onClick={isAuth ? handleBtnToCart : () => navigate(PagePaths.AUTHENTICATION.LOGIN)}
+            ref={addToCartBtnRef}>Добавить в корзину</button>
         </div>
       </div>
     </section>

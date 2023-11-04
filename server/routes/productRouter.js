@@ -6,6 +6,6 @@ const productRouter = new Router();
 
 productRouter.post("/", checkRoleMiddleware("ADMIN") , productController.create);
 productRouter.get("/", productController.getAll);
-productRouter.get("/:id");
+productRouter.get("/:id", productController.getOne);
 
 export default productRouter;

@@ -6,10 +6,12 @@ export const ServerPaths = {
   },
   PRODUCT: {
     CREATE: "/product",
-    GET_ALL: "/product"
+    GET_ONE: "/product",
+    GET_ALL: "/product",
   },
   CATEGORY: {
     CREATE: "/category",
+    GET_ONE: "/category",
     GET_ALL: "/category",
   }
 }
