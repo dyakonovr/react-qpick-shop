@@ -13,5 +13,11 @@ export const ServerPaths = {
     CREATE: "/category",
     GET_ONE: "/category",
     GET_ALL: "/category",
+  },
+  BASKET: {
+    GET_ONE: "/basket"
+  },
+  BASKET_PRODUCT: {
+    GET_ALL: "/basket-product"
   }
 }

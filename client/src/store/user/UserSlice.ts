@@ -2,9 +2,16 @@ import { Roles } from "@/enum/Roles";
 import { ILoginResponse } from "@/interfaces/ILoginResponse";
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState: ILoginResponse = {
-  token: "",
-  role: Roles.USER
+interface IUserSlice {
+  token: string | null,
+  id: number | null,
+  role: Roles | null
+}
+
+const initialState: IUserSlice = {
+  token: null,
+  id: null,
+  role: null
 }
  
 const userSlice = createSlice({
@@ -14,7 +21,9 @@ const userSlice = createSlice({
     setUser(state, action: PayloadAction<ILoginResponse>) {
       localStorage.setItem("token", action.payload.token);
 
+      console.log(action.payload);
       state.token = action.payload.token;
+      state.id = action.payload.id;
       state.role = action.payload.role;
     },
 

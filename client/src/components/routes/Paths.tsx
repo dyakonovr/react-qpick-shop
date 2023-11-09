@@ -7,6 +7,7 @@ import { AdminCategoryForm } from "../screens/Admin/components/CategoryForm/Form
 import { AdminProductForm } from "../screens/Admin/components/ProductForm/Form";
 import { AdminUserForm } from "../screens/Admin/components/UserForm/Form";
 import AuthForm from "../screens/Auth/Auth";
+import Cart from "../screens/Cart/Cart";
 import Home from "../screens/Home/Home";
 import Item from "../screens/Item/Item";
 
@@ -21,6 +22,9 @@ function Paths() {
         <Route path={PagePaths.HOME} element={<Layout />}>
           <Route index element={<Home />} />
           <Route path={PagePaths.ITEM} element={<Item />} />
+          <Route path={PagePaths.CART} element={<Cart />} />
+          {/* <Route path={PagePaths.ITEM} element={<Item />} /> */}
+          {/* <Route path={PagePaths.CART} element={<Cart />} /> */}
           
           {/* Admin */}
           <Route path={PagePaths.ADMIN.HOME} element={<Admin><AdminProductForm /></Admin>} />

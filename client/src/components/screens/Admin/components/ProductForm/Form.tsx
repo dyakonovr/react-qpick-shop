@@ -10,7 +10,7 @@ import { addProduct } from "@/store/products/ProductsSlice";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
 import * as z from "zod";
-import { createProduct } from "../../api/createProduct";
+import createProduct from "../../api/createProduct";
 
 const profileFormSchema = z.object({
   name: z.string().min(3, {message: "Минимальная длина имени товара - 3 символа"}),
@@ -72,25 +72,7 @@ export function AdminProductForm() {
       info: data.info.map(obj => obj.value),
     };
 
-    const response = await createProduct(product);
-
-    if (typeof response === "string") {
-      toast({
-        title: "Создание товара",
-        description: (
-          <span>Произошла ошибка: {response}</span>
-        ),
-      });
-      return;
-    } else {
-      dispatch(addProduct(response));
-      toast({
-        title: "Создание товара",
-        description: (
-          <span>Успешно!</span>
-        ),
-      });
-    }
+    dispatch(createProduct(product));
   }
   // Функции END
 

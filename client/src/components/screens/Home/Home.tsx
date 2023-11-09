@@ -1,12 +1,9 @@
 import Category from "@/components/shared/Category/Category";
-import { toast } from "@/components/ui/use-toast";
 import { useAppDispatch } from "@/hooks/useAppDispatch";
 import { useAppSelector } from "@/hooks/useAppSelector";
-import { setCategories } from "@/store/categories/CategoriesSlice";
-import { setProducts } from "@/store/products/ProductsSlice";
 import { useEffect } from "react";
-import getCategories from "./api/getCategories";
-import getProducts from "./api/getProducts";
+import fetchCategories from "./api/fetchCategories";
+import fetchProducts from "./api/fetchProducts";
 import Banner from "./components/Banner/Banner";
 
 function Home() {
@@ -14,40 +11,9 @@ function Home() {
   const { products } = useAppSelector(state => state.productsSlice);
   const { categories } = useAppSelector(state => state.categoriesSlice);
 
-  // Функции
-  async function fetchProducts() {
-    const response = await getProducts();
-
-    if (typeof response === "string") {
-      toast({
-        title: "Загрузка товаров",
-        description: (
-          <span>Произошла ошибка: {response}</span>
-        ),
-      });
-    } else {
-      dispatch(setProducts(response));
-    }
-  }
-
-  async function fetchCategories() {
-    const response = await getCategories();
-
-    if (typeof response === "string") {
-      toast({
-        title: "Загрузка товаров",
-        description: (
-          <span>Произошла ошибка: {response}</span>
-        ),
-      });
-    } else {
-      dispatch(setCategories(response));
-    }
-  }
-
   useEffect(() => {
-    if (products.length === 0) fetchProducts();
-    if (categories.length === 0) fetchCategories();
+    if (products.length === 0) dispatch(fetchProducts());
+    if (categories.length === 0) dispatch(fetchCategories());
   }, []);
 
   return (

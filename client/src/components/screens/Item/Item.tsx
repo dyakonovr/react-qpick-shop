@@ -2,22 +2,30 @@
 import { PagePaths } from "@/enum/PagePaths";
 import classes from './Item.module.scss';
 // import Price from '../../UI/Price/Price';
+import { toast } from "@/components/ui/use-toast";
 import { useAppSelector } from '@/hooks/useAppSelector';
 import { useAuth } from "@/hooks/useAuth";
-import { useEffect, useRef, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import getOneProduct from "./api/getOneProduct";
-import { toast } from "@/components/ui/use-toast";
-import { IProduct } from "@/interfaces/IProduct";
 import { ICategory } from "@/interfaces/ICategory";
-import getOneCategory from "./api/getOneCategory";
+import { IProduct } from "@/interfaces/IProduct";
+import { setBasket } from "@/store/basket/BasketSlice";
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch } from "react-redux";
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import getOneBasket from "../../../api/fetchBasket";
+import getOneCategory from "./api/fetchCategory";
+import getOneProduct from "./api/fetchProduct";
+import fetchCategory from "./api/fetchCategory";
+import { useAppDispatch } from "@/hooks/useAppDispatch";
+import fetchProduct from "./api/fetchProduct";
 
 function Item() {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const isAuth = useAuth();
+  const {isAuth} = useAuth();
    
   const [product, setProduct] = useState<IProduct | null>(null);
   const [category, setCategory] = useState<ICategory | null>(null);
+  // const [productInBasket, setProductInBasket] = useState(false);
 
   const addToCartBtnRef = useRef<HTMLButtonElement>(null);
 
@@ -29,50 +37,18 @@ function Item() {
   // Обработка получения объекта товара
   useEffect(() => {
     if (products.length !== 0) setProduct(products.find(product => product.id === productId) || null);
-    else fetchProduct(productId);
+    else dispatch(fetchProduct(productId));
   }, []);
 
   // Обработка получения объекта категории
   useEffect(() => {
     if (product === null) return;
 
-    if (categories.length === 0) fetchCategory(product.categoryId);
+    if (categories.length === 0) dispatch(fetchCategory(product.categoryId));
     else setCategory(categories.find(category => category.id === product.categoryId) || null);
   }, [product]);
 
   // Функции
-  async function fetchProduct(id: string | number) {
-    const response = await getOneProduct(id);
-
-    if (typeof response === "string") {
-      toast({
-        title: "Загрузка товара",
-        description: (
-          <span>Произошла ошибка: {response}</span>
-        ),
-      });
-      return null;
-    }
-
-    setProduct(response);
-  }
-
-  async function fetchCategory(id: string | number) {
-    const response = await getOneCategory(id);
-
-    if (typeof response === "string") {
-      toast({
-        title: "Загрузка категории товара",
-        description: (
-          <span>Произошла ошибка: {response}</span>
-        ),
-      });
-      return null;
-    }
-
-    setCategory(response);
-  }
-
   function handleBtnToCart() {
     console.log('!');
   }
@@ -108,10 +84,15 @@ function Item() {
           </div>
         </div>
         <div className={classes.info__btns}>
-          <a className={`link ${classes.info__btn}`} href='#'>Купить!</a>
-          <button type='button' className={`link ${classes.info__btn}`}
+          <a className={`link ${classes.info__btn}`} href={isAuth ? "#" : PagePaths.AUTHENTICATION.LOGIN}>Купить!</a>
+          <button
+            type='button'
+            className={`link ${classes.info__btn}`}
             onClick={isAuth ? handleBtnToCart : () => navigate(PagePaths.AUTHENTICATION.LOGIN)}
-            ref={addToCartBtnRef}>Добавить в корзину</button>
+            ref={addToCartBtnRef}
+          >
+            Добавить в корзину
+          </button>
         </div>
       </div>
     </section>

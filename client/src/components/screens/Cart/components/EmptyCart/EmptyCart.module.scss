@@ -1,0 +1,29 @@
+.empty_cart {
+  &__centered-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  &__title {
+    margin: var(--big-offset) 0 0;
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--color-black);
+  }
+
+  &__descr {
+    margin: 0;
+    font-size: 20px;
+    color: var(--color-gray);
+  }
+
+  &__link {
+    width: 100%;
+    height: 60px;
+    font-size: 22px;
+    max-width: 500px;
+    margin: calc(var(--big-offset) * 2) 0 0;
+  }
+}

@@ -1,8 +1,6 @@
-import { clearToken, setToken } from './authSlice';
-import { useAppDispatch } from "./useAppDispatch";
 import { useAppSelector } from "./useAppSelector";
 
 export function useAuth() {
-  const token = useAppSelector((state) => state.userSlice.token);
-  return !!token;
+  const { token, id, role } = useAppSelector((state) => state.userSlice);
+  return {isAuth: !!token, userId: id, role};
 }

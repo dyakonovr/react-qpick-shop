@@ -24,7 +24,7 @@ class UserController {
 
       const token = generateJWT(user.id, email, user.role);
 
-      return res.json({ token });
+      return res.json({ token, role: user.role, id: user.id });
     } catch (error) {
       return next(ApiError.badRequest(error));
     }
@@ -41,7 +41,7 @@ class UserController {
       if (!comparePassword) return next(ApiError.internal("Указан неверный пароль"));
 
       const token = generateJWT(user.id, email, user.role);
-      return res.json({ token, role: user.role });
+      return res.json({ token, role: user.role, id: user.id });
     } catch (error) {
       return next(ApiError.badRequest(error));
     }
@@ -49,7 +49,7 @@ class UserController {
 
   async isAuth(req, res) {
     const token = generateJWT(req.user.id, req.user.email, req.user.role);
-    return res.json({ token, role: req.user.role });
+    return res.json({ token, role: req.user.role, id: req.user.id });
   }
 }
 

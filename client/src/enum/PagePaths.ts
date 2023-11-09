@@ -1,6 +1,8 @@
 export const PagePaths = {
   HOME: "/",
   ITEM: "/item",
+  CART: "/cart",
+  SERVICE_CONDITIONS: "/conditions",
   ADMIN: {
     HOME: "/admin",
     CATEGORY: "/admin/category",

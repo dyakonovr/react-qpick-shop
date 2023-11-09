@@ -6,22 +6,18 @@ import { addCategory } from "@/store/categories/CategoriesSlice";
 import { AppDispatch } from "@/store/store";
 import { AxiosResponse } from "axios";
 
-function createCategory(name: string) {
+function fetchCategory(id: number | string) {
   return async function (dispatch: AppDispatch) {
     try {
-      const response: AxiosResponse<ICategory> = await customAxios.post(ServerPaths.CATEGORY.CREATE, { name });
+      const response: AxiosResponse<ICategory> = await customAxios.get(`${ServerPaths.CATEGORY.GET_ONE}/${id}`);
       dispatch(addCategory(response.data));
-      toast({
-        title: "Создание категории",
-        description: `Успешно!`,
-      });
     } catch (e) {
       toast({
-        title: "Создание категории",
+        title: "Получение категории",
         description: `Произошла ошибка: ${e}`,
       });
     }
   }
 }
 
-export default createCategory;
+export default fetchCategory;

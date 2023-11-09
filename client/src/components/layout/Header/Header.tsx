@@ -6,14 +6,15 @@ import { useAppSelector } from "@/hooks/useAppSelector";
 import { clearUser } from "@/store/user/UserSlice";
 import { Link } from 'react-router-dom';
 import classes from './Header.module.scss';
+import { useAuth } from "@/hooks/useAuth";
+import Quantity from "@/components/shared/Quantity/Quantity";
 // import Quantity from 'UI/Quantity/Quantity';
 
 function Header() {
-  // const favouritesQuantity = useAppSelector(state => state.favouritesSlice.quantity);
-  // const cartQuantity = useAppSelector(state => state.cartSlice.quantity);
   const dispatch = useAppDispatch();
-  const userIsAuth = useAppSelector(state => Boolean(state.userSlice.token));
+  const { isAuth } = useAuth();
   const role = useAppSelector(state => state.userSlice.role);
+  const cartProductsQuantity = useAppSelector(state => state.basketSlice.products.length);
 
   return (
     <header className={classes.header}>
@@ -23,15 +24,15 @@ function Header() {
         <Link to="/favourites" className={[classes.header__btn, classes.header__favourite].join(' ')}>
           {/* {favouritesQuantity !== 0 && <Quantity quantity={favouritesQuantity} />} */}
         </Link>
-        <Link to="/cart" className={[classes.header__btn, classes.header__cart].join(' ')}>
-          {/* {cartQuantity !== 0 && <Quantity quantity={cartQuantity} />} */}
+        <Link to={PagePaths.CART} className={[classes.header__btn, classes.header__cart].join(' ')}>
+          {cartProductsQuantity !== 0 && <Quantity quantity={cartProductsQuantity} />}
         </Link>
         {role === Roles.ADMIN ? <Link to={PagePaths.ADMIN.HOME}>Админка</Link> : null}
         <Link
           to={PagePaths.AUTHENTICATION.LOGIN}
-          onClick={userIsAuth ? () => dispatch(clearUser()) : undefined}
+          onClick={isAuth ? () => dispatch(clearUser()) : undefined}
         >
-          {userIsAuth ? "Выйти" : "Войти"}
+          {isAuth ? "Выйти" : "Войти"}
         </Link>
       </div>
     </header>

@@ -1,0 +1,122 @@
+.filled_cart {
+  &__container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--big-offset);
+  }
+
+  &__left {
+    display: flex;
+    flex-direction: column;
+    gap: var(--medium-offset);
+    grid-column: span 7;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--small-offset);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__delivery {
+    display: flex;
+    flex-direction: column;
+    gap: var(--medium-offset);
+    padding: var(--medium-offset);
+    background-color: var(--color-white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+
+    &-image {
+      img {
+        display: block;
+        width: 100%;
+        border-radius: 10px;
+      }
+    }
+
+    &-footer {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--medium-offset);
+    }
+
+    &-text {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--color-black);
+
+      &::before {
+        content: "";
+        display: inline-block;
+        width: 30px;
+        height: 25px;
+        margin: 0 var(--small-offset) 0 0;
+        background-image: url("assets/img/svg/icon-delivery.svg");
+        background-position: center;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+      }
+    }
+
+    &-btn {
+      position: absolute;
+      left: 50%;
+      display: block;
+      width: 15px;
+      height: 8px;
+      border: none;
+      background: none;
+      background-image: url("assets/img/svg/icon-down-arrow.svg");
+      background-position: center;
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      transform: translateX(-50%);
+      cursor: pointer;
+    }
+
+    &-price {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--color-black);
+    }
+  }
+
+  &__right {
+    top: var(--medium-offset);
+    position: sticky;
+    height: fit-content;
+    grid-column: 9 / span 4;
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+    background-color: var(--color-white);
+  }
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--medium-offset);
+    padding: var(--medium-offset);
+  }
+
+  &__text,
+  &__total {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-black);
+  }
+
+  &__link {
+    width: 100%;
+    height: 60px;
+  }
+}

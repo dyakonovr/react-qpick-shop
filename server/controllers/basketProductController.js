@@ -1,15 +1,20 @@
-import { BasketProduct } from "../models/models";
+import { BasketProduct } from "../models/models.js";
 
 class BasketProductController {
   async create(req, res) {
-    const { name } = req.body;
-    const type = await BasketProduct.create({ name });
-    return res.json(type);
+    const { basketId, productId } = req.body;
+    const basketProduct = await BasketProduct.create({ basketId, productId });
+    const response = { id: basketProduct.id, productId: basketProduct.productId };
+    return res.json(response);
   }
 
   async getAll(req, res) {
-    const types = await BasketProduct.findAll();
-    return res.json(types);
+    const { id } = req.params;
+    const basketProducts = await BasketProduct.findAll({
+      where: { basketId: id },
+      attributes: { exclude: ['basketId'] }
+    });
+    return res.json(basketProducts);
   }
 }
 

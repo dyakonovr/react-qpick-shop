@@ -9,8 +9,6 @@ interface ICategoryProps {
 }
 
 function Category({ category, products }: ICategoryProps) {
-  console.log(category);
-
   return (
     <>
       <strong className="subtitle subtitle--gray">{category.name}</strong>
