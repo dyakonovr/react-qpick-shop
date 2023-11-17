@@ -14,11 +14,12 @@ export const Product = sequelize.define('product', {
   price: { type: DataTypes.INTEGER, allowNull: false },
   rating: { type: DataTypes.DOUBLE, defaultValue: 0 },
   imgs: { type: DataTypes.ARRAY(STRING), allowNull: false },
-  info: { type: DataTypes.ARRAY(STRING) },
+  info: { type: DataTypes.ARRAY(STRING), allowNull: false },
 }, { timestamps: false });
 
 export const BasketProduct = sequelize.define('basket_product', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  quantity: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 1 }
 }, { timestamps: false });
 
 export const Basket = sequelize.define('basket', {
@@ -30,23 +31,31 @@ export const Category = sequelize.define('category', {
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
 }, { timestamps: false });
 
-// export const Order = sequelize.define('order', {
-//   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-//   orderDate: { type: DataTypes.DATE, allowNull: false },
-//   status: { type: DataTypes.STRING, allowNull: false },
-//   orderedProducts: {
-//     type: DataTypes.JSONB,
-//     allowNull: false,
-//   },
-// }, { timestamps: false });
+export const Order = sequelize.define('order', {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  orderDate: { type: DataTypes.DATE, allowNull: false },
+  status: { type: DataTypes.STRING, allowNull: false, defaultValue: "Order in assembly" },
+  recipientPhone: { type: DataTypes.STRING, allowNull: false },
+  orderedProducts: { type: DataTypes.JSONB, allowNull: false },
+}, { timestamps: false });
 
-// export const Discount = sequelize.define('discount', {
-//   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-//   code: { type: DataTypes.STRING, unique: true, allowNull: false },
-//   discountPercentage: { type: DataTypes.INTEGER, allowNull: false },
-// }, {timestamps: false});
+const Discount = sequelize.define('discount', {
+  discountType: { type: DataTypes.ENUM('percentage', 'currency'), allowNull: false },
+  value: {
+    type: DataTypes.DECIMAL(10, 2),
+    allowNull: false,
+    validate: {
+      isValidPercentage(value) {
+        if (this.discountType === 'percentage' && (value < 0 || value > 100)) {
+          throw new Error('Invalid percentage value');
+        }
+      },
+    },
+  },
+  expiryDate: { type: DataTypes.DATE, allowNull: false },
+}, {timestamps: false});
 
-export const models = {Product, BasketProduct, Basket, Category, User};
+export const models = {Product, BasketProduct, Basket, Category, User, Discount, Order};
 
 // Связи
 
@@ -62,5 +71,8 @@ Product.belongsTo(Category);
 Product.hasMany(BasketProduct);
 BasketProduct.belongsTo(Product);
 
-// User.hasMany(Order);
-// Order.belongsTo(User);
+User.hasMany(Order);
+Order.belongsTo(User);
+
+Discount.hasOne(Product, { allowNull: true });
+Product.belongsTo(Discount);

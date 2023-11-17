@@ -2,11 +2,11 @@ import { ICategory } from "@/interfaces/ICategory";
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface ICategoriesState {
-  categories: ICategory[]
+  categories: ICategory[] | null
 }
 
 const initialState: ICategoriesState = {
-  categories: []
+  categories: null
 }
  
 const categoriesSlice = createSlice({
@@ -17,7 +17,8 @@ const categoriesSlice = createSlice({
       state.categories = action.payload;
     },
     addCategory(state, action: PayloadAction<ICategory>) {
-      state.categories.push(action.payload);
+      if (state.categories !== null) state.categories.push(action.payload);
+      else state.categories = [action.payload];
     }
   }
 });

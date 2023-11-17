@@ -9,7 +9,7 @@ import { AxiosResponse } from "axios";
 function fetchBasket(userId: number | string) {
   return async function (dispatch: AppDispatch) {
     try {
-      const response: AxiosResponse<IBasket> = await customAxios.get(`${ServerPaths.BASKET.GET_ONE}/${userId}`);
+      const response: AxiosResponse<IBasket> = await customAxios.get(`${ServerPaths.BASKET}/${userId}`);
       if (response.data.userId !== userId) throw new Error("неккоректная работа сервера. Повторите попытку");
       dispatch(setBasket(response.data.id));
     } catch (e) {

@@ -9,7 +9,7 @@ import { AxiosResponse } from "axios";
 function fetchProduct(id: number | string) {
   return async function (dispatch: AppDispatch) {
     try {
-      const response: AxiosResponse<IProduct> = await customAxios.get(`${ServerPaths.PRODUCT.GET_ONE}/${id}`);
+      const response: AxiosResponse<IProduct> = await customAxios.get(`${ServerPaths.PRODUCT}/${id}`);
       dispatch(addProduct(response.data));
     } catch (e) {
       toast({

@@ -9,7 +9,7 @@ import { AxiosResponse } from "axios";
 function createCategory(name: string) {
   return async function (dispatch: AppDispatch) {
     try {
-      const response: AxiosResponse<ICategory> = await customAxios.post(ServerPaths.CATEGORY.CREATE, { name });
+      const response: AxiosResponse<ICategory> = await customAxios.post(ServerPaths.CATEGORY, { name });
       dispatch(addCategory(response.data));
       toast({
         title: "Создание категории",

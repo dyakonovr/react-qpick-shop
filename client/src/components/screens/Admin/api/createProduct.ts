@@ -9,7 +9,7 @@ import { AxiosResponse } from "axios";
 function createProduct(product: IProductWithoutId) {
   return async function (dispatch: AppDispatch) {
     try {
-      const response: AxiosResponse<IProduct> = await customAxios.post(ServerPaths.PRODUCT.CREATE, product);
+      const response: AxiosResponse<IProduct> = await customAxios.post(ServerPaths.PRODUCT, product);
       dispatch(addProduct(response.data));
       toast({
         title: "Создание товара",

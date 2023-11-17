@@ -9,7 +9,7 @@ import { AxiosResponse } from "axios";
 function fetchCategory(id: number | string) {
   return async function (dispatch: AppDispatch) {
     try {
-      const response: AxiosResponse<ICategory> = await customAxios.get(`${ServerPaths.CATEGORY.GET_ONE}/${id}`);
+      const response: AxiosResponse<ICategory> = await customAxios.get(`${ServerPaths.CATEGORY}/${id}`);
       dispatch(addCategory(response.data));
     } catch (e) {
       toast({

@@ -14,7 +14,7 @@ function Header() {
   const dispatch = useAppDispatch();
   const { isAuth } = useAuth();
   const role = useAppSelector(state => state.userSlice.role);
-  const cartProductsQuantity = useAppSelector(state => state.basketSlice.products.length);
+  const cartProductsQuantity = useAppSelector(state => state.basketSlice.products?.length);
 
   return (
     <header className={classes.header}>
@@ -25,7 +25,7 @@ function Header() {
           {/* {favouritesQuantity !== 0 && <Quantity quantity={favouritesQuantity} />} */}
         </Link>
         <Link to={PagePaths.CART} className={[classes.header__btn, classes.header__cart].join(' ')}>
-          {cartProductsQuantity !== 0 && <Quantity quantity={cartProductsQuantity} />}
+          {cartProductsQuantity !== 0 && <Quantity quantity={cartProductsQuantity || 0} />}
         </Link>
         {role === Roles.ADMIN ? <Link to={PagePaths.ADMIN.HOME}>Админка</Link> : null}
         <Link

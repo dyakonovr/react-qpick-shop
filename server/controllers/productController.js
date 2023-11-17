@@ -26,8 +26,12 @@ class ProductController {
     // if (categoryId) products = await Product.findAndCountAll({ where: { categoryId }, limit, offset });
     // else products = await Product.findAndCountAll({limit, offset});
     // else products = await Product.findAndCountAll();
+    
+    let products;
+    const { limit } = req.query;
 
-    const products = await Product.findAll();
+    if (limit) products = await Product.findAll({limit});
+    else products = await Product.findAll();
     return res.json(products);
   }
 

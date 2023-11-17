@@ -1,56 +1,72 @@
-// import LikeButton from 'UI/LikeButton/LikeButton';
+import Price from "@/components/shared/Price/Price";
 import { PagePaths } from "@/enum/PagePaths";
-import classes from './Item.module.scss';
-// import Price from '../../UI/Price/Price';
-import { toast } from "@/components/ui/use-toast";
+import { useAppDispatch } from "@/hooks/useAppDispatch";
 import { useAppSelector } from '@/hooks/useAppSelector';
 import { useAuth } from "@/hooks/useAuth";
 import { ICategory } from "@/interfaces/ICategory";
 import { IProduct } from "@/interfaces/IProduct";
-import { setBasket } from "@/store/basket/BasketSlice";
-import { useEffect, useRef, useState } from 'react';
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import getOneBasket from "../../../api/fetchBasket";
-import getOneCategory from "./api/fetchCategory";
-import getOneProduct from "./api/fetchProduct";
+import classes from './Item.module.scss';
+import createBasketProduct from "./api/createBasketProduct";
 import fetchCategory from "./api/fetchCategory";
-import { useAppDispatch } from "@/hooks/useAppDispatch";
-import fetchProduct from "./api/fetchProduct";
+import fetchProduct from "@/api/fetchProduct";
 
 function Item() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const {isAuth} = useAuth();
+  const { isAuth } = useAuth();
+  
+  const basketId = useAppSelector(state => state.basketSlice.id);
    
-  const [product, setProduct] = useState<IProduct | null>(null);
-  const [category, setCategory] = useState<ICategory | null>(null);
-  // const [productInBasket, setProductInBasket] = useState(false);
-
-  const addToCartBtnRef = useRef<HTMLButtonElement>(null);
-
   const [searchParams, _] = useSearchParams();
   const productId = Number(searchParams.get("id"));
-  const categories = useAppSelector(state => state.categoriesSlice.categories);
   const products = useAppSelector(state => state.productsSlice.products);
+  const categories = useAppSelector(state => state.categoriesSlice.categories);
+  const basketProducts = useAppSelector(state => state.basketSlice.products);
 
-  // Обработка получения объекта товара
+  const [product, setProduct] = useState<IProduct | null>(null);
+  const [category, setCategory] = useState<ICategory | null>(null);
+  const [isAddedToBasket, setIsAddedToBasket] = useState(false);
+
   useEffect(() => {
-    if (products.length !== 0) setProduct(products.find(product => product.id === productId) || null);
+    if (!productId) return;
+
+    if (products && products.length !== 0) {
+      const product = products.find(product => product.id === productId);
+
+      if (product) setProduct(product);
+      else dispatch(fetchProduct(productId));
+    }
+    
     else dispatch(fetchProduct(productId));
-  }, []);
+  }, [products]);
 
-  // Обработка получения объекта категории
+  useEffect(() => { 
+    if (!product || !basketProducts) return;
+
+    setIsAddedToBasket(!!basketProducts.find(basketProduct => basketProduct.productId === product.id));
+  }, [product, basketProducts]);
+
   useEffect(() => {
-    if (product === null) return;
+    if (!product) return;
 
-    if (categories.length === 0) dispatch(fetchCategory(product.categoryId));
-    else setCategory(categories.find(category => category.id === product.categoryId) || null);
-  }, [product]);
+    if (categories && categories.length !== 0) {
+      const category = categories.find(category => category.id === product.categoryId);
 
-  // Функции
-  function handleBtnToCart() {
-    console.log('!');
+      if (category) setCategory(category);
+      else dispatch(fetchCategory(product.categoryId));
+    }
+    
+    else dispatch(fetchCategory(product.categoryId));
+  }, [product, categories]);
+
+  
+   // Функции
+  async function handleAddToCartButton() {
+    if (!product || !basketId) return;
+
+    dispatch(createBasketProduct(product.id, basketId));
   }
   // Функции END
 
@@ -69,10 +85,11 @@ function Item() {
           </div>
           <div className={classes.content__footer}>
             <strong className={classes.content__title}>{product?.name}</strong>
-            {/* <Price
-              currentPrice={currentProduct.currentPrice}
-              oldPrice={currentProduct.oldPrice ? currentProduct.oldPrice : false}
-              isBigFont={true} /> */}
+            <Price
+              currentPrice={product?.price || 0}
+              oldPrice={0}
+              isBigFont={true}
+            />
           </div>
         </div>
       </div>
@@ -88,10 +105,11 @@ function Item() {
           <button
             type='button'
             className={`link ${classes.info__btn}`}
-            onClick={isAuth ? handleBtnToCart : () => navigate(PagePaths.AUTHENTICATION.LOGIN)}
-            ref={addToCartBtnRef}
+            disabled={isAddedToBasket}
+            onClick={isAuth ? handleAddToCartButton : () => navigate(PagePaths.AUTHENTICATION.LOGIN)}
+            // ref={addToCartBtnRef}
           >
-            Добавить в корзину
+            {isAddedToBasket ? "Добавлено в корзину" : "Добавить в корзину"}
           </button>
         </div>
       </div>

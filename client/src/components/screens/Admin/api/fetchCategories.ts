@@ -9,7 +9,7 @@ import { AxiosResponse } from "axios";
 function fetchCategories() {
   return async function (dispatch: AppDispatch) {
     try {
-      const response: AxiosResponse<ICategory[]> = await customAxios.get(ServerPaths.CATEGORY.GET_ALL);
+      const response: AxiosResponse<ICategory[]> = await customAxios.get(ServerPaths.CATEGORY);
       dispatch(setCategories(response.data));
     } catch (e) {
       toast({

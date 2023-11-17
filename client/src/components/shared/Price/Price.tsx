@@ -1,13 +1,13 @@
 import classes from './Price.module.scss';
-import { normalizePrice } from 'functions/normalizePrice';
+import { normalizePrice } from '@/functions/normalizePrice';
 
 interface IPriceProps {
   oldPrice: number,
   currentPrice: number,
-  isBigFont: boolean
+  isBigFont?: boolean
 }
 
-function Price({ oldPrice, currentPrice, isBigFont }: IPriceProps) {
+function Price({ oldPrice, currentPrice, isBigFont = false }: IPriceProps) {
   return (
     <div className={isBigFont ? `${classes.prices} ${classes["prices--big"]}` : classes.prices}>
       <span className={`${classes["price"]} ${classes["price--current"]}`}>{normalizePrice(currentPrice)}</span>

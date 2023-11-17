@@ -6,10 +6,10 @@ import { setProducts } from "@/store/products/ProductsSlice";
 import { AppDispatch } from "@/store/store";
 import { AxiosResponse } from "axios";
 
-function fetchProducts() {
+function fetchProducts(length: number) {
   return async function (dispatch: AppDispatch) {
     try {
-      const response: AxiosResponse<IProduct[]> = await customAxios.get(ServerPaths.PRODUCT.GET_ALL);
+      const response: AxiosResponse<IProduct[]> = await customAxios.get(`${ServerPaths.PRODUCT}?limit=${15 - length}`);
       dispatch(setProducts(response.data));
     } catch (e) {
       toast({

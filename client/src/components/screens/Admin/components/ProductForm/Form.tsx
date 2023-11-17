@@ -2,15 +2,15 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { toast } from "@/components/ui/use-toast";
 import { useAppDispatch } from "@/hooks/useAppDispatch";
 import { useAppSelector } from "@/hooks/useAppSelector";
 import { IProductWithoutId } from "@/interfaces/IProduct";
-import { addProduct } from "@/store/products/ProductsSlice";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
 import * as z from "zod";
 import createProduct from "../../api/createProduct";
+import { useEffect } from "react";
+import fetchCategories from "../../api/fetchCategories";
 
 const profileFormSchema = z.object({
   name: z.string().min(3, {message: "Минимальная длина имени товара - 3 символа"}),
@@ -55,11 +55,16 @@ export function AdminProductForm() {
     name: "info",
     control: form.control,
   });
-  
   // Валидация и настройка формы END
 
   const dispatch = useAppDispatch();
   const categories = useAppSelector(state => state.categoriesSlice.categories);
+
+  useEffect(() => { 
+    if (categories !== null) return;
+
+    dispatch(fetchCategories());
+  }, [categories]);
 
   // Функции
   async function onSubmit(data: ProfileFormValues) {
@@ -106,7 +111,7 @@ export function AdminProductForm() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {categories.map(category => <SelectItem value={String(category.id)}>{category.name} (id: {category.id})</SelectItem>)}
+                  {categories && categories.map(category => <SelectItem key={category.id} value={String(category.id)}>{category.name} (id: {category.id})</SelectItem>)}
                 </SelectContent>
               </Select>
               <FormMessage />

@@ -21,7 +21,6 @@ const userSlice = createSlice({
     setUser(state, action: PayloadAction<ILoginResponse>) {
       localStorage.setItem("token", action.payload.token);
 
-      console.log(action.payload);
       state.token = action.payload.token;
       state.id = action.payload.id;
       state.role = action.payload.role;

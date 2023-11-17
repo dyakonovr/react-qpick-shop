@@ -13,7 +13,6 @@ class UserController {
       const { email, password, role } = req.body;
       const defaultRole = "USER";
       if (!email || !password) return next(ApiError.badRequest("Неккоректный email или пароль"));
-
       const candidate = await User.findOne({ where: { email } });
 
       if (candidate) return next(ApiError.badRequest("Пользователь с таким email уже существует"));

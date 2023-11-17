@@ -5,6 +5,7 @@ import { IProduct } from "@/interfaces/IProduct";
 import { Link } from "react-router-dom";
 // import LikeButton from '../LikeButton/LikeButton';
 import classes from './Card.module.scss';
+import Price from "../Price/Price";
 
 function Card({ id, categoryId, name, price, imgs, rating }: IProduct) {
   return (
@@ -16,8 +17,8 @@ function Card({ id, categoryId, name, price, imgs, rating }: IProduct) {
         </div>
         <div className={classes.card__wrapper}>
           <strong className={classes.card__title}>{normalizeText(name)}</strong>
-          {/* <Price oldPrice={oldPrice} currentPrice={currentPrice} />
-          <span></span> */}
+          <Price oldPrice={0} currentPrice={price} />
+          <span></span>
         </div>
         <span className={classes.card__grade}>{normalizeRating(rating)}</span>
       </Link>

@@ -5,6 +5,8 @@ import { basketProductController } from "../controllers/basketProductController.
 const basketProductRouter = new Router();
 
 basketProductRouter.post("/", checkRoleMiddleware("ADMIN"), basketProductController.create);
-basketProductRouter.get("/:id", basketProductController.getAll);
+basketProductRouter.get("/:basketId", basketProductController.getAll);
+basketProductRouter.patch("/:id", basketProductController.update);
+basketProductRouter.delete("/:id", basketProductController.delete);
 
 export default basketProductRouter;
