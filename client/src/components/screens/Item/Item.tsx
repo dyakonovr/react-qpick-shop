@@ -1,3 +1,4 @@
+import fetchProduct from "@/api/fetchProduct";
 import Price from "@/components/shared/Price/Price";
 import { PagePaths } from "@/enum/PagePaths";
 import { useAppDispatch } from "@/hooks/useAppDispatch";
@@ -10,12 +11,12 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import classes from './Item.module.scss';
 import createBasketProduct from "./api/createBasketProduct";
 import fetchCategory from "./api/fetchCategory";
-import fetchProduct from "@/api/fetchProduct";
+import { Roles } from "@/enum/Roles";
 
 function Item() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { isAuth } = useAuth();
+  const { isAuth, role } = useAuth();
   
   const basketId = useAppSelector(state => state.basketSlice.id);
    
@@ -77,11 +78,16 @@ function Item() {
         <div className={classes.content__main}>
           {/* <LikeButton productId={productId} /> */}
           <div className={classes.content__photos}>
-              <div><img src={image} alt="Photo 1" /></div>
+              {/* <div><img src={image} alt="Photo 1" /></div>
               <div><img src={image} alt="Photo 2" /></div>
               <div><img src={image} alt="Photo 3" /></div>
               <div><img src={image} alt="Photo 4" /></div>
-              <div><img src={image} alt="Photo 5" /></div>
+              <div><img src={image} alt="Photo 5" /></div> */}
+            {product?.imgs.map((image, idx) => <div className={classes.content__photo}><img src={image} alt="Photo 5" key={Math.random()} /></div>)}
+            {product?.imgs.map((image, idx) => <div className={classes.content__photo}><img src={image} alt="Photo 5" key={Math.random()} /></div>)}
+            {product?.imgs.map((image, idx) => <div className={classes.content__photo}><img src={image} alt="Photo 5" key={Math.random()} /></div>)}
+            {product?.imgs.map((image, idx) => <div className={classes.content__photo}><img src={image} alt="Photo 5" key={Math.random()} /></div>)}
+            {product?.imgs.map((image, idx) => <div className={classes.content__photo}><img src={image} alt="Photo 5" key={Math.random()} /></div>)}
           </div>
           <div className={classes.content__footer}>
             <strong className={classes.content__title}>{product?.name}</strong>
@@ -101,7 +107,7 @@ function Item() {
           </div>
         </div>
         <div className={classes.info__btns}>
-          <a className={`link ${classes.info__btn}`} href={isAuth ? "#" : PagePaths.AUTHENTICATION.LOGIN}>Купить!</a>
+          {/* <a className={`link ${classes.info__btn}`} href={isAuth ? "#" : PagePaths.AUTHENTICATION.LOGIN}>Купить!</a> */}
           <button
             type='button'
             className={`link ${classes.info__btn}`}
@@ -111,6 +117,23 @@ function Item() {
           >
             {isAddedToBasket ? "Добавлено в корзину" : "Добавить в корзину"}
           </button>
+          {role === Roles.ADMIN &&
+            <>
+              <button
+                type='button'
+                className={`link ${classes.info__btn} ${classes["info__btn--edit"]}`}
+                onClick={isAuth ? handleAddToCartButton : () => navigate(PagePaths.AUTHENTICATION.LOGIN)}
+              >
+              Редактировать товар
+            </button>
+            <button
+              type='button'
+              className={`link ${classes.info__btn} ${classes["info__btn--delete"]}`}
+              onClick={isAuth ? handleAddToCartButton : () => navigate(PagePaths.AUTHENTICATION.LOGIN)}
+            >
+              Удалить товар
+            </button>
+            </>}
         </div>
       </div>
     </section>

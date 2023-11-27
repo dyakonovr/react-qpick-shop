@@ -2,7 +2,7 @@
 import { normalizePrice } from '@/functions/normalizePrice';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { useAppSelector } from '@/hooks/useAppSelector';
-import deliveryMapImage from "assets/img/delivery-map.jpg";
+import deliveryMapImage from "@/assets/img/delivery-map.jpg";
 // import ICartProduct from '@/interfaces/store/cart/ICartProduct';
 // import IOrder from 'interfaces/store/orders/IOrder';
 // import { clearCart } from '@/store/basket/BasketSlice';
@@ -29,46 +29,46 @@ function Order() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { products, deliveryPrice, totalPrice, promoCode } = useAppSelector(state => state.cartSlice);
-  const { lastOrderId } = useAppSelector(state => state.ordersSlice);
+  // const { products, deliveryPrice, totalPrice, promoCode } = useAppSelector(state => state.cartSlice);
+  // const { lastOrderId } = useAppSelector(state => state.ordersSlice);
 
   // Функции
-  function getOrderTotalPrice() {
-    if (promoCode) {
-      if (typeof promoCode === "string") { // Т.е. промокод со скидкой в виде %
-        return Math.round(totalPrice + deliveryPrice) * (1 - (parseFloat(promoCode) / 100));
-      } else {
-        return totalPrice + deliveryPrice - promoCode;
-      }
-    } else {
-      return totalPrice + deliveryPrice;
-    }
-  }
+  // function getOrderTotalPrice() {
+  //   if (promoCode) {
+  //     if (typeof promoCode === "string") { // Т.е. промокод со скидкой в виде %
+  //       return Math.round(totalPrice + deliveryPrice) * (1 - (parseFloat(promoCode) / 100));
+  //     } else {
+  //       return totalPrice + deliveryPrice - promoCode;
+  //     }
+  //   } else {
+  //     return totalPrice + deliveryPrice;
+  //   }
+  // }
 
-  function createProducts() {
-    return products.map((product: ICartProduct) => {
-      return (
-        <div className={classes["order-list__row"]} key={product.id}>
-          <span className={`${classes["order-list__quantity"]} ${classes.text}`}>{product.quantity}x</span>
-          <p className={`${classes["order-list__text"]} ${classes.text}`}>{product.name}</p>
-          <span className={`${classes["order-list__price"]} ${classes.price}`}>{normalizePrice(product.price * product.quantity)}</span>
-        </div>
-      );
-    });
-  }
+  // function createProducts() {
+  //   return products.map((product: ICartProduct) => {
+  //     return (
+  //       <div className={classes["order-list__row"]} key={product.id}>
+  //         <span className={`${classes["order-list__quantity"]} ${classes.text}`}>{product.quantity}x</span>
+  //         <p className={`${classes["order-list__text"]} ${classes.text}`}>{product.name}</p>
+  //         <span className={`${classes["order-list__price"]} ${classes.price}`}>{normalizePrice(product.price * product.quantity)}</span>
+  //       </div>
+  //     );
+  //   });
+  // }
 
-  function createOrder() {
-    const formObject = formValidate();
+  // function createOrder() {
+  //   const formObject = formValidate();
     
-    if (formObject) { // Форма заполнена правильно
-      const orderObject: IOrder = { ...formObject, id: lastOrderId + 1, price: getOrderTotalPrice(), products };
-      dispatch(addNewOrder(orderObject));
-      dispatch(clearCart());
-      navigate(`/success-order?id=${lastOrderId + 1}`);
-    }
+  //   if (formObject) { // Форма заполнена правильно
+  //     const orderObject: IOrder = { ...formObject, id: lastOrderId + 1, price: getOrderTotalPrice(), products };
+  //     dispatch(addNewOrder(orderObject));
+  //     dispatch(clearCart());
+  //     navigate(`/success-order?id=${lastOrderId + 1}`);
+  //   }
     
-    else alert("Проверьте Вашу форму.");
-  }
+  //   else alert("Проверьте Вашу форму.");
+  // }
 
   function formValidate() {
     const townsSelect = document.querySelector("#towns-select");
@@ -101,18 +101,18 @@ function Order() {
         <div className={`${classes.form} block`}>
           <div className={classes.form__header}>
             <strong className={classes.title}>Доставка курьером</strong>
-            <span className={classes.price}>{normalizePrice(deliveryPrice)}</span>
+            {/* <span className={classes.price}>{normalizePrice(deliveryPrice)}</span> */}
           </div>
           <div className={classes["form__delivery-image"]}><img src={deliveryMapImage} alt='' /></div>
           <strong className={classes.form__subtitle}>Адрес доставки</strong>
           <form className={classes.column}>
             <Select options={townsSelectOptions} placeholder="Город" classNamePrefix="select" id="towns-select" />
-            <Input placeholder="Улица / Район" id="street-input" maxLength={132} />
+            {/* <Input placeholder="Улица / Район" id="street-input" maxLength={132} />
             <div className={classes.form__table}>
               <Input placeholder='Дом' id="house-input" maxLength={5} onlyNumbers={true} />
               <Input placeholder="Подъезд" id="entrance-input" maxLength={5} onlyNumbers={true} />
               <Input placeholder="Квартира" id="apartament-input" maxLength={5} onlyNumbers={true} />
-            </div>
+            </div> */}
           </form>
         </div>
 
@@ -121,24 +121,24 @@ function Order() {
           <div className={`${classes["order-list"]} block`}>
             <strong className={classes.title}>Ваш заказ</strong>
             <div className={classes.column}>
-              {createProducts()}
+              {/* {createProducts()} */}
               <div className={classes["order-list__row"]}>
                 <p className={`${classes["order-list__text"]} ${classes.text}`}>Доставка</p>
-                <span className={`${classes["order-list__price"]} ${classes.price}`}>{normalizePrice(deliveryPrice)}</span>
+                {/* <span className={`${classes["order-list__price"]} ${classes.price}`}>{normalizePrice(deliveryPrice)}</span> */}
               </div>
-              {promoCode &&
+              {/* {promoCode &&
                 <div className={classes["order-list__row"]}>
                   <p className={`${classes["order-list__text"]} ${classes.text}`}>Промокод</p>
                   <span className={`${classes["order-list__price"]} ${classes.price}`}>
                     {typeof promoCode === "string" ? `-${promoCode}` : normalizePrice(promoCode * -1)}
                   </span>
                 </div>
-              }
+              } */}
               <div className={classes["order-list__row"]}>
                 <p className={`${classes["order-list__text"]} ${classes.text}`}>К оплате</p>
                 <span
                   className={`${classes["order-list__price"]} ${classes.price}`}>
-                  {normalizePrice(getOrderTotalPrice())}
+                  {/* {normalizePrice(getOrderTotalPrice())} */}
                 </span>
               </div>
             </div>
@@ -146,13 +146,13 @@ function Order() {
           <div className={`block ${classes.column}`}>
             <strong className={`${classes.title}`}>Способ оплаты</strong>
               <Select options={bankAccountsSelectOptions} placeholder="Выберите счет для оплаты" classNamePrefix="select" id="bank-account-select" />
-              <Input placeholder="Промокод (ENTER для ввода)" maxLength={15} isPromoCode={true} />
+              {/* <Input placeholder="Промокод (ENTER для ввода)" maxLength={15} isPromoCode={true} /> */}
           </div>
           <div className={`block ${classes.column}`}>
             <strong className={classes.title}>Номер получателя</strong>
-            <Input isNumber={true} id="number-input" />
+            {/* <Input isNumber={true} id="number-input" /> */}
           </div>
-          <button className={`${classes.order__link} link`} onClick={createOrder} type="button">Закончить оформление</button>
+          <button className={`${classes.order__link} link`} type="button">Закончить оформление</button>
         </div>
       </div>
     </section>

@@ -1,36 +1,27 @@
-import { useAppSelector } from 'hooks/useAppSelector';
-import IProduct from 'interfaces/store/database/IProduct';
-import IDatabase from 'interfaces/store/database/IDatabase';
-import Categories from '../../UI/Categories/Categories';
+import Card from "@/components/shared/Card/Card";
+import CardsContainer from "@/components/shared/CardsContainer/CardsContainer";
+import { useAppSelector } from '@/hooks/useAppSelector';
 
 function Favourites() {
   const { idList } = useAppSelector(state => state.favouritesSlice);
-  const { categories, products } = useAppSelector(state => state.databaseSlice.data);
-  const data = createData();
+  const products = useAppSelector(state => state.productsSlice.products);
+  const favouriteProducts = getProducts();
 
   // Функции
-  function createData() {
-    const data: IDatabase = { categories: {}, products: [] };
-    // Формирую объект Data
-    data.products = products.filter((product: IProduct) => {
-      if (idList.includes(product.id)) {
-        // Проверка, нужно ли добавлять категорию
-        if (!(product.categoryId in data.categories)) data.categories[product.categoryId] = categories[product.categoryId]; 
-        return true;
-      }
+  function getProducts() {
+    return idList.map((id: number) => {
+      const product = products?.find(product => product.id === id);
+      if (!product) return;
 
-      return false;
+      return <Card {...product} />;
     });
-    // Формирую объект Data END
-
-    return data;
   }
   // Функции END
 
   return (
     <section className="rows-container">
       <strong className="subtitle">Избранное</strong>
-      <Categories categories={data.categories} products={data.products} />
+      {favouriteProducts && <CardsContainer products={favouriteProducts} />}
     </section>
   );
 };

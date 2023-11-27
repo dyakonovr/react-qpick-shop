@@ -11,7 +11,13 @@
       grid-template-columns: repeat(3, 1fr);
       gap: var(--medium-offset);
     }
-
+    
+    &__photo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
     &__footer {
       margin: var(--big-offset) 0 0;
       display: flex;
@@ -25,6 +31,7 @@
       font-weight: 600;
       text-transform: uppercase;
     }
+
   }
 
   .info {
@@ -80,6 +87,14 @@
         color: var(--color-black);
         background-color: var(--color-white);
         cursor: default;
+      }
+
+      &--edit {
+        	background-color: rgb(234 88 12);
+      }
+
+      &--delete {
+        	background-color: rgb(220 38 38);
       }
     }
   }

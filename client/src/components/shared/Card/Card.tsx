@@ -1,16 +1,15 @@
 import { normalizeRating } from '@/functions/normalizeRating';
 import { normalizeText } from '@/functions/normalizeText';
-// import Price from 'UI/Price/Price';
 import { IProduct } from "@/interfaces/IProduct";
 import { Link } from "react-router-dom";
-// import LikeButton from '../LikeButton/LikeButton';
 import classes from './Card.module.scss';
 import Price from "../Price/Price";
+import LikeButton from "../LikeButton/LikeButton";
 
 function Card({ id, categoryId, name, price, imgs, rating }: IProduct) {
   return (
     <li className={classes.card} data-id={id} data-category-id={categoryId}>
-      {/* <LikeButton productId={id} /> */}
+      <LikeButton productId={id} />
       <Link to={`/item?id=${id}`}>
         <div className={classes.card__img}>
           <img src={imgs[0]} alt={name} />

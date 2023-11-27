@@ -10,6 +10,8 @@ import AuthForm from "../screens/Auth/Auth";
 import Cart from "../screens/Cart/Cart";
 import Home from "../screens/Home/Home";
 import Item from "../screens/Item/Item";
+import Order from "../screens/Order/Order";
+import Favourites from "../screens/Favourites/Favourites";
 
 function Paths() {
 
@@ -23,8 +25,8 @@ function Paths() {
           <Route index element={<Home />} />
           <Route path={PagePaths.ITEM} element={<Item />} />
           <Route path={PagePaths.CART} element={<Cart />} />
-          {/* <Route path={PagePaths.ITEM} element={<Item />} /> */}
-          {/* <Route path={PagePaths.CART} element={<Cart />} /> */}
+          <Route path={PagePaths.ORDER} element={<Order />} />
+          <Route path={PagePaths.FAVOURITES} element={<Favourites />} />
           
           {/* Admin */}
           <Route path={PagePaths.ADMIN.HOME} element={<Admin><AdminProductForm /></Admin>} />

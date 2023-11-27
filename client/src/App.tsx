@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { useEffect } from "react";
 import fetchBasket from "./api/fetchBasket";
 import fetchIsAuth from "./api/fetchIsAuth";
-import Paths from "./components/routes/Paths";
+import Paths from "./components/routes/Routes";
 import { useAppDispatch } from "./hooks/useAppDispatch";
 import { useAppSelector } from "./hooks/useAppSelector";
 import fetchBasketProducts from "./api/fetchBasketProducts";

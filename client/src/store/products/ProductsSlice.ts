@@ -14,7 +14,8 @@ const productsSlice = createSlice({
   initialState,
   reducers: {
     setProducts(state, action: PayloadAction<IProduct[]>) {
-      state.products = action.payload;
+      if (state.products && state.products.length !== 0) state.products.push(...action.payload);
+      else state.products = action.payload;
     },
     addProduct(state, action: PayloadAction<IProduct>) {
       if (state.products !== null) state.products.push(action.payload);
