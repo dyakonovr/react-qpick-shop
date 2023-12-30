@@ -1,46 +1,105 @@
 import { sequelize } from "../db.js";
-import { DataTypes, STRING } from "sequelize";
+import { DataTypes } from "sequelize";
+import { customCreatedAndUpdatedFields, idSettingsObj } from "./models.constants.js";
 
 export const User = sequelize.define('user', {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  email: { type: DataTypes.STRING, unique: true, allowNull: false },
+  id: idSettingsObj,
+  email: {
+    type: DataTypes.STRING, allowNull: false,
+    unique: { msg: 'Email уже используется' },
+    validate: {
+      isEmail: { msg: 'Некорректный формат email' },
+    },
+  },
   password: { type: DataTypes.STRING, allowNull: false },
-  role: { type: DataTypes.STRING, defaultValue: "USER" },
-});
+  role: { type: DataTypes.STRING, defaultValue: 'USER' },
+}, customCreatedAndUpdatedFields);
 
 export const Product = sequelize.define('product', {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  name: { type: DataTypes.STRING, unique: true, allowNull: false },
-  price: { type: DataTypes.INTEGER, allowNull: false },
-  rating: { type: DataTypes.DOUBLE, defaultValue: 0 },
-  imgs: { type: DataTypes.ARRAY(STRING), allowNull: false },
-  info: { type: DataTypes.ARRAY(STRING), allowNull: false },
-}, { timestamps: false });
+  id: idSettingsObj,
+  name: {
+    type: DataTypes.STRING,
+    unique: { msg: 'Такое имя уже существует' },
+    allowNull: false,
+  },
+  slug: { type: DataTypes.STRING, allowNull: false },
+  price: {
+    type: DataTypes.INTEGER, allowNull: false,
+    validate: {
+      min: { args: [0], msg: 'Цена должна быть не менее 0' },
+    },
+  },
+  rating: {
+    type: DataTypes.DOUBLE, defaultValue: 0,
+    validate: {
+      min: { args: [0], msg: 'Рейтинг не должен быть менее 0' },
+      max: { args: [5], msg: 'Рейтинг не должен быть более 5' },
+    }
+  },
+  imgs: { 
+    type: DataTypes.ARRAY(DataTypes.STRING),
+    allowNull: false,
+    validate: {
+      notEmpty: {
+        args: true,
+        msg: 'Массив ссылок на фотографии не должен быть пустым',
+      },
+      isArray: function (data) {
+        if (!Array.isArray(data)) throw new Error('Это поле должно быть массивом');
+      },
+      isValidLinksArray(value) {
+        if (!Array.isArray(value) || value.length === 0) {
+          throw new Error('Массив ссылок не должен быть пустым');
+        }
 
-export const BasketProduct = sequelize.define('basket_product', {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  quantity: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 1 }
-}, { timestamps: false });
-
-export const Basket = sequelize.define('basket', {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+        for (let i = 0; i < value.length; i++) {
+          if (!this.isUrl(value[i])) {
+            throw new Error(`Элемент ${i + 1} не является допустимым URL`);
+          }
+        }
+      },
+      hasMinimumLength(data) {
+        if (!Array.isArray(data) || data.length < 1) {
+          throw new Error('Минимальная длина массива должна быть 1 элемент');
+        }
+      },
+    },
+   },
+  info: {
+    type: DataTypes.JSONB,
+    allowNull: false,
+  },
 }, { timestamps: false });
 
 export const Category = sequelize.define('category', {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  name: { type: DataTypes.STRING, unique: true, allowNull: false },
+  id: idSettingsObj,
+  name: {
+    type: DataTypes.STRING,
+    unique: { msg: 'Такое название категории уже существует' },
+    allowNull: false,
+  },
+  slug: { type: DataTypes.STRING, unique: true, allowNull: false },
 }, { timestamps: false });
 
+
 export const Order = sequelize.define('order', {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  orderDate: { type: DataTypes.DATE, allowNull: false },
-  status: { type: DataTypes.STRING, allowNull: false, defaultValue: "Order in assembly" },
-  recipientPhone: { type: DataTypes.STRING, allowNull: false },
-  orderedProducts: { type: DataTypes.JSONB, allowNull: false },
+  id: idSettingsObj,
+  ordered_products: { type: DataTypes.JSONB, allowNull: false },
+}, customCreatedAndUpdatedFields);
+
+
+export const Basket = sequelize.define('basket', {
+  id: idSettingsObj,
+}, { timestamps: false });
+
+export const BasketItem = sequelize.define('basket_item', {
+  id: idSettingsObj,
+  quantity: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 1 }
 }, { timestamps: false });
 
 const Discount = sequelize.define('discount', {
-  discountType: { type: DataTypes.ENUM('percentage', 'currency'), allowNull: false },
+  id: idSettingsObj,
+  discount_type: { type: DataTypes.ENUM('percentage', 'currency'), allowNull: false },
   value: {
     type: DataTypes.DECIMAL(10, 2),
     allowNull: false,
@@ -52,27 +111,30 @@ const Discount = sequelize.define('discount', {
       },
     },
   },
-  expiryDate: { type: DataTypes.DATE, allowNull: false },
+  expiry_date: { type: DataTypes.DATE, allowNull: false },
 }, {timestamps: false});
 
-export const models = {Product, BasketProduct, Basket, Category, User, Discount, Order};
+export const models = {Product, BasketItem, Basket, Category, User, Discount, Order};
 
 // Связи
 
-User.hasOne(Basket);
-Basket.belongsTo(User);
+User.hasOne(Basket, { foreignKey: 'user_id' });
+Basket.belongsTo(User, { foreignKey: 'user_id' });
 
-Basket.hasMany(BasketProduct);
-BasketProduct.belongsTo(Basket);
+Basket.hasMany(BasketItem, { foreignKey: 'basket_id' });
+BasketItem.belongsTo(Basket, { foreignKey: 'basket_id' });
 
-Category.hasMany(Product);
-Product.belongsTo(Category);
+Product.hasMany(BasketItem, { foreignKey: 'product_id' });
+BasketItem.belongsTo(Product, { foreignKey: 'product_id' });
 
-Product.hasMany(BasketProduct);
-BasketProduct.belongsTo(Product);
+Category.hasMany(Product, { foreignKey: 'category_id' });
+Product.belongsTo(Category, { foreignKey: 'category_id' });
 
-User.hasMany(Order);
-Order.belongsTo(User);
+User.hasMany(Order, { foreignKey: 'user_id' });
+Order.belongsTo(User, { foreignKey: 'user_id' });
 
-Discount.hasOne(Product, { allowNull: true });
-Product.belongsTo(Discount);
+User.belongsToMany(Product, { through: "favourites" });
+Product.belongsToMany(User, { through: "favourites" });
+
+Discount.hasOne(Product, { foreignKey: 'discount_id', allowNull: true });
+Product.belongsTo(Discount, { foreignKey: 'discount_id' });
