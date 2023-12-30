@@ -1,10 +1,10 @@
+import fetchProduct from "@/api (old)/fetchProduct";
 import { useAppDispatch } from "@/hooks/useAppDispatch";
 import { useAppSelector } from '@/hooks/useAppSelector';
 import { IBasketProduct, IExtendedBasketProduct } from "@/interfaces/IBasketProduct";
 import classes from './Cart.module.scss';
 import EmptyCart from "./components/EmptyCart/EmptyCart";
 import FilledCart from "./components/FilledCart/FilledCart";
-import fetchProduct from "@/api/fetchProduct";
 
 function Cart() {
   const dispatch = useAppDispatch();

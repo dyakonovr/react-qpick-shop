@@ -1,7 +1,7 @@
 import customAxios from "@/axios";
 import { toast } from "@/components/ui/use-toast";
 import { ServerPaths } from "@/enum/ServerPaths";
-import { IProduct } from "@/interfaces/IProduct";
+import { IProduct } from "@/interfaces/product.interface";
 import { setProducts } from "@/store/products/ProductsSlice";
 import { AppDispatch } from "@/store/store";
 import { AxiosResponse } from "axios";

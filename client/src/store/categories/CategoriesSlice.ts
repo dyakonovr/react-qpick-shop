@@ -1,4 +1,4 @@
-import { ICategory } from "@/interfaces/ICategory";
+import { ICategory } from "@/interfaces/category.interface";
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface ICategoriesState {

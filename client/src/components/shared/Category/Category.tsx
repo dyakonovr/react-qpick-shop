@@ -1,7 +1,7 @@
-import { IProduct } from "@/interfaces/IProduct";
-import classes from './Category.module.scss';
+import { ICategory } from "@/interfaces/category.interface";
+import { IProduct } from "@/interfaces/product.interface";
 import Card from "../Card/Card";
-import { ICategory } from "@/interfaces/ICategory";
+import classes from './Category.module.scss';
 
 interface ICategoryProps {
   category: ICategory,

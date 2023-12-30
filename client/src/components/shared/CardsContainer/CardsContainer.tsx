@@ -1,6 +1,6 @@
-import { IProduct } from "@/interfaces/IProduct";
-import classes from './CardsContainer.module.scss';
+import { IProduct } from "@/interfaces/product.interface";
 import Card from "../Card/Card";
+import classes from './CardsContainer.module.scss';
 
 interface ICardsContainerProps {
   products: IProduct[]

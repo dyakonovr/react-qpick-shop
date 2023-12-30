@@ -4,12 +4,12 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useAppDispatch } from "@/hooks/useAppDispatch";
 import { useAppSelector } from "@/hooks/useAppSelector";
-import { IProductWithoutId } from "@/interfaces/IProduct";
+import { IProductWithoutId } from "@/interfaces/product.interface";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import * as z from "zod";
 import createProduct from "../../api/createProduct";
-import { useEffect } from "react";
 import fetchCategories from "../../api/fetchCategories";
 
 const profileFormSchema = z.object({

@@ -1,17 +1,17 @@
-import fetchProduct from "@/api/fetchProduct";
+import fetchProduct from "@/api (old)/fetchProduct";
 import Price from "@/components/shared/Price/Price";
 import { PagePaths } from "@/enum/PagePaths";
+import { Roles } from "@/enum/Roles";
 import { useAppDispatch } from "@/hooks/useAppDispatch";
 import { useAppSelector } from '@/hooks/useAppSelector';
 import { useAuth } from "@/hooks/useAuth";
-import { ICategory } from "@/interfaces/ICategory";
-import { IProduct } from "@/interfaces/IProduct";
+import { ICategory } from "@/interfaces/category.interface";
+import { IProduct } from "@/interfaces/product.interface";
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import classes from './Item.module.scss';
 import createBasketProduct from "./api/createBasketProduct";
 import fetchCategory from "./api/fetchCategory";
-import { Roles } from "@/enum/Roles";
 
 function Item() {
   const dispatch = useAppDispatch();
