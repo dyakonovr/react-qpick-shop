@@ -10,8 +10,14 @@ export enum ProductSortEnum {
 }
 
 export type ProductDataFiltersType = {
-  sort?: ProductSortEnum,
-  searchTerm?: string,
-  page?: string | number,
-  perPage?: string | number,
+  sort?: ProductSortEnum
+  searchTerm?: string
+  page?: string | number
+  perPage?: string | number
+}
+
+export type IProductResponse = {
+  products: IProduct[]
+  perPage?: number
+  page?: number
 }

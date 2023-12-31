@@ -1,44 +1,29 @@
-import { Toaster } from "@/components/ui/toaster";
-import { useEffect } from "react";
-import fetchBasket from "./api (old)/fetchBasket";
-import fetchBasketProducts from "./api (old)/fetchBasketProducts";
-import fetchIsAuth from "./api (old)/fetchIsAuth";
-import Paths from "./components/routes/Routes";
-import { useAppDispatch } from "./hooks/useAppDispatch";
-import { useAppSelector } from "./hooks/useAppSelector";
+import { Toaster } from '@/components/ui/toaster';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import Paths from './components/routes/Routes';
+import { persistor, store } from './store/store';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false
+    }
+  }
+});
 
 function App() {
-  const dispatch = useAppDispatch();
-  const userId = useAppSelector(state => state.userSlice.id);
-  const basketId = useAppSelector(state => state.basketSlice.id);
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) return;
-
-    dispatch(fetchIsAuth());
-  }, []);
-
-  useEffect(() => {
-    if (!userId) return;
-
-    dispatch(fetchBasket(userId));
-  }, [userId]);
-
-  useEffect(() => {
-    if (!basketId) return;
-
-    dispatch(fetchBasketProducts(basketId));
-  }, [basketId]);
-
   return (
-    <>
-      <div className="container">
-        <Paths />
-      </div>
-      <Toaster />
-    </>
-  )
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <Paths />
+          <Toaster />
+        </PersistGate>
+      </Provider>
+    </QueryClientProvider>
+  );
 }
 
 export default App;

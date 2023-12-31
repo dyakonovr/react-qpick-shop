@@ -1,28 +1,24 @@
 // import Input from "UI/Input/Input";
-import { normalizePrice } from '@/functions/normalizePrice';
+import deliveryMapImage from '@/assets/img/delivery-map.jpg';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
-import { useAppSelector } from '@/hooks/useAppSelector';
-import deliveryMapImage from "@/assets/img/delivery-map.jpg";
 // import ICartProduct from '@/interfaces/store/cart/ICartProduct';
 // import IOrder from 'interfaces/store/orders/IOrder';
 // import { clearCart } from '@/store/basket/BasketSlice';
-import { addNewOrder } from '@/store/orders/ordersSlice';
 import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import classes from './Order.module.scss';
 
-
 const townsSelectOptions = [
-  {value: 'Ульяновск', label: 'Ульяновск'},
-  {value: 'Москва', label: 'Москва'},
-  {value: 'Красноярск', label: 'Красноярск'},
-  {value: 'Апшеронск', label: 'Апшеронск'},
+  { value: 'Ульяновск', label: 'Ульяновск' },
+  { value: 'Москва', label: 'Москва' },
+  { value: 'Красноярск', label: 'Красноярск' },
+  { value: 'Апшеронск', label: 'Апшеронск' },
 ];
 
 const bankAccountsSelectOptions = [
-  {value: 'Счет на kaspi.kz', label: 'Счет на kaspi.kz'},
-  {value: 'Счет Сбербанк *2462', label: 'Счет Сбербанк *2462'},
-  {value: 'Счет Тинькофф *2295', label: 'Счет Тинькофф *2295'},
+  { value: 'Счет на kaspi.kz', label: 'Счет на kaspi.kz' },
+  { value: 'Счет Сбербанк *2462', label: 'Счет Сбербанк *2462' },
+  { value: 'Счет Тинькофф *2295', label: 'Счет Тинькофф *2295' },
 ];
 
 function Order() {
@@ -59,32 +55,51 @@ function Order() {
 
   // function createOrder() {
   //   const formObject = formValidate();
-    
+
   //   if (formObject) { // Форма заполнена правильно
   //     const orderObject: IOrder = { ...formObject, id: lastOrderId + 1, price: getOrderTotalPrice(), products };
   //     dispatch(addNewOrder(orderObject));
   //     dispatch(clearCart());
   //     navigate(`/success-order?id=${lastOrderId + 1}`);
   //   }
-    
+
   //   else alert("Проверьте Вашу форму.");
   // }
 
   function formValidate() {
-    const townsSelect = document.querySelector("#towns-select");
-    const bankAccountSelect = document.querySelector("#bank-account-select");
+    const townsSelect = document.querySelector('#towns-select');
+    const bankAccountSelect = document.querySelector('#bank-account-select');
 
-    const town = townsSelect ? townsSelect.querySelector(".select__single-value")?.innerHTML : "";
-    const bankAccount = bankAccountSelect ? bankAccountSelect.querySelector(".select__single-value")?.innerHTML : "";
+    const town = townsSelect
+      ? townsSelect.querySelector('.select__single-value')?.innerHTML
+      : '';
+    const bankAccount = bankAccountSelect
+      ? bankAccountSelect.querySelector('.select__single-value')?.innerHTML
+      : '';
 
-    const street =  (document.querySelector("#street-input") as HTMLInputElement).value || "";
-    const house = (document.querySelector("#house-input") as HTMLInputElement).value || "";
-    const entrance = (document.querySelector("#entrance-input") as HTMLInputElement).value || "";
-    const apartament = (document.querySelector("#apartament-input") as HTMLInputElement).value || "";
+    const street =
+      (document.querySelector('#street-input') as HTMLInputElement).value || '';
+    const house =
+      (document.querySelector('#house-input') as HTMLInputElement).value || '';
+    const entrance =
+      (document.querySelector('#entrance-input') as HTMLInputElement).value ||
+      '';
+    const apartament =
+      (document.querySelector('#apartament-input') as HTMLInputElement).value ||
+      '';
 
-    const clientNumber =  (document.querySelector("#number-input") as HTMLInputElement).value || "" ;
-    
-    if (town && bankAccount && street && house && entrance && apartament && clientNumber) {
+    const clientNumber =
+      (document.querySelector('#number-input') as HTMLInputElement).value || '';
+
+    if (
+      town &&
+      bankAccount &&
+      street &&
+      house &&
+      entrance &&
+      apartament &&
+      clientNumber
+    ) {
       const fullAdress = `г. ${town}, ул. ${street}, д. ${house}, подъезд ${entrance}, кв. ${apartament}`;
       return { fullAdress, bankAccount, clientNumber };
     }
@@ -103,10 +118,17 @@ function Order() {
             <strong className={classes.title}>Доставка курьером</strong>
             {/* <span className={classes.price}>{normalizePrice(deliveryPrice)}</span> */}
           </div>
-          <div className={classes["form__delivery-image"]}><img src={deliveryMapImage} alt='' /></div>
+          <div className={classes['form__delivery-image']}>
+            <img src={deliveryMapImage} alt="" />
+          </div>
           <strong className={classes.form__subtitle}>Адрес доставки</strong>
           <form className={classes.column}>
-            <Select options={townsSelectOptions} placeholder="Город" classNamePrefix="select" id="towns-select" />
+            <Select
+              options={townsSelectOptions}
+              placeholder="Город"
+              classNamePrefix="select"
+              id="towns-select"
+            />
             {/* <Input placeholder="Улица / Район" id="street-input" maxLength={132} />
             <div className={classes.form__table}>
               <Input placeholder='Дом' id="house-input" maxLength={5} onlyNumbers={true} />
@@ -118,12 +140,14 @@ function Order() {
 
         {/* Правый блок с оформлением */}
         <div className={classes.column}>
-          <div className={`${classes["order-list"]} block`}>
+          <div className={`${classes['order-list']} block`}>
             <strong className={classes.title}>Ваш заказ</strong>
             <div className={classes.column}>
               {/* {createProducts()} */}
-              <div className={classes["order-list__row"]}>
-                <p className={`${classes["order-list__text"]} ${classes.text}`}>Доставка</p>
+              <div className={classes['order-list__row']}>
+                <p className={`${classes['order-list__text']} ${classes.text}`}>
+                  Доставка
+                </p>
                 {/* <span className={`${classes["order-list__price"]} ${classes.price}`}>{normalizePrice(deliveryPrice)}</span> */}
               </div>
               {/* {promoCode &&
@@ -134,10 +158,13 @@ function Order() {
                   </span>
                 </div>
               } */}
-              <div className={classes["order-list__row"]}>
-                <p className={`${classes["order-list__text"]} ${classes.text}`}>К оплате</p>
+              <div className={classes['order-list__row']}>
+                <p className={`${classes['order-list__text']} ${classes.text}`}>
+                  К оплате
+                </p>
                 <span
-                  className={`${classes["order-list__price"]} ${classes.price}`}>
+                  className={`${classes['order-list__price']} ${classes.price}`}
+                >
                   {/* {normalizePrice(getOrderTotalPrice())} */}
                 </span>
               </div>
@@ -145,18 +172,25 @@ function Order() {
           </div>
           <div className={`block ${classes.column}`}>
             <strong className={`${classes.title}`}>Способ оплаты</strong>
-              <Select options={bankAccountsSelectOptions} placeholder="Выберите счет для оплаты" classNamePrefix="select" id="bank-account-select" />
-              {/* <Input placeholder="Промокод (ENTER для ввода)" maxLength={15} isPromoCode={true} /> */}
+            <Select
+              options={bankAccountsSelectOptions}
+              placeholder="Выберите счет для оплаты"
+              classNamePrefix="select"
+              id="bank-account-select"
+            />
+            {/* <Input placeholder="Промокод (ENTER для ввода)" maxLength={15} isPromoCode={true} /> */}
           </div>
           <div className={`block ${classes.column}`}>
             <strong className={classes.title}>Номер получателя</strong>
             {/* <Input isNumber={true} id="number-input" /> */}
           </div>
-          <button className={`${classes.order__link} link`} type="button">Закончить оформление</button>
+          <button className={`${classes.order__link} link`} type="button">
+            Закончить оформление
+          </button>
         </div>
       </div>
     </section>
   );
-};
+}
 
 export default Order;

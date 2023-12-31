@@ -1,17 +1,12 @@
 import { IUser } from "@/interfaces/user.interface"
 
-export interface IUserState {
-  email: string
-  isAdmin: boolean
-}
-
 export interface ITokens {
   accessToken: string
   refreshToken: string
 }
 
 export interface IInitialState {
-  user: IUserState | null
+  user: IUser | null
   isLoading: boolean
 }
 

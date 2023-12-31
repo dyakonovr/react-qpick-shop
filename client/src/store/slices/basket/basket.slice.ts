@@ -1,10 +1,6 @@
-import { IBasketProduct } from "@/interfaces/IBasketProduct";
+import { IBasketItem } from "@/interfaces/basket.interface";
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-interface IBasketSlice {
-  id: number | null,
-  products: IBasketProduct[] | null,
-}
+import { IBasketSlice } from "./basket.types";
 
 const initialState: IBasketSlice = {
   id: null,
@@ -18,10 +14,10 @@ const basketSlice = createSlice({
     setBasket(state, action: PayloadAction<number>) {
       state.id = action.payload;
     },
-    setBasketProducts(state, action: PayloadAction<IBasketProduct[]>) {
+    setBasketProducts(state, action: PayloadAction<IBasketItem[]>) {
       state.products = action.payload;
     },
-    addBasketProduct(state, action: PayloadAction<IBasketProduct>) {
+    addBasketProduct(state, action: PayloadAction<IBasketItem>) {
       if (state.products) state.products.push(action.payload);
       else state.products = [action.payload];
     },
@@ -29,7 +25,7 @@ const basketSlice = createSlice({
       if (!state.products) return;
       state.products = state.products.filter(product => product.id !== action.payload);
     },
-    updateBasketProduct(state, action: PayloadAction<IBasketProduct>) {
+    updateBasketProduct(state, action: PayloadAction<IBasketItem>) {
       if (!state.products) return;
       state.products  = state.products.map(basketProduct => {
         if (basketProduct.id === action.payload.id) return action.payload;

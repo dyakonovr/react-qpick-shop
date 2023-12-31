@@ -1,6 +1,5 @@
-import { useAppSelector } from "./useAppSelector";
+import { useTypedSelector } from "./useTypedSelector";
 
 export function useAuth() {
-  const { token, id, role } = useAppSelector((state) => state.userSlice);
-  return {isAuth: !!token, userId: id, role};
+  return useTypedSelector(state => state.user);
 }

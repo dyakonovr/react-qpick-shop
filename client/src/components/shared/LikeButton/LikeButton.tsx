@@ -1,35 +1,41 @@
-import classes from './LikeButton.module.scss'
 import { useRef } from 'react';
-import { useAppDispatch } from '@/hooks/useAppDispatch';
-import { addFavouriteItem, removeFavouriteItem } from '@/store/favourites/FavouritesSlice';
-import { useAppSelector } from '@/hooks/useAppSelector';
+import classes from './LikeButton.module.scss';
 // @ts-ignore
-import { ReactComponent as IconHeart } from "@/assets/img/svg/icon-heart.svg";
+import { ReactComponent as IconHeart } from '@/assets/img/svg/icon-heart.svg';
+import { useProfile } from '@/hooks/useProfile';
+import UserService from '@/services/user.service';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface ILikeButtonProps {
-  productId: number
+  productId: number;
 }
 
 function LikeButton({ productId }: ILikeButtonProps) {
-  const dispatch = useAppDispatch();
-  const btnIsActive = useAppSelector(state => state.favouritesSlice.idList.includes(productId));
+  const { profile } = useProfile();
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationKey: ['toggle favourite'],
+    mutationFn: () => UserService.toggleFavourite(productId),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['profile'] }),
+  });
+
   const btnRef = useRef<HTMLButtonElement>(null);
-  const buttonClasses = btnIsActive ? `${classes.btn_like} ${classes["btn_like--active"]}` : classes.btn_like;
 
-  // Функции
-  function handleClick() {
-    if (!btnRef.current) return;
-
-    if (btnIsActive) dispatch(removeFavouriteItem(productId));
-    else dispatch(addFavouriteItem(productId));
-  }
-  // Функции END
+  const buttonClasses = profile?.favourites.some((fp) => fp.id === productId)
+    ? `${classes.btn_like} ${classes['btn_like--active']}`
+    : classes.btn_like;
 
   return (
-    <button ref={btnRef} className={buttonClasses} onClick={handleClick} data-product-id={productId}>
+    <button
+      ref={btnRef}
+      className={buttonClasses}
+      onClick={() => mutate()}
+      data-product-id={productId}
+    >
       <IconHeart />
     </button>
   );
-};
+}
 
 export default LikeButton;

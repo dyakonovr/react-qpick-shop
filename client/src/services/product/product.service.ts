@@ -1,12 +1,12 @@
 import { $axios } from '@/api/api.interceptor';
 import { IProduct } from "@/interfaces/product.interface";
-import { ProductDataFiltersType, ProductDataType } from "./product.types";
+import { IProductResponse, ProductDataFiltersType, ProductDataType } from "./product.types";
 
 class ProductService {
   private url = "/product"; 
 
   getAll = async (queryData = {} as ProductDataFiltersType) => {
-    return $axios.get<IProduct[]>(this.url, { params: queryData });
+    return $axios.get<IProductResponse>(this.url, { params: queryData });
   }
 
   getById = async (id: string | number) => {

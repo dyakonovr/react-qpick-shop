@@ -1,17 +1,40 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import basketSlice from './basket/BasketSlice';
-import categoriesSlice from "./categories/CategoriesSlice";
-import favouritesSlice from './favourites/FavouritesSlice';
-import ordersSlice from './orders/ordersSlice';
-import productsSlice from './products/ProductsSlice';
-import userSlice from "./user/UserSlice";
+import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE, persistReducer, persistStore } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import basketSlice from './slices/basket/basket.slice';
+import categoriesSlice from "./slices/category.slice";
+import ordersSlice from './slices/orders.slice';
+import productsSlice from './slices/products.slice';
+import userSlice from "./slices/user/user.slice";
 
-const rootReducer = combineReducers({ productsSlice, favouritesSlice, basketSlice, ordersSlice, categoriesSlice, userSlice });
-const store = configureStore({
-  reducer: rootReducer,
+const persistConfig = {
+  key: 'qpick-shop',
+  storage,
+  whitelist: ['basket']
+}
+
+const rootReducer = combineReducers({
+  products: productsSlice,
+  basket: basketSlice,
+  orders: ordersSlice,
+  categories: categoriesSlice,
+  user: userSlice
 });
 
-export default store;
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export type RootType = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+export const store = configureStore({
+  reducer: persistedReducer,
+  middleware: getDefaultMiddleware => {
+    return getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE]
+      }
+    })
+  }
+});
+
+
+export const persistor = persistStore(store);
+
+export type RootType = ReturnType<typeof rootReducer>;

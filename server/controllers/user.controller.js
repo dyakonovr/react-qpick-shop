@@ -16,14 +16,14 @@ class UserController {
 
       if (!user) return next(ApiErrorHandler.notFound("Такого пользователя не найдено"));
 
-      const favourties = await user.getProducts({ attributes: { exclude: ["rating", "info"] } });
+      const favourites = await user.getProducts({ attributes: { exclude: ["rating", "info"] } });
 
-      const productsWithoutFavourites = favourties.map(({ dataValues }) => {
+      const productsWithoutFavourites = favourites.map(({ dataValues }) => {
         const { favourites, ...rest } = dataValues; // favourites - объект, связывающий пользователя и товар из соответствующей таблицы
         return rest;
       });
 
-      return res.json({ user, favourties: productsWithoutFavourites })
+      return res.json({ user, favourites: productsWithoutFavourites })
     } catch (error) {
       return next(ApiErrorHandler.internal(error.message));
     }
