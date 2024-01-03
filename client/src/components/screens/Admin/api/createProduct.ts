@@ -1,27 +1,33 @@
-import customAxios from "@/axios";
-import { toast } from "@/components/ui/use-toast";
-import { ServerPaths } from "@/enum/ServerPaths";
-import { IProduct, IProductWithoutId } from "@/interfaces/product.interface";
-import { addProduct } from "@/store/slices/products.slice";
-import { AppDispatch } from "@/store/store";
-import { AxiosResponse } from "axios";
+import customAxios from '@/axios';
+import { toast } from '@/components/ui/use-toast';
+import { ServerPaths } from '@/enum/ServerPaths';
+import {
+  IExtendedProduct,
+  IProductWithoutId,
+} from '@/interfaces/product.interface';
+import { addProduct } from '@/store/slices/products.slice';
+import { AppDispatch } from '@/store/store';
+import { AxiosResponse } from 'axios';
 
 function createProduct(product: IProductWithoutId) {
   return async function (dispatch: AppDispatch) {
     try {
-      const response: AxiosResponse<IProduct> = await customAxios.post(ServerPaths.PRODUCT, product);
+      const response: AxiosResponse<IExtendedProduct> = await customAxios.post(
+        ServerPaths.PRODUCT,
+        product
+      );
       dispatch(addProduct(response.data));
       toast({
-        title: "Создание товара",
+        title: 'Создание товара',
         description: `Успешно!`,
       });
     } catch (e) {
       toast({
-        title: "Создание товара",
+        title: 'Создание товара',
         description: `Произошла ошибка: ${e}`,
       });
     }
-  }
+  };
 }
 
 export default createProduct;

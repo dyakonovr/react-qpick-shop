@@ -23,8 +23,8 @@ function Paths() {
           <Route path={PagePaths.AUTHENTICATION.LOGIN} element={<AuthForm />} />
           <Route path={PagePaths.HOME} element={<Layout />}>
             <Route index element={<Home />} />
-            {/* <Route path={PagePaths.ITEM} element={<Item />} />
-
+            <Route path={PagePaths.ITEM} element={<Item />} />
+            {/*
             <Route element={<PrivateRoutes />}>
               <Route path={PagePaths.CART} element={<Cart />} />
               <Route path={PagePaths.ORDER} element={<Order />} />

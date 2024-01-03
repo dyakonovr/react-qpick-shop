@@ -32,6 +32,11 @@
       text-transform: uppercase;
     }
 
+    &__main {
+      display: flex;
+      flex-direction: column;
+      gap: var(--small-offset);
+    }
   }
 
   .info {

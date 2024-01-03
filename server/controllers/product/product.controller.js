@@ -1,7 +1,8 @@
 import { Op } from "sequelize";
-import { ApiErrorHandler } from "../error/api-error.handler.js";
-import { generateSlug } from "../helpers/generate-slug.helper.js";
-import { Category, Product } from "../models/models.js";
+import { ApiErrorHandler } from "../../error/api-error.handler.js";
+import { generateSlug } from "../../helpers/generate-slug.helper.js";
+import { Category, Product } from "../../models/models.js";
+import { formatProductsForCard } from "./product.helper.js";
 
 class ProductController {
   create = async (req, res, next) => {
@@ -91,7 +92,7 @@ class ProductController {
       const totalPages = Math.ceil(products.count / perPage); // Вычисляем общее количество страниц
 
       return res.json({
-        products: products.rows,
+        products: formatProductsForCard(products.rows),
         totalPages,
         currentPage: page,
       });

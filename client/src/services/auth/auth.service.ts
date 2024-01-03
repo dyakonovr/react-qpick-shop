@@ -17,12 +17,12 @@ class AuthSerice {
   }
 
   getNewTokens = async () => {
-    const refreshToken = Cookies.get('refreshToken');
+    const refreshToken = Cookies.get("refreshToken");
 
-    const response = await axios.post<string, { data: IAuthResponse }>(
-      import.meta.env.SERVER_URL + this.url + '/login/access-token',
-      { refreshToken },
-      { headers: getContentType() }
+    // axios, а не $axios потому, что accessToken может закончится
+    const response = await axios.get<IAuthResponse>(
+      import.meta.env.VITE_SERVER_URL + this.url + '/login/access-token',
+      { headers: { Authorization: `Bearer ${refreshToken}`, ...getContentType() } }
     );
 
     if (response.data.accessToken) saveToStorage(response.data);

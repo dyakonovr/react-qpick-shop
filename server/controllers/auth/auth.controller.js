@@ -43,7 +43,7 @@ class AuthController {
   }
 
   getNewTokens = (req, res) => {
-    const tokens = this.issueTokens(req.user.id, req.user.role);
+    const tokens = this.issueTokens(req.user.id, req.user.role, req.user.email);
     return res.json({ user: this.returnUserFields(req.user), ...tokens });
   }
 

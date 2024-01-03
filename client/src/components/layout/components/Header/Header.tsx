@@ -1,19 +1,17 @@
 import Logo from '@/components/shared/Logo/Logo';
 import Quantity from '@/components/shared/Quantity/Quantity';
-import { toast } from '@/components/ui/use-toast';
-import { PagePaths } from '@/enum/PagePaths';
-import { Roles } from '@/enum/Roles';
-import { useAuth } from '@/hooks/useAuth';
+import { useProfile } from "@/hooks/features/useProfile";
 import { Link, useNavigate } from 'react-router-dom';
 import classes from './Header.module.scss';
-import { useProfile } from "@/hooks/useProfile";
+import { PagePaths } from "@/enum/PagePaths";
+import { toast } from "@/components/ui/use-toast";
+import { useActions } from "@/hooks/general/useActions";
 
 function Header() {
-  const { profile } = useProfile();
-  const favouritesQuantity = profile ? profile.favourites.length : 0;
-  // const favouritesQuantity = profile.
-
-  // const navigate = useNavigate();
+  const { favourites, isAdmin, isAuth } = useProfile();
+  const { logout } = useActions();
+  const favouritesQuantity = favourites.length;
+  const navigate = useNavigate();
   // const dispatch = useAppDispatch();
   // const { isAuth } = useAuth();
   // const role = useAppSelector((state) => state.userSlice.role);
@@ -21,16 +19,15 @@ function Header() {
   //   (state) => state.basketSlice.products?.length
   // );
 
-  // // Функции
-  // function handleButton() {
-  //   if (!isAuth) navigate(PagePaths.AUTHENTICATION.LOGIN);
-  //   else {
-  //     dispatch(clearUser());
-  //     toast({
-  //       title: `Вы успешно вышли из аккаунта!`,
-  //     });
-  //   }
-  // }
+  // Функции
+  async function handleButton() {
+    if (!isAuth) return navigate(PagePaths.AUTHENTICATION.LOGIN);
+    
+    logout();
+    toast({
+      title: `Вы успешно вышли из аккаунта!`,
+    });
+  }
   // Функции END
 
   return (
@@ -42,7 +39,9 @@ function Header() {
           to="/favourites"
           className={[classes.header__btn, classes.header__favourite].join(' ')}
         >
-          {favouritesQuantity !== 0 && <Quantity quantity={favouritesQuantity} />}
+          {favouritesQuantity !== 0 && (
+            <Quantity quantity={favouritesQuantity} />
+          )}
         </Link>
         {/* <Link
           to={PagePaths.CART}
@@ -51,9 +50,9 @@ function Header() {
           {!!cartProductsQuantity && (
             <Quantity quantity={cartProductsQuantity} />
           )}
-        </Link>
-        {role === Roles.ADMIN && <Link to={PagePaths.ADMIN.HOME}>Админка</Link>}
-        <button onClick={handleButton}>{isAuth ? 'Выйти' : 'Войти'}</button> */}
+        </Link>*/}
+        <button onClick={handleButton}>{isAuth ? 'Выйти' : 'Войти'}</button>
+        {isAdmin && <Link to={PagePaths.ADMIN.HOME}>Админка</Link>}
       </div>
     </header>
   );

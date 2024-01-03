@@ -8,16 +8,15 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { toast } from '@/components/ui/use-toast';
-import { useActions } from '@/hooks/useActions';
-import { useAuth } from '@/hooks/useAuth';
+import { PagePaths } from '@/enum/PagePaths';
+import { useAuth } from '@/hooks/features/useAuth';
+import { useActions } from '@/hooks/general/useActions';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { AuthFormSchema } from './auth.constants';
 import { AuthFormValuesType, AuthType } from './auth.types';
-import { AuthFormSchema } from "./auth.constants";
-import { useNavigate } from "react-router-dom";
-import { PagePaths } from "@/enum/PagePaths";
 
 export function AuthForm() {
   const navigate = useNavigate();
@@ -36,10 +35,6 @@ export function AuthForm() {
 
   // Функции
   async function onSubmit(data: AuthFormValuesType) {
-    // if (typeof response === 'string') {
-    //   return toast({ title: 'Ошибка', description: response});
-    // }
-     
     auth({ type, data });
     navigate(PagePaths.HOME);
   }
