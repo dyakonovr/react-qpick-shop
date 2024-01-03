@@ -6,12 +6,15 @@ import classes from './Header.module.scss';
 import { PagePaths } from "@/enum/PagePaths";
 import { toast } from "@/components/ui/use-toast";
 import { useActions } from "@/hooks/general/useActions";
+import { useQueryClient } from "@tanstack/react-query";
 
 function Header() {
   const { favourites, isAdmin, isAuth } = useProfile();
   const { logout } = useActions();
   const favouritesQuantity = favourites.length;
   const navigate = useNavigate();
+
+  const queryClient = useQueryClient();
   // const dispatch = useAppDispatch();
   // const { isAuth } = useAuth();
   // const role = useAppSelector((state) => state.userSlice.role);
@@ -24,6 +27,9 @@ function Header() {
     if (!isAuth) return navigate(PagePaths.AUTHENTICATION.LOGIN);
     
     logout();
+    queryClient.removeQueries({
+      queryKey: ['profile']
+    })
     toast({
       title: `Вы успешно вышли из аккаунта!`,
     });

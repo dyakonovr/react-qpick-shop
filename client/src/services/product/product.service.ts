@@ -20,7 +20,6 @@ class ProductService {
   getById = async (id: string | number) => {
     // return $axios.get<IProduct>(`${this.url}/${id}`);
     const response = await $axios.get<IExtendedProduct>(`${this.url}/${id}`);
-    console.log(response.data);
     return response.data;
   };
 

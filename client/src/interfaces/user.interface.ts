@@ -1,6 +1,6 @@
 import { Roles } from '@/enum/Roles';
 import { IOrder } from './order.interface';
-import { IExtendedProduct } from './product.interface';
+import { IProduct } from './product.interface';
 
 export interface IUser {
   id: number;
@@ -10,6 +10,6 @@ export interface IUser {
 
 export interface IFullUser {
   user: IUser;
-  favourites: IExtendedProduct[];
+  favourites: IProduct[];
   orders: IOrder[];
 }

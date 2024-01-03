@@ -1,6 +1,10 @@
 import { IAuthResponse, ITokens } from "@/store/slices/user/user.interface";
 import Cookies from "js-cookie";
 
+export const checkAccessToken = () => {
+  return !!Cookies.get('accessToken');
+}
+
 export const getAccessToken = () => {
   const accessToken = Cookies.get('accessToken');
   return accessToken || null;

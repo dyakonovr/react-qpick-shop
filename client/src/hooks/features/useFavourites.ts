@@ -18,5 +18,5 @@ export const useFavourites = () => {
   }
   // Функции END
 
-  return { isProductInFavourites, toggleFavourite };
+  return { favourites, isProductInFavourites, toggleFavourite };
 };

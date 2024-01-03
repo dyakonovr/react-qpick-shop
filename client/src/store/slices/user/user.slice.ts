@@ -27,7 +27,7 @@ const userSlice = createSlice({
       state.user = null;
     })
 
-    .addCase(logout.rejected, (state) => {
+    .addCase(logout.fulfilled, (state) => {
       state.isLoading = false;
       state.user = null;
     })

@@ -4,7 +4,6 @@ import storage from "redux-persist/lib/storage";
 import basketSlice from './slices/basket/basket.slice';
 import categoriesSlice from "./slices/category.slice";
 import ordersSlice from './slices/orders.slice';
-import productsSlice from './slices/products.slice';
 import userSlice from "./slices/user/user.slice";
 
 const persistConfig = {
@@ -14,7 +13,6 @@ const persistConfig = {
 }
 
 const rootReducer = combineReducers({
-  products: productsSlice,
   basket: basketSlice,
   orders: ordersSlice,
   categories: categoriesSlice,

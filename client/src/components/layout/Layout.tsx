@@ -1,14 +1,15 @@
-import { Outlet } from "react-router-dom";
-import Footer from "./components/Footer/Footer";
-import Header from "./components/Header/Header";
-import { useEffect } from "react";
-import { useActions } from "@/hooks/general/useActions";
+import { useActions } from '@/hooks/general/useActions';
+import { checkAccessToken } from '@/services/auth/auth.helper';
+import { useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
+import Footer from './components/Footer/Footer';
+import Header from './components/Header/Header';
 
 function Layout() {
   const { checkAuth } = useActions();
 
   useEffect(() => {
-    checkAuth();
+    if (checkAccessToken()) checkAuth();
   }, []);
 
   return (
@@ -20,6 +21,6 @@ function Layout() {
       <Footer />
     </>
   );
-};
+}
 
 export default Layout;

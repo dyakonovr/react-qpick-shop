@@ -1,5 +1,6 @@
 import { ApiErrorHandler } from "../error/api-error.handler.js";
 import { Product, User } from "../models/models.js";
+import { formatProductsForCard } from './product/product.helper.js';
 
 class UserController {
   getById = async (req, res, next) => {
@@ -16,14 +17,14 @@ class UserController {
 
       if (!user) return next(ApiErrorHandler.notFound("Такого пользователя не найдено"));
 
-      const favourites = await user.getProducts({ attributes: { exclude: ["rating", "info"] } });
+      const favourites = await user.getProducts();
 
       const productsWithoutFavourites = favourites.map(({ dataValues }) => {
         const { favourites, ...rest } = dataValues; // favourites - объект, связывающий пользователя и товар из соответствующей таблицы
         return rest;
       });
 
-      return res.json({ user, favourites: productsWithoutFavourites })
+      return res.json({ user, favourites: formatProductsForCard(productsWithoutFavourites) })
     } catch (error) {
       return next(ApiErrorHandler.internal(error.message));
     }
