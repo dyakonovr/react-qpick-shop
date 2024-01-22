@@ -30,7 +30,7 @@ export async function seedProducts(length, categoriesLength) {
 function getImages(length) {
   const arr = [];
   for (let i = 0; i < length; i++) {
-    arr.push(faker.image.urlLoremFlickr({ category: 'technics', width: 200, height: 200 }));
+    arr.push(faker.image.urlLoremFlickr({ category: 'technics', width: 300, height: 300 }));
   }
   return arr;
 }

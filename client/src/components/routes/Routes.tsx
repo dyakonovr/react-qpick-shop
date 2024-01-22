@@ -6,11 +6,14 @@ import AuthForm from '../screens/Auth/Auth';
 import Favourites from '../screens/Favourites/Favourites';
 import Home from '../screens/Home/Home';
 import Item from '../screens/Item/Item';
+import { Toaster } from '../ui/toaster';
 import PrivateRoutes from './components/ProtectedRoutes';
+import Cart from "../screens/Cart/Cart";
 
 function Paths() {
   return (
     <div className="container">
+      <Toaster />
       <BrowserRouter>
         <ScrollToTop />
         <Routes>
@@ -18,11 +21,11 @@ function Paths() {
           <Route path={PagePaths.HOME} element={<Layout />}>
             <Route index element={<Home />} />
             <Route path={PagePaths.ITEM} element={<Item />} />
-            
-            <Route element={<PrivateRoutes />}>
+
+            {/* <Route element={<PrivateRoutes />}> */}
               <Route path={PagePaths.FAVOURITES} element={<Favourites />} />
-              {/*<Route path={PagePaths.CART} element={<Cart />} />
-              <Route path={PagePaths.ORDER} element={<Order />} />
+              <Route path={PagePaths.CART} element={<Cart />} />
+              {/* <Route path={PagePaths.ORDER} element={<Order />} />
               <Route
                 path={PagePaths.ADMIN.HOME}
                 element={
@@ -47,7 +50,7 @@ function Paths() {
                   </Admin>
                 }
               />*/}
-            </Route>
+            {/* </Route> */}
           </Route>
         </Routes>
       </BrowserRouter>

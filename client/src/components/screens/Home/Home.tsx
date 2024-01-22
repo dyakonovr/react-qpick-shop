@@ -1,5 +1,5 @@
 import CardsContainer from '@/components/shared/CardsContainer/CardsContainer';
-import { useProducts } from '@/hooks/features/products/useProducts';
+import { useProducts } from '@/hooks/features/useProducts';
 import Banner from './components/Banner/Banner';
 
 function Home() {

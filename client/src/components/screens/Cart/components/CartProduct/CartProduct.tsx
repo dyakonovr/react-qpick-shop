@@ -1,28 +1,28 @@
 import { normalizePrice } from '@/functions/normalizePrice';
+import { useActions } from '@/hooks/general/useActions';
 import useDebounce from '@/hooks/general/useDebounce';
-import { useAppDispatch } from '@/hooks/useAppDispatch';
-import { IExtendedBasketProduct } from '@/interfaces/IBasketProduct';
+import { IBasketItem } from '@/services/basket/basket.types';
 import { useEffect, useState } from 'react';
-import changeBasketProductQuantity from '../../api/changeBasketProductQuantity';
-import deleteBasketProductRequest from '../../api/deleteBasketProductRequest';
 import classes from './CartProduct.module.scss';
 
 interface ICartProductProps {
-  product: IExtendedBasketProduct;
+  basketItem: IBasketItem;
 }
 
-function CartProduct({ product }: ICartProductProps) {
-  const dispatch = useAppDispatch();
+function CartProduct({ basketItem }: ICartProductProps) {
+  const { id: basketItemId, product, quantity } = basketItem;
+  const { deleteProductFromBasket, updateBasketItemQuantity } = useActions();
 
-  const [productQuantity, setProductQuantity] = useState<number>(
-    product.quantity
-  );
+  const [productQuantity, setProductQuantity] = useState<number>(quantity);
   const debouncedProductQuantity = useDebounce<number>(productQuantity, 500);
 
   useEffect(() => {
-    if (debouncedProductQuantity === product.quantity) return;
+    if (debouncedProductQuantity === quantity) return;
 
-    dispatch(changeBasketProductQuantity(product.id, debouncedProductQuantity));
+    updateBasketItemQuantity({
+      basketItemId,
+      quantity: debouncedProductQuantity,
+    });
   }, [debouncedProductQuantity]);
 
   return (
@@ -32,7 +32,7 @@ function CartProduct({ product }: ICartProductProps) {
     >
       <button
         className={classes['item__btn-delete']}
-        onClick={() => dispatch(deleteBasketProductRequest(product.id))}
+        onClick={() => deleteProductFromBasket(basketItemId)}
         data-product-id={product.id}
       ></button>
       <div className={classes.item__content}>
@@ -63,7 +63,7 @@ function CartProduct({ product }: ICartProductProps) {
           ></button>
         </div>
         <span className={classes['item__total-price']}>
-          {normalizePrice(product.price * product.quantity)}
+          {normalizePrice(product.price * quantity)}
         </span>
       </div>
     </li>

@@ -1,10 +1,10 @@
 import { Router } from "express";
 import BasketController from "../../controllers/basket.controller.js";
-import checkRoleMiddleware from "../../middleware/check-role.middleware.js";
+import { isAuthMiddleware } from './../../middleware/is-auth.middleware.js';
 
 const basketRouter = new Router();
 
-basketRouter.post("/", checkRoleMiddleware("ADMIN"));
-basketRouter.get("/:id", BasketController.getById);
+basketRouter.post("/create/:userId", BasketController.create);
+basketRouter.get("/", isAuthMiddleware, BasketController.getById);
 
 export default basketRouter;

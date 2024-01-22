@@ -1,0 +1,27 @@
+.info__btns {
+  display: flex;
+  flex-direction: column;
+  gap: var(--medium-offset);
+  grid-column: span 2;
+}
+
+.info_btn {
+  height: 45px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+
+  &:disabled {
+    color: var(--color-black);
+    background-color: var(--color-white);
+    cursor: default;
+  }
+
+  &--edit {
+    background-color: rgb(234 88 12) !important;
+  }
+
+  &--delete {
+    background-color: rgb(220 38 38) !important;
+  }
+}

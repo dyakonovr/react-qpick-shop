@@ -1,5 +1,5 @@
-import { ICategory } from '@/interfaces/category.interface';
-import { IExtendedProduct } from '@/interfaces/product.interface';
+import { ICategory } from '@/types/category.types';
+import { IExtendedProduct } from '@/types/product.types';
 import Card from '../Card/Card';
 import classes from './Category.module.scss';
 

@@ -74,33 +74,5 @@
       font-weight: 500;
       color: var(--color-black);
     }
-
-    &__btns {
-      display: flex;
-      flex-direction: column;
-      gap: var(--medium-offset);
-      grid-column: span 2;
-    }
-
-    &__btn {
-      height: 45px;
-      font-size: 15px;
-      font-weight: 500;
-      cursor: pointer;
-
-      &:disabled {
-        color: var(--color-black);
-        background-color: var(--color-white);
-        cursor: default;
-      }
-
-      &--edit {
-        	background-color: rgb(234 88 12);
-      }
-
-      &--delete {
-        	background-color: rgb(220 38 38);
-      }
-    }
   }
 }

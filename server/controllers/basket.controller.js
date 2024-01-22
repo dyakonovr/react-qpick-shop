@@ -1,33 +1,42 @@
 import { ApiErrorHandler } from "../error/api-error.handler.js";
-import { Basket } from "../models/models.js";
+import { Basket, BasketItem, Product } from "../models/models.js";
+import { formatBasketItemData } from "./basket-item/basket-item.helper.js";
 
 class BasketController {
   create = async (req, res, next) => {
     try {
-      const { name } = req.body;
-      const basket = await Basket.create({ name });
+      const { userId } = req.params;
+      const basket = await Basket.create({ user_id: userId });
       return res.json(basket);
     } catch (error) {
       next(ApiErrorHandler.internal(error.message));
     }
   }
-  
+
   getById = async (req, res, next) => {
     try {
-      const { id } = req.params;
-      const basket = await Basket.findByPk(id);
+      const { id } = req.user;
+      if (!id) next(ApiErrorHandler.notFound("Не указан id пользователя"));
+
+      const basket = await Basket.findOne({ where: { user_id: id } });
+
       if (!basket) next(ApiErrorHandler.notFound("Такой корзины не найдено"));
 
-      return res.json(basket);
-    } catch (error) {
-      next(ApiErrorHandler.internal(error.message));
-    }
-  }
-   
-  getAll = async (req, res, next) => {
-    try {
-      const baskets = await Basket.findAll();
-      return res.json(baskets);
+      const basketItems = await BasketItem.findAll({
+        where: { basket_id: basket.id },
+        attributes: { exclude: ['basket_id', 'product_id'] },
+        include: {
+          model: Product,
+          attributes: { exclude: ['slug', 'rating', 'info', 'category_id'] }
+        },
+      });
+
+      const formattedBasketItems = basketItems.map(formatBasketItemData);
+
+      return res.json({
+        id: basket.id,
+        products: formattedBasketItems
+      });
     } catch (error) {
       next(ApiErrorHandler.internal(error.message));
     }

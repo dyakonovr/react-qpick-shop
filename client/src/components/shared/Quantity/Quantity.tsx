@@ -5,6 +5,8 @@ interface IQuantityProps {
 }
 
 function Quantity({ quantity }: IQuantityProps) {
+  if (quantity === 0) return null;
+
   const quantityClasses = quantity <= 9 ? classes.quantity : `${classes.quantity} ${classes["quantity--small"]}`;
 
   return (

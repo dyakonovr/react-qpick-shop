@@ -59,7 +59,7 @@ class ProductController {
       next(ApiErrorHandler.internal(error.message));
     }
   }
-   
+
   getSimilar = async (req, res, next) => {
     try {
       const { id } = req.params;

@@ -16,12 +16,12 @@ class AuthController {
       const hashPassword = await hash(password);
       const user = await User.create({ email, role: (role || "USER"), password: hashPassword });
 
-      await Basket.create({ userId: user.id });
+      await Basket.create({ user_id: user.id });
       const tokens = this.issueTokens(user.id, user.role, user.email);
 
       return res.json({ user: this.returnUserFields(user), ...tokens });
     } catch (error) {
-      return next(ApiError.badRequest(error));
+      return next(ApiErrorHandler.internal(error));
     }
   }
    

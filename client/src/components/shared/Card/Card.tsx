@@ -1,10 +1,10 @@
 import { normalizeRating } from '@/functions/normalizeRating';
 import { normalizeText } from '@/functions/normalizeText';
-import { IProduct } from '@/interfaces/product.interface';
+import { IProduct } from '@/types/product.types';
 import { Link } from 'react-router-dom';
-import LikeButton from '../LikeButton/LikeButton';
 import Price from '../Price/Price';
 import classes from './Card.module.scss';
+import LikeButton from "../LikeButton/LikeButton";
 
 function Card({ id, name, price, img, rating }: IProduct) {
   return (

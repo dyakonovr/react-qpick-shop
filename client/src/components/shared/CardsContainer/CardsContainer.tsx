@@ -1,4 +1,4 @@
-import { IProduct } from '@/interfaces/product.interface';
+import { IProduct } from '@/types/product.types';
 import Card from '../Card/Card';
 import classes from './CardsContainer.module.scss';
 

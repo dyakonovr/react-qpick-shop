@@ -1,4 +1,4 @@
-import IProduct from "interfaces/store/database/IProduct";
+import { IProduct } from '@/types/product.types';
 
 export function compareTermAndProduct(product: IProduct, term: string) {
   const productName = product.name.toLowerCase();

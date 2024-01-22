@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import classes from './Footer.module.scss';
 import Logo from "@/components/shared/Logo/Logo";
+import { memo } from "react";
 
 function Footer() {
+  // console.log("<Footer /> render");
   return (
     <footer className={classes.footer}>
       <Logo />
@@ -26,4 +28,4 @@ function Footer() {
   );
 };
 
-export default Footer;
+export default memo(Footer);

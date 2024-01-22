@@ -4,13 +4,23 @@ import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
+import { useTypedSelector } from "@/hooks/general/useTypedSelector";
+import { getUserInfoSelector } from "@/store/slices/user/user.selectors";
 
 function Layout() {
-  const { checkAuth } = useActions();
+  const { id } = useTypedSelector(getUserInfoSelector);
+  const { checkAuth, fetchFavourites, fetchBasketAndItems } = useActions();
 
   useEffect(() => {
     if (checkAccessToken()) checkAuth();
   }, []);
+
+  useEffect(() => {
+    if (!id) return;
+
+    fetchFavourites();
+    fetchBasketAndItems();
+  }, [id]);
 
   return (
     <>

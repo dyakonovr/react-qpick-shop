@@ -1,33 +1,57 @@
-import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useAppDispatch } from "@/hooks/useAppDispatch";
-import { useAppSelector } from "@/hooks/useAppSelector";
-import { IProductWithoutId } from "@/interfaces/product.interface";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
-import { useFieldArray, useForm } from "react-hook-form";
-import * as z from "zod";
-import createProduct from "../../api/createProduct";
-import fetchCategories from "../../api/fetchCategories";
+import { Button } from '@/components/ui/button';
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { useAppDispatch } from '@/hooks/useAppDispatch';
+import { useAppSelector } from '@/hooks/useAppSelector';
+import { IProductWithoutId } from '@/types/product.types';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useEffect } from 'react';
+import { useFieldArray, useForm } from 'react-hook-form';
+import * as z from 'zod';
+import createProduct from '../../api/createProduct';
+import fetchCategories from '../../api/fetchCategories';
 
 const profileFormSchema = z.object({
-  name: z.string().min(3, {message: "Минимальная длина имени товара - 3 символа"}),
-  categoryId: z.string().min(0, {message: "TypeID не может быть меньше 0"}),
-  price: z.string().min(0, {message: "Минимальная цена продукта - 0"}),
-  rating: z.string().min(0, {message: "Минимальный рейтинг - 0"}),
-  info: z.array(
-    z.object({
-      value: z.string().min(10, {message: "Минимальная длина характеристики - 10 символов"}),
-    })
-  ).min(3, {message: "Минимум должна быть одна характеристика"}),
-  imgs: z.array(
-    z.object({
-      value: z.string().url({ message: "Введите валидную ссылку на фотографию." }),
-    })
-  ).min(1, {message: "Минимум должна быть одна ссылка на фотографию"})
-})
+  name: z
+    .string()
+    .min(3, { message: 'Минимальная длина имени товара - 3 символа' }),
+  categoryId: z.string().min(0, { message: 'TypeID не может быть меньше 0' }),
+  price: z.string().min(0, { message: 'Минимальная цена продукта - 0' }),
+  rating: z.string().min(0, { message: 'Минимальный рейтинг - 0' }),
+  info: z
+    .array(
+      z.object({
+        value: z.string().min(10, {
+          message: 'Минимальная длина характеристики - 10 символов',
+        }),
+      })
+    )
+    .min(3, { message: 'Минимум должна быть одна характеристика' }),
+  imgs: z
+    .array(
+      z.object({
+        value: z
+          .string()
+          .url({ message: 'Введите валидную ссылку на фотографию.' }),
+      })
+    )
+    .min(1, { message: 'Минимум должна быть одна ссылка на фотографию' }),
+});
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
@@ -36,31 +60,33 @@ export function AdminProductForm() {
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues: {
-      name: "",
-      rating: "",
-      price: "",
+      name: '',
+      rating: '',
+      price: '',
       info: [],
-      categoryId: "",
-      imgs: []
+      categoryId: '',
+      imgs: [],
     },
-    mode: "onChange",
-  })
+    mode: 'onChange',
+  });
 
   const { fields: urlsFields, append: urlsAppend } = useFieldArray({
-    name: "imgs",
+    name: 'imgs',
     control: form.control,
   });
 
   const { fields: infoFields, append: infoAppend } = useFieldArray({
-    name: "info",
+    name: 'info',
     control: form.control,
   });
   // Валидация и настройка формы END
 
   const dispatch = useAppDispatch();
-  const categories = useAppSelector(state => state.categoriesSlice.categories);
+  const categories = useAppSelector(
+    (state) => state.categoriesSlice.categories
+  );
 
-  useEffect(() => { 
+  useEffect(() => {
     if (categories !== null) return;
 
     dispatch(fetchCategories());
@@ -73,8 +99,8 @@ export function AdminProductForm() {
       rating: Number(data.rating),
       price: Number(data.price),
       categoryId: Number(data.categoryId),
-      imgs: data.imgs.map(obj => obj.value),
-      info: data.info.map(obj => obj.value),
+      imgs: data.imgs.map((obj) => obj.value),
+      info: data.info.map((obj) => obj.value),
     };
 
     dispatch(createProduct(product));
@@ -111,7 +137,12 @@ export function AdminProductForm() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {categories && categories.map(category => <SelectItem key={category.id} value={String(category.id)}>{category.name} (id: {category.id})</SelectItem>)}
+                  {categories &&
+                    categories.map((category) => (
+                      <SelectItem key={category.id} value={String(category.id)}>
+                        {category.name} (id: {category.id})
+                      </SelectItem>
+                    ))}
                 </SelectContent>
               </Select>
               <FormMessage />
@@ -132,7 +163,7 @@ export function AdminProductForm() {
             </FormItem>
           )}
         />
-        
+
         <FormField
           control={form.control}
           name="rating"
@@ -140,13 +171,20 @@ export function AdminProductForm() {
             <FormItem>
               <FormLabel>Рейтинг</FormLabel>
               <FormControl>
-                <Input placeholder="5.0" type="number" step={0.1} min={0} max={5} {...field} />
+                <Input
+                  placeholder="5.0"
+                  type="number"
+                  step={0.1}
+                  min={0}
+                  max={5}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        
+
         <div>
           <FormLabel className="mr-2">Характеристики</FormLabel>
           {infoFields.map((field, index) => (
@@ -164,13 +202,16 @@ export function AdminProductForm() {
               )}
             />
           ))}
-          <FormDescription>Вводите характеристики в формате (без кавычек) - "Название_характеристики: текст"</FormDescription>
+          <FormDescription>
+            Вводите характеристики в формате (без кавычек) -
+            "Название_характеристики: текст"
+          </FormDescription>
           <Button
             type="button"
             variant="outline"
             size="sm"
             className="mt-2"
-            onClick={() => infoAppend({ value: "" })}
+            onClick={() => infoAppend({ value: '' })}
           >
             Добавить характеристику
           </Button>
@@ -198,7 +239,7 @@ export function AdminProductForm() {
             variant="outline"
             size="sm"
             className="mt-2"
-            onClick={() => urlsAppend({ value: "" })}
+            onClick={() => urlsAppend({ value: '' })}
           >
             Добавить URL
           </Button>
@@ -206,5 +247,5 @@ export function AdminProductForm() {
         <Button type="submit">Создать товар</Button>
       </form>
     </Form>
-  )
+  );
 }

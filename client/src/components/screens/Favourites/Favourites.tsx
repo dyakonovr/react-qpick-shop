@@ -1,8 +1,8 @@
 import CardsContainer from '@/components/shared/CardsContainer/CardsContainer';
-import { useFavourites } from '@/hooks/features/useFavourites';
+import { useTypedSelector } from '@/hooks/general/useTypedSelector';
 
 function Favourites() {
-  const { favourites } = useFavourites();
+  const favourites = useTypedSelector((state) => state.favourites.data);
 
   return (
     <section className="rows-container">

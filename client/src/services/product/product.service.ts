@@ -1,5 +1,5 @@
 import { $axios } from '@/api/api.interceptor';
-import { IExtendedProduct } from '@/interfaces/product.interface';
+import { IExtendedProduct } from '@/types/product.types';
 import {
   IProductResponse,
   ProductDataFiltersType,

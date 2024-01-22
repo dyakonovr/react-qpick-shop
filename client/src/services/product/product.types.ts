@@ -1,4 +1,4 @@
-import { IExtendedProduct, IProduct } from '@/interfaces/product.interface';
+import { IExtendedProduct, IProduct } from '@/types/product.types';
 
 export type ProductDataType = Omit<IExtendedProduct, 'id'>;
 

@@ -1,12 +1,9 @@
 import customAxios from '@/axios';
 import { toast } from '@/components/ui/use-toast';
 import { ServerPaths } from '@/enum/ServerPaths';
-import {
-  IExtendedProduct,
-  IProductWithoutId,
-} from '@/interfaces/product.interface';
 import { addProduct } from '@/store/slices/products.slice';
 import { AppDispatch } from '@/store/store';
+import { IExtendedProduct, IProductWithoutId } from '@/types/product.types';
 import { AxiosResponse } from 'axios';
 
 function createProduct(product: IProductWithoutId) {

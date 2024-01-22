@@ -1,9 +1,9 @@
-export interface IProductInfo {
+export type IProductInfo = {
   name: string;
   value: string;
 }
 
-export interface IProduct {
+export type IProduct = {
   id: number;
   name: string;
   price: number;
@@ -11,7 +11,9 @@ export interface IProduct {
   img: string;
 }
 
-export interface IExtendedProduct {
+export type IBasketProduct = Omit<IProduct, 'rating'>;
+
+export type IExtendedProduct = {
   id: number;
   name: string;
   price: number;
@@ -21,9 +23,5 @@ export interface IExtendedProduct {
   info: string;
   discountId: number | null;
 }
-
-// export interface IExtendedProductWithDecodedInfo extends Omit<IExtendedProductWithEncodedInfo, 'info'> {
-//   info: IProductInfo[];
-// }
 
 export type IProductWithoutId = Omit<IExtendedProduct, 'id'>;

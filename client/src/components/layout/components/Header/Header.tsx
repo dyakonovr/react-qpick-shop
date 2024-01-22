@@ -1,38 +1,28 @@
 import Logo from '@/components/shared/Logo/Logo';
 import Quantity from '@/components/shared/Quantity/Quantity';
-import { useProfile } from "@/hooks/features/useProfile";
+import { toast } from '@/components/ui/use-toast';
+import { PagePaths } from '@/enum/PagePaths';
+import { useActions } from '@/hooks/general/useActions';
+import { useTypedSelector } from '@/hooks/general/useTypedSelector';
+import { getBasketQuantitySelector } from '@/store/slices/basket/basket.selectors';
+import { getFavouriteQuantitySelector } from '@/store/slices/favourites/favourites.selectors';
+import { getUserInfoSelector } from '@/store/slices/user/user.selectors';
 import { Link, useNavigate } from 'react-router-dom';
 import classes from './Header.module.scss';
-import { PagePaths } from "@/enum/PagePaths";
-import { toast } from "@/components/ui/use-toast";
-import { useActions } from "@/hooks/general/useActions";
-import { useQueryClient } from "@tanstack/react-query";
 
 function Header() {
-  const { favourites, isAdmin, isAuth } = useProfile();
+  const { isAuth, isAdmin } = useTypedSelector(getUserInfoSelector);
   const { logout } = useActions();
-  const favouritesQuantity = favourites.length;
+  const favouritesQuantity = useTypedSelector(getFavouriteQuantitySelector);
+  const basketItemsQuantity = useTypedSelector(getBasketQuantitySelector);
   const navigate = useNavigate();
-
-  const queryClient = useQueryClient();
-  // const dispatch = useAppDispatch();
-  // const { isAuth } = useAuth();
-  // const role = useAppSelector((state) => state.userSlice.role);
-  // const cartProductsQuantity = useAppSelector(
-  //   (state) => state.basketSlice.products?.length
-  // );
 
   // Функции
   async function handleButton() {
     if (!isAuth) return navigate(PagePaths.AUTHENTICATION.LOGIN);
-    
+
     logout();
-    queryClient.removeQueries({
-      queryKey: ['profile']
-    })
-    toast({
-      title: `Вы успешно вышли из аккаунта!`,
-    });
+    toast({ title: `Вы успешно вышли из аккаунта!` });
   }
   // Функции END
 
@@ -45,18 +35,14 @@ function Header() {
           to="/favourites"
           className={[classes.header__btn, classes.header__favourite].join(' ')}
         >
-          {favouritesQuantity !== 0 && (
-            <Quantity quantity={favouritesQuantity} />
-          )}
+          <Quantity quantity={favouritesQuantity} />
         </Link>
-        {/* <Link
+        <Link
           to={PagePaths.CART}
           className={[classes.header__btn, classes.header__cart].join(' ')}
         >
-          {!!cartProductsQuantity && (
-            <Quantity quantity={cartProductsQuantity} />
-          )}
-        </Link>*/}
+          <Quantity quantity={basketItemsQuantity} />
+        </Link>
         <button onClick={handleButton}>{isAuth ? 'Выйти' : 'Войти'}</button>
         {isAdmin && <Link to={PagePaths.ADMIN.HOME}>Админка</Link>}
       </div>

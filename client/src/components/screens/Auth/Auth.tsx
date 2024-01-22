@@ -9,7 +9,6 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { PagePaths } from '@/enum/PagePaths';
-import { useAuth } from '@/hooks/features/useAuth';
 import { useActions } from '@/hooks/general/useActions';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
@@ -20,7 +19,7 @@ import { AuthFormValuesType, AuthType } from './auth.types';
 
 export function AuthForm() {
   const navigate = useNavigate();
-  const { isLoading } = useAuth(); // Для лоадера
+  // const { isLoading } = useAuth(); // Для лоадера
   const { auth } = useActions();
   const [type, setType] = useState<AuthType>('login');
 
