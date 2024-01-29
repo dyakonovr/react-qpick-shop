@@ -1,8 +1,9 @@
 import { Op } from "sequelize";
+
 import { ApiErrorHandler } from "../../error/api-error.handler.js";
-import { generateSlug } from "../../helpers/generate-slug.helper.js";
 import { Category, Product } from "../../models/models.js";
-import { formatProductsForCard } from "./product.helper.js";
+import { formatProductsForCard, getFilters } from "./product.helper.js";
+import { generateSlug } from "../../helpers/generate-slug.helper.js";
 
 class ProductController {
   create = async (req, res, next) => {
@@ -19,7 +20,16 @@ class ProductController {
   getById = async (req, res, next) => {
     try {
       const { id } = req.params;
-      const product = await Product.findByPk(id);
+      const product = await Product.findByPk(
+        id,
+        {
+          include: {
+            model: Category,
+            attributes: {exclude: ["slug"]}
+          },
+          attributes: {exclude: ["category_id"]}
+        }
+      );
 
       if (!product) return next(ApiErrorHandler.notFound("Продукт не найден"));
 
@@ -82,12 +92,26 @@ class ProductController {
 
   getAll = async (req, res, next) => {
     try {
-      const page = parseInt(req.query.page) || 1; // Получаем номер страницы из запроса или устанавливаем значение по умолчанию
-      const perPage = parseInt(req.query.perPage) || 10; // Количество элементов на странице по умолчанию
-
+      const page = parseInt(req.body.page) || 1;
+      const perPage = parseInt(req.body.perPage) || 9;
       const offset = (page - 1) * perPage; // Вычисляем смещение
 
-      const products = await Product.findAndCountAll({ limit: perPage, offset });
+      const { filters } = req.body;
+      const [whereFilters, includeFilters] = await getFilters(filters);
+      const config = {
+        limit: perPage,
+        offset
+      };
+
+      if (whereFilters) {
+        config.where = whereFilters;
+      }
+
+      if (Object.keys(includeFilters).length !== 0) {
+        config.include = includeFilters;
+      }
+
+      const products = await Product.findAndCountAll(config);
 
       const totalPages = Math.ceil(products.count / perPage); // Вычисляем общее количество страниц
 

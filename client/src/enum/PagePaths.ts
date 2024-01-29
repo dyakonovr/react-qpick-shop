@@ -1,6 +1,7 @@
 export const PagePaths = {
   HOME: "/",
   ITEM: "/item",
+  CATALOG: "/catalog",
   CART: "/cart",
   ORDER: "/order",
   FAVOURITES: "/favourites",
@@ -13,5 +14,5 @@ export const PagePaths = {
   AUTHENTICATION: {
     LOGIN: "/login",
     REGISTRATION: "/registration"
-  }
+  },
 }

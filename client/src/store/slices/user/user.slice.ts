@@ -1,41 +1,44 @@
-import { getValueFromLocalStorage } from "@/functions/getValueFromLocalStorage";
+import { getValueFromLocalStorage } from '@/functions/getValueFromLocalStorage';
 import { createSlice } from '@reduxjs/toolkit';
-import { checkAuth, auth, logout } from "./user.actions";
-import { IInitialState } from "./user.interface";
+import { auth, checkAuth, logout } from './user.actions';
+import { IInitialState } from './user.interface';
+
+type Status = 'loading' | 'success' | 'error';
 
 const initialState: IInitialState = {
   user: getValueFromLocalStorage('user'),
-  isLoading: false
-}
- 
+  isLoading: false,
+};
+
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(auth.pending, (state) => {
-      state.isLoading = true;
-    })
-    
-    .addCase(auth.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.user = action.payload.user;
-    })
-      
-    .addCase(auth.rejected, (state) => {
-      state.isLoading = false;
-      state.user = null;
-    })
+    builder
+      .addCase(auth.pending, (state) => {
+        state.isLoading = true;
+      })
 
-    .addCase(logout.fulfilled, (state) => {
-      state.isLoading = false;
-      state.user = null;
-    })
+      .addCase(auth.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.user = action.payload.user;
+      })
 
-    .addCase(checkAuth.fulfilled, (state, action) => {
-      state.user = action.payload.user;
-    })
-  }
+      .addCase(auth.rejected, (state) => {
+        state.isLoading = false;
+        state.user = null;
+      })
+
+      .addCase(logout.fulfilled, (state) => {
+        state.isLoading = false;
+        state.user = null;
+      })
+
+      .addCase(checkAuth.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+      });
+  },
 });
 
 export default userSlice.reducer;

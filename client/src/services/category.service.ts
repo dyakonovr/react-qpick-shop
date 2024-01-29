@@ -5,7 +5,8 @@ class CategorySerice {
   private url = '/category';
 
   getAll = async () => {
-    return $axios.get<ICategory[]>(this.url);
+    const response = await $axios.get<ICategory[]>(this.url);
+    return response.data;
   };
 
   getById = async (id: string | number) => {

@@ -2,11 +2,13 @@ import LikeButton from '@/components/shared/LikeButton/LikeButton';
 import Price from '@/components/shared/Price/Price';
 import { useProduct } from '@/hooks/features/useProduct';
 import { IProductInfo } from '@/types/product.types';
-import { useSearchParams } from 'react-router-dom';
+import { MoveLeft } from 'lucide-react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import classes from './Item.module.scss';
 import ItemButtons from './components/ItemButtons';
 
 function Item() {
+  const navigate = useNavigate();
   const [searchParams, _] = useSearchParams();
   const productId = Number(searchParams.get('id'));
 
@@ -23,7 +25,12 @@ function Item() {
 
   return (
     <section className={classes.item}>
-      {/* <strong className={`subtitle subtitle--gray`}>{category?.name}</strong> */}
+      <strong
+        onClick={() => navigate(-1)}
+        className={`subtitle ${classes.item__back_link}`}
+      >
+        <MoveLeft /> Назад
+      </strong>
       <div className={`block ${classes.content}`}>
         <div className={classes.content__main}>
           <LikeButton productId={productId} />
@@ -35,8 +42,15 @@ function Item() {
             ))}
           </div>
           <div className={classes.content__footer}>
-            <strong className={classes.content__title}>{product?.name}</strong>
-            <Price currentPrice={product?.price || 0} isBigFont={true} />
+            <div>
+              <strong className={`subtitle subtitle--gray`}>
+                {product.category.name}
+              </strong>
+              <strong className={classes.content__title}>
+                {product?.name}
+              </strong>
+            </div>
+            <Price currentPrice={product.price} isBigFont={true} />
           </div>
         </div>
       </div>
@@ -46,15 +60,11 @@ function Item() {
             Описание и характеристики
           </strong>
           <div className={classes.info__container}>
-            {product &&
-              productInfo.map((infoObject) => (
-                <p
-                  className={classes.info__text}
-                  key={`${infoObject.name}: ${infoObject.value}`}
-                >
-                  {`${infoObject.name}: ${infoObject.value}`}
-                </p>
-              ))}
+            {productInfo.map((infoObject) => (
+              <p className={classes.info__text} key={infoObject.name}>
+                {`${infoObject.name}: ${infoObject.value}`}
+              </p>
+            ))}
           </div>
         </div>
         <ItemButtons product={product} />

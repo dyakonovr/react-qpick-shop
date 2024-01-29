@@ -11,8 +11,6 @@ interface ILikeButtonProps {
 }
 
 function LikeButton({ productId }: ILikeButtonProps) {
-  const favourites = useTypedSelector(state => state.favourites.data);
-
   const isProductInFavourites = useTypedSelector(
     isProductInFavouritesSelector(productId)
   );

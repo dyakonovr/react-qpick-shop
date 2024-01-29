@@ -1,12 +1,14 @@
+import { normalizePrice } from '@/functions/normalizePrice';
 import { useTypedSelector } from '@/hooks/general/useTypedSelector';
 import { getBasketItemsAndTotalPriceSelector } from '@/store/slices/basket/basket.selectors';
 import { Link } from 'react-router-dom';
 import CartProduct from '../CartProduct/CartProduct';
 import classes from './FilledCart.module.scss';
-import { normalizePrice } from "@/functions/normalizePrice";
 
 function FilledCart() {
-  const { basketItems, total } = useTypedSelector(getBasketItemsAndTotalPriceSelector);
+  const { basketItems, total } = useTypedSelector(
+    getBasketItemsAndTotalPriceSelector
+  );
   if (!basketItems) return null;
 
   return (

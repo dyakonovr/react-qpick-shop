@@ -1,6 +1,4 @@
-import { IUser } from '@/types/user.types';
-
-export function getValueFromLocalStorage(key: string): IUser | null {
+export function getValueFromLocalStorage<T>(key: string): T | null {
   try {
     const value = localStorage.getItem(key);
     return value ? JSON.parse(value) : null;

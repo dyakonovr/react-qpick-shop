@@ -10,10 +10,10 @@ class ProductService {
   private url = '/product';
 
   getAll = async (queryData = {} as ProductDataFiltersType) => {
-    // return $axios.get<IProductResponse>(this.url + "asf", { params: queryData });
-    const response = await $axios.get<IProductResponse>(this.url, {
-      params: queryData,
-    });
+    const response = await $axios.post<IProductResponse>(
+      `${this.url}/get-all`,
+      queryData
+    );
     return response.data;
   };
 

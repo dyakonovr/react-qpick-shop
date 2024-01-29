@@ -3,6 +3,7 @@ import { useActions } from '@/hooks/general/useActions';
 import useDebounce from '@/hooks/general/useDebounce';
 import { IBasketItem } from '@/services/basket/basket.types';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import classes from './CartProduct.module.scss';
 
 interface ICartProductProps {
@@ -35,7 +36,7 @@ function CartProduct({ basketItem }: ICartProductProps) {
         onClick={() => deleteProductFromBasket(basketItemId)}
         data-product-id={product.id}
       ></button>
-      <div className={classes.item__content}>
+      <Link to={`/item?id=${product.id}`} className={classes.item__content}>
         <div className={classes.item__image}>
           <img src={product.img} alt={product.name} />
         </div>
@@ -45,7 +46,7 @@ function CartProduct({ basketItem }: ICartProductProps) {
             {normalizePrice(product.price)}
           </span>
         </div>
-      </div>
+      </Link>
       <div className={classes.item__footer}>
         <div className={classes.item__counter}>
           <button

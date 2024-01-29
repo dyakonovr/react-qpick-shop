@@ -34,18 +34,20 @@
     img {
       display: block;
       max-height: 140px;
+      border-radius: 15px;
     }
   }
 
   &__content {
     display: flex;
-    align-items: center;
     gap: var(--medium-offset);
+    width: fit-content;
   }
 
   &__info {
     display: flex;
     flex-direction: column;
+    margin: var(--small-offset) 0 0;
     gap: var(--small-offset);
   }
 

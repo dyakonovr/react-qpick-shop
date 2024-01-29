@@ -1,3 +1,4 @@
+import { IProductFitlers } from '@/hooks/features/products/filters.types';
 import { IExtendedProduct, IProduct } from '@/types/product.types';
 
 export type ProductDataType = Omit<IExtendedProduct, 'id'>;
@@ -10,7 +11,7 @@ export enum ProductSortEnum {
 }
 
 export type ProductDataFiltersType = {
-  sort?: ProductSortEnum;
+  filters?: IProductFitlers;
   searchTerm?: string;
   page?: string | number;
   perPage?: string | number;

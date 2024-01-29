@@ -9,6 +9,7 @@ import Item from '../screens/Item/Item';
 import { Toaster } from '../ui/toaster';
 import PrivateRoutes from './components/ProtectedRoutes';
 import Cart from "../screens/Cart/Cart";
+import Catalog from "../screens/Catalog/Catalog";
 
 function Paths() {
   return (
@@ -25,6 +26,7 @@ function Paths() {
             {/* <Route element={<PrivateRoutes />}> */}
               <Route path={PagePaths.FAVOURITES} element={<Favourites />} />
               <Route path={PagePaths.CART} element={<Cart />} />
+              <Route path={PagePaths.CATALOG} element={<Catalog />} />
               {/* <Route path={PagePaths.ORDER} element={<Order />} />
               <Route
                 path={PagePaths.ADMIN.HOME}
