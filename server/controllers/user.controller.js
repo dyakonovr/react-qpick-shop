@@ -30,31 +30,31 @@ class UserController {
     }
   };
 
-  toggleFavourite = async (req, res, next) => {
-    try {
-      const { id } = req.user;
-      const { productId } = req.params;
+  // toggleFavourite = async (req, res, next) => {
+  //   try {
+  //     const { id } = req.user;
+  //     const { productId } = req.params;
 
-      const user = await User.findByPk(id);
-      if (!user) return next(ApiErrorHandler.notFound("Такого пользователя не найдено"));
+  //     const user = await User.findByPk(id);
+  //     if (!user) return next(ApiErrorHandler.notFound("Такого пользователя не найдено"));
 
-      const product = await Product.findByPk(productId);
-      if (!product) return next(ApiErrorHandler.notFound("Такого продукта не найдено"));
+  //     const product = await Product.findByPk(productId);
+  //     if (!product) return next(ApiErrorHandler.notFound("Такого продукта не найдено"));
 
-      const favouriteProducts = await user.getProducts();
-      const isFavourite = favouriteProducts.some(product => product.id === parseInt(productId, 10));
+  //     const favouriteProducts = await user.getProducts();
+  //     const isFavourite = favouriteProducts.some(product => product.id === parseInt(productId, 10));
 
-      if (isFavourite) {
-        await user.removeProduct(product);
-        return res.json({ message: 'Продукт удален из избранного', added: false });
-      } else {
-        await user.addProduct(product);
-        return res.json({ message: 'Продукт добавлен в избранное', added: true });
-      }
-    } catch (error) {
-      return next(ApiErrorHandler.internal(error.message));
-    }
-  };
+  //     if (isFavourite) {
+  //       await user.removeProduct(product);
+  //       return res.json({ message: 'Продукт удален из избранного', added: false });
+  //     } else {
+  //       await user.addProduct(product);
+  //       return res.json({ message: 'Продукт добавлен в избранное', added: true });
+  //     }
+  //   } catch (error) {
+  //     return next(ApiErrorHandler.internal(error.message));
+  //   }
+  // };
 
   async delete(req, res, next) {
     try {

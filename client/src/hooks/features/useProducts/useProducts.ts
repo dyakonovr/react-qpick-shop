@@ -1,11 +1,11 @@
 import ProductService from '@/services/product/product.service';
+import { ProductQueryData } from '@/services/product/product.types';
 import { useQuery } from '@tanstack/react-query';
-import { IProductFitlers } from './filters.types';
 
-export const useProducts = (filters?: IProductFitlers) => {
+export const useProducts = (filters?: ProductQueryData) => {
   const { data, isSuccess } = useQuery({
     queryKey: ['products', filters],
-    queryFn: () => ProductService.getAll({filters}),
+    queryFn: () => ProductService.getAll(filters),
     staleTime: Infinity,
   });
 

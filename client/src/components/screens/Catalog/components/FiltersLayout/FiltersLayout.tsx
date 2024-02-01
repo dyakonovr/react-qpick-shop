@@ -1,39 +1,44 @@
+import { SheetClose } from '@/components/ui/sheet';
+import { useCategories } from '@/hooks/features/useCategories';
 import {
   IMinMaxRange,
   IProductFitlers,
-} from '@/hooks/features/products/filters.types';
-import { useCategories } from '@/hooks/features/useCategories';
-import { useEffect } from 'react';
+} from '@/hooks/features/useProducts/filters.types';
+import { useEffect, useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import CategoryFilter from '../CategoryFilter/CategoryFilter';
+import CheckboxesFilter from '../CheckboxesFilter/CheckboxesFilter';
 import RangeFilter from '../RangeFilter/RangeFilter';
-import { getDirtyValues } from './filters.helper';
+import { getDirtyValues } from './get-dirty-values.helper';
 
 export type FiltersFormValues = {
-  categories?: string[]; // number[]
+  categories?: string[]; // number[] after getDirtyValues();
   price?: IMinMaxRange;
   rating?: IMinMaxRange;
 };
 
 type FiltersLayoutProps = {
-  changeFiltersInUrl: (filters: IProductFitlers) => void;
+  changeFilters: (filters: IProductFitlers) => void;
   filters: IProductFitlers;
 };
 
-function FiltersLayout({ filters, changeFiltersInUrl }: FiltersLayoutProps) {
+function FiltersLayout({ filters, changeFilters }: FiltersLayoutProps) {
   const methods = useForm<FiltersFormValues>({ mode: 'onChange' });
-  const { handleSubmit, setValue } = methods;
+  const { handleSubmit, setValue, reset } = methods;
   const { categories } = useCategories();
+  const closeSheetButtonRef = useRef(null);
 
   useEffect(() => {
-    if (Object.keys(filters).length === 0) return;
+    if (Object.keys(filters).length === 0) return reset();
 
     setAllFormValues();
   }, [filters]);
 
   // Функции
   function onSubmit(data: FiltersFormValues) {
-    changeFiltersInUrl(getDirtyValues(data));
+    const dirtyValues = getDirtyValues(data, {
+      tryToParseNumbersInArray: true,
+    });
+    changeFilters(dirtyValues);
   }
 
   function setAllFormValues() {
@@ -45,7 +50,7 @@ function FiltersLayout({ filters, changeFiltersInUrl }: FiltersLayoutProps) {
         if (filter instanceof Object && !Array.isArray(filter)) {
           let innerObjectKey: keyof typeof filter;
           for (innerObjectKey in filter) {
-            // Я не знаю, как иначе =(
+            // Я не знаю, как иначе ＞﹏＜
             // @ts-ignore
             setValue(`${filterKey}.${innerObjectKey}`, filter[innerObjectKey]);
           }
@@ -72,22 +77,35 @@ function FiltersLayout({ filters, changeFiltersInUrl }: FiltersLayoutProps) {
           filterTitle="Цена"
           registerMinInputKey="price.min"
           registerMaxInputKey="price.max"
-          min="0"
-          max="10000"
-          step="1"
+          min={0}
+          max={10000}
+          step={1}
         />
-        {categories && <CategoryFilter data={categories} />}
+        {categories && (
+          <CheckboxesFilter filterTitle="Категория" data={categories} />
+        )}
         <RangeFilter
           filterTitle="Рейтинг"
           registerMinInputKey="rating.min"
           registerMaxInputKey="rating.max"
-          min="0"
-          max="1000"
-          step="1"
+          min={0}
+          max={5}
+          step={0.1}
         />
-        <button type="submit" className="link w-fit px-5 py-1">
-          Показать
-        </button>
+        <div className="flex gap-3">
+          <SheetClose asChild>
+            <button type="submit" className="link w-fit px-5 py-1">
+              Показать
+            </button>
+          </SheetClose>
+          <button
+            type="button"
+            className="link w-fit px-5 py-1"
+            onClick={() => changeFilters({})}
+          >
+            Очистить фильтры
+          </button>
+        </div>
       </form>
     </FormProvider>
   );

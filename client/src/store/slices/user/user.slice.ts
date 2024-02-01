@@ -8,6 +8,7 @@ type Status = 'loading' | 'success' | 'error';
 const initialState: IInitialState = {
   user: getValueFromLocalStorage('user'),
   isLoading: false,
+  errorMessage: null
 };
 
 const userSlice = createSlice({
@@ -25,9 +26,10 @@ const userSlice = createSlice({
         state.user = action.payload.user;
       })
 
-      .addCase(auth.rejected, (state) => {
+      .addCase(auth.rejected, (state, action) => {
         state.isLoading = false;
         state.user = null;
+        // state.errorMessage = 
       })
 
       .addCase(logout.fulfilled, (state) => {

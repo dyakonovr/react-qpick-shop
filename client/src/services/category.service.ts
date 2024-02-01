@@ -18,7 +18,7 @@ class CategorySerice {
   };
 
   create = async (name: string) => {
-    return $axios.post<ICategory>(`${this.url}`, { name });
+    return $axios.post<ICategory>(this.url, { name });
   };
 
   update = async (id: string | number, name: string) => {

@@ -6,7 +6,7 @@ class FavouritesService {
   private url = '/favourites';
 
   getAll = async () => {
-    return $axios.get<IProduct[]>(`${this.url}`);
+    return $axios.get<IProduct[]>(this.url);
   };
 
   create = async (productId: string | number) => {

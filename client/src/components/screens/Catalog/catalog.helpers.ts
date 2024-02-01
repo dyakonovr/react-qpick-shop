@@ -1,103 +1,55 @@
-import { FormValuesObject } from './catalog.types';
+import qs from 'qs';
 
-export function configurateUrlWithFilters(
-  obj: FormValuesObject,
-  isInnerObject: boolean = false
-) {
-  try {
-    if (Object.keys(obj).length === 0) return '';
-
-    let key: keyof typeof obj;
-    let result = '';
-
-    for (key in obj) {
-      const value = obj[key];
-
-      if ((Array.isArray(value) || value instanceof Object) && isInnerObject) {
-        throw new Error(
-          'Некорректный объект фильтров. Обработка 3 и более уровней вложенности объекта невозможна'
-        );
-      }
-
-      if (Array.isArray(value)) {
-        result += `${key}[]=${value.join(',')}&`;
-        continue;
-      }
-
-      if (value instanceof Object) {
-        // Только один уровень вложенности
-        result += `${key}{}=${configurateUrlWithFilters(value, true)}&`;
-        continue;
-      }
-
-      if (isInnerObject) result += `${key}:${value},`;
-      else result += `${key}=${value}&`;
-    }
-
-    return result.slice(0, result.length - 1);
-  } catch (error) {
-    console.log(error);
-    return '';
-  }
+export function configurateUrlParams<T extends Object>(object: T) {
+  return qs.stringify(object, {
+    skipNulls: true
+  });
 }
 
-export function parseUrlWithFilters(url: string): FormValuesObject {
-  if (!url) return {};
+type Config = {
+  tryToParseNumbersInArray?: true;
+  tryToParseNumbersInObject?: true;
+  tryToParsePrimitive?: true;
+};
 
-  try {
-    const array = getNormalStringFromUrl(url).split('&');
-    let result = {};
+export function parseParamsFromUrl<T extends Object>(
+  params: string,
+  config: Config = {}
+) {
+  const result = qs.parse(params, { allowDots: true }) as unknown as T; // ¯\_(ツ)_/¯
+  if (Object.keys(config).length === 0) return result;
+  return getParamsWithConfig<T>(result, config);
+}
 
-    for (let i = 0; i < array.length; i++) {
-      const [filterKey, filterString] = array[i].split('=');
+function getParamsWithConfig<T extends Object>(object: T, config?: Config) {
+  let key: keyof T;
 
-      if (filterKey.includes('[]')) {
-        result = {
-          ...result,
-          [filterKey.slice(0, filterKey.length - 2)]: filterString.split(','),
-        };
-        continue;
-      }
+  for (key in object) {
+    const value = object[key];
 
-      if (filterKey.includes('{}')) {
-        const keysAndValues = filterString.split(',');
-        let obj = {};
-
-        for (let j = 0; j < keysAndValues.length; j++) {
-          const [key, value] = keysAndValues[j].split(':');
-          obj = {
-            ...obj,
-            [key]: value,
-          };
-        }
-
-        result = {
-          ...result,
-          [filterKey.slice(0, filterKey.length - 2)]: obj,
-        };
-        continue;
-      }
-
-      result = {
-        ...result,
-        [filterKey]: filterString,
+    if (Array.isArray(value) && config?.tryToParseNumbersInArray) {
+      object = {
+        ...object,
+        [key]: value.map((el) => tryToParseValueInNumber(el)),
+      };
+      continue;
+    } else if (value instanceof Object && config?.tryToParseNumbersInObject) {
+      object = {
+        ...object,
+        [key]: getParamsWithConfig(value, config),
+      };
+      continue;
+    } else if (typeof value === 'string' && config?.tryToParsePrimitive) {
+      object = {
+        ...object,
+        [key]: tryToParseValueInNumber(value),
       };
     }
-
-    return result;
-  } catch (error) {
-    console.log(error);
-    return {};
   }
+
+  return object;
 }
 
-function getNormalStringFromUrl(url: string) {
-  return url
-    .replace(/%5B/g, '[')
-    .replace(/%5D/g, ']')
-    .replace(/%7B/g, '{')
-    .replace(/%7D/g, '}')
-    .replace(/%3A/g, ':')
-    .replace(/%2C/g, ',')
-    .slice(1); // delete "?"
+function tryToParseValueInNumber(value: string) {
+  return isNaN(+value) ? value : +value;
 }

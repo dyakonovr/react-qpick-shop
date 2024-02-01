@@ -1,6 +1,6 @@
 import CardsContainer from '@/components/shared/CardsContainer/CardsContainer';
 import { PagePaths } from '@/enum/PagePaths';
-import { useProducts } from '@/hooks/features/products/useProducts';
+import { useProducts } from '@/hooks/features/useProducts/useProducts';
 import { Link } from 'react-router-dom';
 import Banner from './components/Banner/Banner';
 

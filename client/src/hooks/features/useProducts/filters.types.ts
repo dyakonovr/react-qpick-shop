@@ -8,8 +8,3 @@ export type IMinMaxRange = {
   min?: number;
   max?: number;
 };
-
-export type IObjectWithIdAndName = {
-  id: number;
-  name: string;
-};

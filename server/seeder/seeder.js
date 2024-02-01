@@ -4,6 +4,6 @@ import { seedUsers } from "./seeders/user.seeder.js";
 
 const categoriesLength = 5;
 
-seedUsers();
-seedCategories(categoriesLength);
+// seedUsers();
+// seedCategories(categoriesLength);
 seedProducts(10, categoriesLength);

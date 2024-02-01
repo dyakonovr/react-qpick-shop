@@ -5,7 +5,7 @@ class OrderService {
   private url = '/order';
 
   getAll = async () => {
-    return $axios.get<IOrder[]>(`${this.url}`);
+    return $axios.get<IOrder[]>(this.url);
   };
 }
 

@@ -1,12 +1,13 @@
+import { TokenNames } from "@/enum/TokenNames";
 import { IAuthResponse } from '@/store/slices/user/user.interface';
 import Cookies from 'js-cookie';
 
 export const checkAccessToken = () => {
-  return !!Cookies.get('accessToken');
+  return !!Cookies.get(TokenNames.ACCESS_TOKEN);
 };
 
 export const getAccessToken = () => {
-  const accessToken = Cookies.get('accessToken');
+  const accessToken = Cookies.get(TokenNames.ACCESS_TOKEN);
   return accessToken || null;
 };
 
@@ -15,13 +16,13 @@ export const getUserFromStorage = () => {
 };
 
 export const removeFromStorage = () => {
-  Cookies.remove('accessToken');
-  Cookies.remove('refreshToken');
+  Cookies.remove(TokenNames.ACCESS_TOKEN);
+  Cookies.remove(TokenNames.REFRESH_TOKEN);
   localStorage.removeItem('user');
 };
 
 export const saveToStorage = (data: IAuthResponse) => {
-  Cookies.set('accessToken', data.accessToken);
-  Cookies.set('refreshToken', data.refreshToken);
+  Cookies.set(TokenNames.ACCESS_TOKEN, data.accessToken);
+  Cookies.set(TokenNames.REFRESH_TOKEN, data.refreshToken);
   localStorage.setItem('user', JSON.stringify(data.user));
 };

@@ -1,4 +1,4 @@
-import { IProductFitlers } from '@/hooks/features/products/filters.types';
+import { IProductFitlers } from '@/hooks/features/useProducts/filters.types';
 import { IExtendedProduct, IProduct } from '@/types/product.types';
 
 export type ProductDataType = Omit<IExtendedProduct, 'id'>;
@@ -10,14 +10,14 @@ export enum ProductSortEnum {
   OLDEST = 'oldest',
 }
 
-export type ProductDataFiltersType = {
+export type ProductQueryData = {
   filters?: IProductFitlers;
   searchTerm?: string;
   page?: string | number;
   perPage?: string | number;
 };
 
-export type IProductResponse = {
+export type ProductResponse = {
   products: IProduct[];
   currentPage: number;
   totalPages: number;

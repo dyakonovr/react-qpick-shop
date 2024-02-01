@@ -96,8 +96,8 @@ class ProductController {
       const perPage = parseInt(req.body.perPage) || 9;
       const offset = (page - 1) * perPage; // Вычисляем смещение
 
-      const { filters } = req.body;
-      const [whereFilters, includeFilters] = await getFilters(filters);
+      const { filters, searchTerm } = req.body;
+      const [whereFilters, includeFilters] = await getFilters(filters, searchTerm);
       const config = {
         limit: perPage,
         offset

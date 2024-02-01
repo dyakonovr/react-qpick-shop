@@ -1,10 +1,12 @@
-import { InputHTMLAttributes } from "react";
+import { InputHTMLAttributes } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 interface IRangeFitlerProps extends InputHTMLAttributes<HTMLInputElement> {
   filterTitle: string;
   registerMinInputKey: string;
   registerMaxInputKey: string;
+  min: number;
+  max: number;
 }
 
 function RangeFilter({
@@ -15,7 +17,33 @@ function RangeFilter({
   max,
   step,
 }: IRangeFitlerProps) {
-  const { register } = useFormContext();
+  const { register, setValue, getValues } = useFormContext();
+
+  // Функции
+  const handleMinInputBlur = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let minValue = +event.target.value;
+    let maxValue = getValues(registerMaxInputKey);
+
+    if (minValue && maxValue && minValue > maxValue) {
+      const newMaxValue = Math.min(max, Math.ceil(minValue * 1.2));
+      setValue(registerMaxInputKey, newMaxValue);
+    }
+
+    if (minValue) setValue(registerMinInputKey, Math.max(minValue, min));
+  };
+
+  const handleMaxInputBlur = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let maxValue = +event.target.value;
+    let minValue = getValues(registerMinInputKey);
+
+    if (minValue && maxValue && maxValue < minValue) {
+      const newMinValue = Math.max(min, Math.floor(maxValue * 0.8));
+      setValue(registerMinInputKey, newMinValue);
+    }
+
+    if (maxValue) setValue(registerMaxInputKey, Math.min(maxValue, max));
+  };
+  // Функции END
 
   return (
     <div>
@@ -28,7 +56,12 @@ function RangeFilter({
           min={min}
           max={max}
           step={step}
-          {...register(registerMinInputKey, { setValueAs: (value) => +value })}
+          {...register(registerMinInputKey, {
+            setValueAs: (value) => +value,
+            min,
+            max,
+          })}
+          onBlur={handleMinInputBlur}
         />
         <input
           type="number"
@@ -37,7 +70,12 @@ function RangeFilter({
           min={min}
           max={max}
           step={step}
-          {...register(registerMaxInputKey, { setValueAs: (value) => +value })}
+          {...register(registerMaxInputKey, {
+            setValueAs: (value) => +value,
+            min,
+            max,
+          })}
+          onBlur={handleMaxInputBlur}
         />
       </div>
     </div>

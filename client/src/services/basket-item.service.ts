@@ -5,7 +5,7 @@ class BasketItemService {
   private url = '/basket-item';
 
   create = async (productId: number, basketId: number) => {
-    return await $axios.post(`${this.url}/`, { productId, basketId });
+    return await $axios.post(this.url, { productId, basketId });
   };
 
   update = async (updateData: IUpdateBasketItemData) => {

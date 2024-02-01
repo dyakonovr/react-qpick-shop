@@ -5,7 +5,7 @@ class BasketService {
   private url = '/basket';
 
   getById = async () => {
-    return await $axios.get<IBasketResponse>(`${this.url}`);
+    return await $axios.get<IBasketResponse>(this.url);
   };
 }
 

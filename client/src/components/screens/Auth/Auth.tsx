@@ -17,9 +17,21 @@ import { useNavigate } from 'react-router-dom';
 import { AuthFormSchema } from './auth.constants';
 import { AuthFormValuesType, AuthType } from './auth.types';
 
+const textFields = {
+  login: {
+    title: 'Авторизация',
+    buttonSubmitText: 'Авторизироваться',
+    buttonChangeTypeText: 'регистрации',
+  },
+  registration: {
+    title: 'Регистрация',
+    buttonSubmitText: 'Зарегистрироваться',
+    buttonChangeTypeText: 'авторизации',
+  },
+};
+
 export function AuthForm() {
   const navigate = useNavigate();
-  // const { isLoading } = useAuth(); // Для лоадера
   const { auth } = useActions();
   const [type, setType] = useState<AuthType>('login');
 
@@ -29,19 +41,28 @@ export function AuthForm() {
       email: '',
       password: '',
     },
-    mode: 'onChange',
+    mode: 'onBlur',
   });
 
   // Функции
   async function onSubmit(data: AuthFormValuesType) {
+    // try {
     auth({ type, data });
-    navigate(PagePaths.HOME);
+    navigate(PagePaths.HOME, { replace: true });
+    // } catch (error) {
+    //   console.log(error);
+    // }
+  }
+
+  function handleChangeType() {
+    if (type === 'login') setType('registration');
+    else setType('login');
   }
   // Функции END
 
   return (
     <div className="flex flex-col w-full max-w-[500px] m-auto">
-      <h1 className="text-3xl mb-7 text-center">Авторизация</h1>
+      <h1 className="text-3xl mb-7 text-center">{textFields[type].title}</h1>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -76,8 +97,12 @@ export function AuthForm() {
           />
 
           <Button type="submit" className="max-w-[200px] w-full mx-auto">
-            Войти
+            {textFields[type].buttonSubmitText}
           </Button>
+
+          <button type="button" onClick={handleChangeType}>
+            Перейти к {textFields[type].buttonChangeTypeText}
+          </button>
         </form>
       </Form>
     </div>

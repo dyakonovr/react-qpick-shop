@@ -9,6 +9,7 @@ import { getFavouriteQuantitySelector } from '@/store/slices/favourites/favourit
 import { getUserInfoSelector } from '@/store/slices/user/user.selectors';
 import { Link, useNavigate } from 'react-router-dom';
 import classes from './Header.module.scss';
+import SearchInput from "./components/SearchInput";
 
 function Header() {
   const { isAuth, isAdmin } = useTypedSelector(getUserInfoSelector);
@@ -19,7 +20,7 @@ function Header() {
 
   // Функции
   async function handleButton() {
-    if (!isAuth) return navigate(PagePaths.AUTHENTICATION.LOGIN);
+    if (!isAuth) return navigate(PagePaths.AUTHENTICATION);
 
     logout();
     toast({ title: `Вы успешно вышли из аккаунта!` });
@@ -29,7 +30,7 @@ function Header() {
   return (
     <header className={classes.header}>
       <Logo />
-      {/* <SearchInput placeholder="Поиск..." /> */}
+      <SearchInput placeholder="Поиск..." />
       <div className={classes.header__right}>
         <Link
           to="/favourites"

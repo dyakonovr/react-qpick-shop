@@ -87,7 +87,6 @@ export const Order = sequelize.define('order', {
   ordered_products: { type: DataTypes.JSONB, allowNull: false },
 }, customCreatedAndUpdatedFields);
 
-
 export const Basket = sequelize.define('basket', {
   id: idSettingsObj,
 }, { timestamps: false });

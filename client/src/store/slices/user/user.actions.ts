@@ -3,6 +3,8 @@ import { AuthType } from '@/components/screens/Auth/auth.types';
 import { removeFromStorage } from '@/services/auth/auth.helper';
 import AuthService from '@/services/auth/auth.service';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { clearBasket } from '../basket/basket.slice';
+import { clearFavourites } from '../favourites/favourites.slice';
 import { IAuthResponse, IEmailPassword } from './user.interface';
 
 export const auth = createAsyncThunk<
@@ -17,9 +19,11 @@ export const auth = createAsyncThunk<
   }
 });
 
-export const logout = createAsyncThunk('auth/logout', async () =>
-  removeFromStorage()
-);
+export const logout = createAsyncThunk('auth/logout', async (_, thunkApi) => {
+  thunkApi.dispatch(clearBasket());
+  thunkApi.dispatch(clearFavourites());
+  removeFromStorage();
+});
 
 export const checkAuth = createAsyncThunk<IAuthResponse>(
   'auth/check-auth',

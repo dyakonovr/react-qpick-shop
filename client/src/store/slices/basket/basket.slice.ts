@@ -22,7 +22,13 @@ const initialState: IBasketInitialState = {
 const basketSlice = createSlice({
   name: 'basket',
   initialState,
-  reducers: {},
+  reducers: {
+    clearBasket(state) {
+      state.id = null;
+      state.isLoading = false;
+      state.items = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchBasketAndItems.pending, (state) => {
@@ -67,3 +73,4 @@ const basketSlice = createSlice({
 });
 
 export default basketSlice.reducer;
+export const { clearBasket } = basketSlice.actions;

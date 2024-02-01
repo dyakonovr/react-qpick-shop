@@ -1,16 +1,16 @@
 import { $axios } from '@/api/api.interceptor';
 import { IExtendedProduct } from '@/types/product.types';
 import {
-  IProductResponse,
-  ProductDataFiltersType,
   ProductDataType,
+  ProductQueryData,
+  ProductResponse,
 } from './product.types';
 
 class ProductService {
   private url = '/product';
 
-  getAll = async (queryData = {} as ProductDataFiltersType) => {
-    const response = await $axios.post<IProductResponse>(
+  getAll = async (queryData = {} as ProductQueryData) => {
+    const response = await $axios.post<ProductResponse>(
       `${this.url}/get-all`,
       queryData
     );
