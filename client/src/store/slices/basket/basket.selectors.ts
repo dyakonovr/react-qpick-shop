@@ -23,21 +23,26 @@ export function isProductInBasketSelector(productId: number) {
   };
 }
 
+export const getBasketInfoSelector = (state: RootType) => state.basket;
+
 export const getBasketItemsAndTotalPriceSelector = createSelector(
-  [getBasketItems],
-  (basketItems) => {
-    if (!basketItems || basketItems.length === 0) {
+  [getBasketInfoSelector],
+  (basket) => {
+    if (!basket.items || basket.items.length === 0) {
       return { total: 0, basketItems: [] };
     }
 
-    const total = basketItems.reduce(
+    const total = basket.items.reduce(
       (sum, item) => sum + item.product.price * item.quantity,
       0
     );
-    return { basketItems, total };
+    return { basketItems: basket.items, total, isLoading: basket.isLoading };
   }
 );
 
-export function getBasketQuantitySelector(state: RootType) {
-  return state.basket.items?.length || 0;
+export function getBasketInfoAndStatusSelector(state: RootType) {
+  return {
+    basketItemsQuantity: state.basket.items?.length || 0,
+    isLoading: state.basket.isLoading
+  };
 }

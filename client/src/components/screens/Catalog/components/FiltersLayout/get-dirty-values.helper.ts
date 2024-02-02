@@ -1,4 +1,4 @@
-import { FormValuesObject } from '../../catalog.types';
+import { FormValuesObject } from '../../types/catalog.types';
 
 type DirtyValuesConfig = {
   tryToParseNumbersInArray?: boolean;

@@ -3,11 +3,11 @@ import { ProductQueryData } from '@/services/product/product.types';
 import { useQuery } from '@tanstack/react-query';
 
 export const useProducts = (filters?: ProductQueryData) => {
-  const { data, isSuccess } = useQuery({
+  const { data, isLoading, isSuccess } = useQuery({
     queryKey: ['products', filters],
     queryFn: () => ProductService.getAll(filters),
     staleTime: Infinity,
   });
 
-  return { data, isSuccess };
+  return { data, isLoading, isSuccess };
 };

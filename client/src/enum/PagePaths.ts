@@ -2,7 +2,7 @@ export const PagePaths = {
   HOME: '/',
   ITEM: '/item',
   CATALOG: '/catalog',
-  CART: '/cart',
+  BASKET: '/basket',
   ORDER: '/order',
   FAVOURITES: '/favourites',
   SERVICE_CONDITIONS: '/conditions',
