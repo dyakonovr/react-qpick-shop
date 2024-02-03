@@ -8,7 +8,7 @@ import LikeButton from '../LikeButton';
 import Price from '../Price';
 import classes from './styles.module.scss';
 
-function Card({ id, name, price, img: imagePath, rating }: Product) {
+function Card({ id, name, price, image: imagePath, rating }: Product) {
   const { isImageLoaded } = useImageLoader(imagePath);
 
   return (

@@ -2,7 +2,6 @@ import LikeButton from '@/components/shared/LikeButton';
 import Price from '@/components/shared/Price';
 import { useProduct } from '@/hooks/features/useProduct';
 import { useQueryParams } from '@/hooks/general/useQueryParams';
-import { ProductInfo } from '@/types/product.types';
 import { MoveLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import ItemButtons from './components/ItemButtons';
@@ -16,14 +15,6 @@ function Item() {
 
   const { product, isLoading } = useProduct(productId);
   if (isLoading) return <ItemSkeleton />;
-
-  const productInfo = transformInfo(product?.info || '');
-
-  // Функии
-  function transformInfo(infoString: string): ProductInfo[] {
-    return infoString ? JSON.parse(infoString) : [];
-  }
-  // Функции END
 
   if (!product) return <></>;
 
@@ -39,7 +30,7 @@ function Item() {
         <div className={classes.content__main}>
           <LikeButton productId={productId} />
           <div className={classes.content__photos}>
-            {product?.imgs.map((image, idx) => (
+            {[product.image, ...product?.gallery].map((image, idx) => (
               <ItemImage
                 src={image}
                 alt={`Фото ${product.name} №${idx}`}
@@ -50,7 +41,7 @@ function Item() {
           <div className={classes.content__footer}>
             <div>
               <strong className={`subtitle subtitle--gray`}>
-                {product.category.name}
+                {product.category}
               </strong>
               <strong className={classes.content__title}>
                 {product?.name}
@@ -66,7 +57,7 @@ function Item() {
             Описание и характеристики
           </strong>
           <div className={classes.info__container}>
-            {productInfo.map((infoObject) => (
+            {product.info.map((infoObject) => (
               <p className={classes.info__text} key={infoObject.name}>
                 {`${infoObject.name}: ${infoObject.value}`}
               </p>

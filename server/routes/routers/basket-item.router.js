@@ -1,5 +1,5 @@
 import { Router } from "express";
-import BasketItemController from "../../controllers/basket-item/basket-item.controller.js";
+import BasketItemController from "../../controllers/basket-item.controller.js";
 import { isAuthMiddleware } from './../../middleware/is-auth.middleware.js';
 
 const basketItemRouter = new Router();

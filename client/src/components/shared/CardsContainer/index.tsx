@@ -2,6 +2,7 @@ import { Product } from '@/types/product.types';
 import Card from '../Card';
 import CardSkeleton from '../Card/skeleton';
 import classes from './styles.module.scss';
+import { Fragment } from "react";
 
 type ICardsContainerProps = {
   isLoading: boolean;
@@ -19,11 +20,11 @@ function CardsContainer({
   // Функции
   function getSkeletons() {
     return (
-      <>
-        <CardSkeleton />
-        <CardSkeleton />
-        <CardSkeleton />
-      </>
+      <Fragment>
+        <CardSkeleton key="skeleton 1" />
+        <CardSkeleton key="skeleton 2" />
+        <CardSkeleton key="skeleton 3" />
+      </Fragment>
     );
   }
   // Функции END

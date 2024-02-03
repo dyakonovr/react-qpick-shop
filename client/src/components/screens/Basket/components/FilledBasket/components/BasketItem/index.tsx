@@ -13,7 +13,7 @@ interface BasketItemProps {
 }
 
 function BasketItem({ basketItem }: BasketItemProps) {
-  const { isImageLoaded } = useImageLoader(basketItem.product.img);
+  const { isImageLoaded } = useImageLoader(basketItem.product.image);
   const { id: basketItemId, product, quantity } = basketItem;
   const { deleteProductFromBasket, updateBasketItemQuantity } = useActions();
 
@@ -42,7 +42,7 @@ function BasketItem({ basketItem }: BasketItemProps) {
       <Link to={`/item?id=${product.id}`} className={classes.item__content}>
         <div className={classes.item__image}>
           {isImageLoaded ? (
-            <img src={product.img} alt={product.name} />
+            <img src={product.image} alt={product.name} />
           ) : (
             <Skeleton className="w-[140px] h-[140px]" />
           )}

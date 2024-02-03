@@ -1,6 +1,5 @@
 import { ApiErrorHandler } from "../error/api-error.handler.js";
 import { Basket, BasketItem, Product } from "../models/models.js";
-import { formatBasketItemData } from "./basket-item/basket-item.helper.js";
 
 class BasketController {
   create = async (req, res, next) => {
@@ -31,11 +30,11 @@ class BasketController {
         },
       });
 
-      const formattedBasketItems = basketItems.map(formatBasketItemData);
+      // const formattedBasketItems = basketItems.map(formatBasketItemData);
 
       return res.json({
         id: basket.id,
-        products: formattedBasketItems
+        products: basketItems
       });
     } catch (error) {
       next(ApiErrorHandler.internal(error.message));

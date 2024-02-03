@@ -1,8 +1,8 @@
 import { Op } from "sequelize";
 
 import { ApiErrorHandler } from "../../error/api-error.handler.js";
-import { Category, Product } from "../../models/models.js";
-import { formatProductsForCard, getFilters } from "./product.helper.js";
+import { Category, Product, ProductCharacteristic, ProductImage } from "../../models/models.js";
+import { getFilters } from "./product.helper.js";
 import { generateSlug } from "../../helpers/generate-slug.helper.js";
 
 class ProductController {
@@ -20,20 +20,35 @@ class ProductController {
   getById = async (req, res, next) => {
     try {
       const { id } = req.params;
-      const product = await Product.findByPk(
-        id,
+      const product = await Product.findByPk(id,
         {
-          include: {
-            model: Category,
-            attributes: {exclude: ["slug"]}
-          },
-          attributes: {exclude: ["category_id"]}
+          include: [
+            {
+              model: Category,
+              attributes: { exclude: ["slug"] }
+            },
+            {
+              model: ProductImage,
+              attributes: { exclude: ["id", "product_id"] },
+            },
+            {
+              model: ProductCharacteristic,
+              attributes: { exclude: ["id", "product_id"] },
+            },
+          ],
+          attributes: { exclude: ["category_id", "slug"] }
         }
       );
 
       if (!product) return next(ApiErrorHandler.notFound("Продукт не найден"));
 
-      return res.json(product);
+      const { categories, product_images: gallery, product_characteristics: info, ...restProductData } = product.dataValues;
+      return res.json({
+        ...restProductData,
+        category: product.category.name,
+        gallery: product.product_images.map(obj => obj.url),
+        info
+      });
     } catch (error) {
       next(ApiErrorHandler.internal(error.message));
     }
@@ -97,18 +112,29 @@ class ProductController {
       const offset = (page - 1) * perPage; // Вычисляем смещение
 
       const { filters, searchTerm } = req.body;
-      const [whereFilters, includeFilters] = await getFilters(filters, searchTerm);
+      const [whereOption, includeOption] = await getFilters(filters, searchTerm);
       const config = {
         limit: perPage,
-        offset
+        offset,
+        attributes: { exclude: ["slug", "category_id"] }
       };
 
-      if (whereFilters) {
-        config.where = whereFilters;
+      if (whereOption) {
+        config.where = whereOption;
       }
 
-      if (Object.keys(includeFilters).length !== 0) {
-        config.include = includeFilters;
+      if (Object.keys(includeOption).length !== 0) {
+        config.include = [
+          {
+            model: ProductImage,
+            attributes: { exclude: ["id", "product_id"] },
+          },
+          {
+            model: ProductCharacteristic,
+            attributes: { exclude: ["id", "product_id"] },
+          },
+          includeOption
+        ];
       }
 
       const products = await Product.findAndCountAll(config);
@@ -116,7 +142,7 @@ class ProductController {
       const totalPages = Math.ceil(products.count / perPage); // Вычисляем общее количество страниц
 
       return res.json({
-        products: formatProductsForCard(products.rows),
+        products: products.rows,
         totalPages,
         currentPage: page,
       });

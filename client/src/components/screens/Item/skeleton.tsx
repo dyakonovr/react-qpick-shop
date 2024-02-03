@@ -43,7 +43,7 @@ function ItemSkeleton() {
           </strong>
           <div className={classes.info__container}>
             {[1, 2, 3].map((el) => (
-              <Skeleton className="w-full h-[23px]" />
+              <Skeleton className="w-full h-[23px]" key={el} />
             ))}
           </div>
         </div>

@@ -1,6 +1,5 @@
-import { ApiErrorHandler } from "../../error/api-error.handler.js";
-import { BasketItem, Product } from "../../models/models.js";
-import { formatBasketItemData } from "./basket-item.helper.js";
+import { ApiErrorHandler } from "../error/api-error.handler.js";
+import { BasketItem, Product } from "../models/models.js";
 
 class BasketItemController {
   create = async (req, res, next) => {
@@ -20,7 +19,7 @@ class BasketItemController {
         }
       )
 
-      return res.json(formatBasketItemData(basketItem));
+      return res.json(basketItem);
     } catch (error) {
       next(ApiErrorHandler.internal(error.message));
     }

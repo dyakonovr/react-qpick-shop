@@ -1,6 +1,5 @@
 import { ApiErrorHandler } from "../error/api-error.handler.js";
 import { Product, User } from "../models/models.js";
-import { formatProductsForCard } from "./product/product.helper.js";
 
 class FavouritesController {
   getAll = async (req, res, next) => {
@@ -17,7 +16,7 @@ class FavouritesController {
         return rest;
       });
 
-      return res.json(formatProductsForCard(productsWithoutFavourites));
+      return res.json(productsWithoutFavourites);
     } catch (error) {
       return next(ApiErrorHandler.internal(error.message));
     }
@@ -35,7 +34,7 @@ class FavouritesController {
       if (!product) return next(ApiErrorHandler.notFound("Такого продукта не найдено"));
 
       await user.addProduct(product);
-      return res.json(formatProductsForCard(product));
+      return res.json(product);
     } catch (error) {
       return next(ApiErrorHandler.internal(error.message));
     }
