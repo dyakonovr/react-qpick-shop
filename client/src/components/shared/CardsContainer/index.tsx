@@ -1,4 +1,4 @@
-import { IProduct } from '@/types/product.types';
+import { Product } from '@/types/product.types';
 import Card from '../Card';
 import CardSkeleton from '../Card/skeleton';
 import classes from './styles.module.scss';
@@ -6,7 +6,7 @@ import classes from './styles.module.scss';
 type ICardsContainerProps = {
   isLoading: boolean;
   isSuccess: boolean;
-  products: IProduct[] | undefined | null;
+  products: Product[] | undefined | null;
 };
 
 function CardsContainer({

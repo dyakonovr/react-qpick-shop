@@ -1,4 +1,4 @@
-import { IProduct } from '@/types/product.types';
+import { Product } from '@/types/product.types';
 import { createSlice } from '@reduxjs/toolkit';
 import {
   addProductToFavourites,
@@ -7,7 +7,7 @@ import {
 } from './favourites.actions';
 
 type IFavouritesInitialState = {
-  data: IProduct[] | null;
+  data: Product[] | null;
   isLoading: boolean;
 };
 
@@ -23,7 +23,7 @@ const favouritesSlice = createSlice({
     clearFavourites(state) {
       state.data = null;
       state.isLoading = false;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder

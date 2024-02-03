@@ -12,6 +12,10 @@ type Config = {
   tryToParsePrimitive?: true;
 };
 
+const c: Config = {
+  tryToParseNumbersInArray: true
+};
+
 export function parseParamsFromUrl<T extends Object>(
   params: string,
   config: Config = {}

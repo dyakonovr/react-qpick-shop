@@ -2,13 +2,13 @@ import LikeButton from '@/components/shared/LikeButton';
 import Price from '@/components/shared/Price';
 import { useProduct } from '@/hooks/features/useProduct';
 import { useQueryParams } from '@/hooks/general/useQueryParams';
-import { IProductInfo } from '@/types/product.types';
+import { ProductInfo } from '@/types/product.types';
 import { MoveLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import classes from './styles.module.scss';
-import ItemSkeleton from './skeleton';
 import ItemButtons from './components/ItemButtons';
 import ItemImage from './components/ItemImage';
+import ItemSkeleton from './skeleton';
+import classes from './styles.module.scss';
 
 function Item() {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ function Item() {
   const productInfo = transformInfo(product?.info || '');
 
   // Функии
-  function transformInfo(infoString: string): IProductInfo[] {
+  function transformInfo(infoString: string): ProductInfo[] {
     return infoString ? JSON.parse(infoString) : [];
   }
   // Функции END
@@ -40,7 +40,11 @@ function Item() {
           <LikeButton productId={productId} />
           <div className={classes.content__photos}>
             {product?.imgs.map((image, idx) => (
-              <ItemImage src={image} alt={`Фото ${product.name} №${idx}`} key={image} />
+              <ItemImage
+                src={image}
+                alt={`Фото ${product.name} №${idx}`}
+                key={image}
+              />
             ))}
           </div>
           <div className={classes.content__footer}>

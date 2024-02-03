@@ -16,58 +16,21 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useAppDispatch } from '@/hooks/useAppDispatch';
-import { useAppSelector } from '@/hooks/useAppSelector';
-import { IProductWithoutId } from '@/types/product.types';
+import { useCategories } from '@/hooks/features/useCategories';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
-import * as z from 'zod';
-import createProduct from '../../api/createProduct';
-import fetchCategories from '../../api/fetchCategories';
-
-const profileFormSchema = z.object({
-  name: z
-    .string()
-    .min(3, { message: 'Минимальная длина имени товара - 3 символа' }),
-  categoryId: z.string().min(0, { message: 'TypeID не может быть меньше 0' }),
-  price: z.string().min(0, { message: 'Минимальная цена продукта - 0' }),
-  rating: z.string().min(0, { message: 'Минимальный рейтинг - 0' }),
-  info: z
-    .array(
-      z.object({
-        value: z.string().min(10, {
-          message: 'Минимальная длина характеристики - 10 символов',
-        }),
-      })
-    )
-    .min(3, { message: 'Минимум должна быть одна характеристика' }),
-  imgs: z
-    .array(
-      z.object({
-        value: z
-          .string()
-          .url({ message: 'Введите валидную ссылку на фотографию.' }),
-      })
-    )
-    .min(1, { message: 'Минимум должна быть одна ссылка на фотографию' }),
-});
-
-type ProfileFormValues = z.infer<typeof profileFormSchema>;
+import {
+  ProfileFormValues,
+  productFormDefaultValues,
+  profileFormSchema,
+} from './product-form.constants';
+import { ProductWithoutId } from "@/types/product.types";
 
 export function AdminProductForm() {
-  // Валидация и настройка формы
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
-    defaultValues: {
-      name: '',
-      rating: '',
-      price: '',
-      info: [],
-      categoryId: '',
-      imgs: [],
-    },
-    mode: 'onChange',
+    defaultValues: productFormDefaultValues,
+    mode: 'onBlur',
   });
 
   const { fields: urlsFields, append: urlsAppend } = useFieldArray({
@@ -81,29 +44,19 @@ export function AdminProductForm() {
   });
   // Валидация и настройка формы END
 
-  const dispatch = useAppDispatch();
-  const categories = useAppSelector(
-    (state) => state.categoriesSlice.categories
-  );
-
-  useEffect(() => {
-    if (categories !== null) return;
-
-    dispatch(fetchCategories());
-  }, [categories]);
+  const { categories } = useCategories();
 
   // Функции
   async function onSubmit(data: ProfileFormValues) {
-    const product: IProductWithoutId = {
-      name: data.name,
-      rating: Number(data.rating),
-      price: Number(data.price),
-      categoryId: Number(data.categoryId),
-      imgs: data.imgs.map((obj) => obj.value),
-      info: data.info.map((obj) => obj.value),
-    };
-
-    dispatch(createProduct(product));
+    // const product: ProductWithoutId = {
+    //   name: data.name,
+    //   rating: Number(data.rating),
+    //   price: Number(data.price),
+    //   categoryId: Number(data.categoryId),
+    //   imgs: data.imgs.map((obj) => obj.value),
+    //   info: data.info.map((obj) => obj.value),
+    // };
+    // dispatch(createProduct(product));
   }
   // Функции END
 
@@ -139,7 +92,7 @@ export function AdminProductForm() {
                 <SelectContent>
                   {categories &&
                     categories.map((category) => (
-                      <SelectItem key={category.id} value={String(category.id)}>
+                      <SelectItem key={category.id} value={`${category.id}`}>
                         {category.name} (id: {category.id})
                       </SelectItem>
                     ))}

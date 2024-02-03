@@ -1,21 +1,21 @@
-import { ICategory } from "./category.types";
+import { ICategory } from './category.types';
 
-export type IProductInfo = {
+export type ProductInfo = {
   name: string;
   value: string;
-}
+};
 
-export type IProduct = {
+export type Product = {
   id: number;
   name: string;
   price: number;
   rating: number;
   img: string;
-}
+};
 
-export type IBasketProduct = Omit<IProduct, 'rating'>;
+export type BasketProduct = Omit<Product, 'rating'>;
 
-export type IExtendedProduct = {
+export type ExtendedProduct = {
   id: number;
   name: string;
   price: number;
@@ -23,7 +23,7 @@ export type IExtendedProduct = {
   imgs: string[];
   info: string;
   discountId: number | null;
-  category: ICategory
-}
+  category: ICategory;
+};
 
-export type IProductWithoutId = Omit<IExtendedProduct, 'id'>;
+export type ProductWithoutId = Omit<ExtendedProduct, 'id'>;

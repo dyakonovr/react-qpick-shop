@@ -1,5 +1,5 @@
 import { $axios } from '@/api/api.interceptor';
-import { IExtendedProduct } from '@/types/product.types';
+import { ExtendedProduct } from '@/types/product.types';
 import {
   ProductDataType,
   ProductQueryData,
@@ -19,34 +19,34 @@ class ProductService {
 
   getById = async (id: string | number) => {
     // return $axios.get<IProduct>(`${this.url}/${id}`);
-    const response = await $axios.get<IExtendedProduct>(`${this.url}/${id}`);
+    const response = await $axios.get<ExtendedProduct>(`${this.url}/${id}`);
     return response.data;
   };
 
   getBySimilar = async (id: string | number) => {
-    return $axios.get<IExtendedProduct[]>(`${this.url}/similar/${id}`);
+    return $axios.get<ExtendedProduct[]>(`${this.url}/similar/${id}`);
   };
 
   getBySlug = async (slug: string) => {
-    return $axios.get<IExtendedProduct>(`${this.url}/by-slug/${slug}`);
+    return $axios.get<ExtendedProduct>(`${this.url}/by-slug/${slug}`);
   };
 
   getByCategory = async (categorySlug: string) => {
-    return $axios.get<IExtendedProduct>(
+    return $axios.get<ExtendedProduct>(
       `${this.url}/by-category/${categorySlug}`
     );
   };
 
   create = async (data: ProductDataType) => {
-    return $axios.post<IExtendedProduct>(this.url, data);
+    return $axios.post<ExtendedProduct>(this.url, data);
   };
 
   update = async (id: string | number, data: ProductDataType) => {
-    return $axios.put<IExtendedProduct>(`${this.url}/${id}`, data);
+    return $axios.put<ExtendedProduct>(`${this.url}/${id}`, data);
   };
 
   delete = async (id: string | number) => {
-    return $axios.delete<IExtendedProduct>(`${this.url}/${id}`);
+    return $axios.delete<ExtendedProduct>(`${this.url}/${id}`);
   };
 }
 

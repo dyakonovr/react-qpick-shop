@@ -1,11 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useAppDispatch } from "@/hooks/useAppDispatch";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import createCategory from "../../api/createCategory";
 
 const profileFormSchema = z.object({
   name: z.string().min(3, {message: "Минимальная длина названия категории - 3 символа"}),
@@ -14,7 +12,6 @@ const profileFormSchema = z.object({
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
 export function AdminCategoryForm() {
-  const dispatch = useAppDispatch();
   
   // Валидация и настройка формы
   const form = useForm<ProfileFormValues>({
@@ -28,7 +25,7 @@ export function AdminCategoryForm() {
 
   // Функции
   async function onSubmit(data: ProfileFormValues) {
-    dispatch(createCategory(data.name));
+    // dispatch(createCategory(data.name));
   }
   // Функции END
 

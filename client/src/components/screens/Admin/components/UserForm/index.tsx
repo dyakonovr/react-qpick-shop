@@ -1,23 +1,30 @@
-import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Button } from '@/components/ui/button';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { toast } from "@/components/ui/use-toast";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
+} from '@/components/ui/select';
+import { toast } from '@/components/ui/use-toast';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
 
 const profileFormSchema = z.object({
   email: z.string().email(),
   password: z.string(),
-  role: z.string()
-})
+  role: z.string(),
+});
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
@@ -25,21 +32,19 @@ export function AdminUserForm() {
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues: {
-      email: "",
-      password: "",
-      role: "",
+      email: '',
+      password: '',
+      role: '',
     },
-    mode: "onChange",
-  })
+    mode: 'onChange',
+  });
 
   function onSubmit(data: ProfileFormValues) {
     console.log('!', data);
 
     toast({
-      title: "Создание пользователя",
-      description: (
-        <span>Выполнено успешно</span>
-      ),
+      title: 'Создание пользователя',
+      description: <span>Выполнено успешно</span>,
     });
   }
 
@@ -99,5 +104,5 @@ export function AdminUserForm() {
         <Button type="submit">Создать пользователя</Button>
       </form>
     </Form>
-  )
+  );
 }

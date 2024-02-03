@@ -1,7 +1,7 @@
 import { IProductFitlers } from '@/hooks/features/useProducts/filters.types';
-import { IExtendedProduct, IProduct } from '@/types/product.types';
+import { ExtendedProduct, Product } from '@/types/product.types';
 
-export type ProductDataType = Omit<IExtendedProduct, 'id'>;
+export type ProductDataType = Omit<ExtendedProduct, 'id'>;
 
 export enum ProductSortEnum {
   HIGH_PRICE = 'high-price',
@@ -18,7 +18,7 @@ export type ProductQueryData = {
 };
 
 export type ProductResponse = {
-  products: IProduct[];
+  products: Product[];
   currentPage: number;
   totalPages: number;
 };
