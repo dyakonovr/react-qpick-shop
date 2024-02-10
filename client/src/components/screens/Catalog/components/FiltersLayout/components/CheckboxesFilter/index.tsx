@@ -1,10 +1,10 @@
 import { ScrollArea } from '@/components/ui/scroll-area';
 import FilterCheckbox from './FilterCheckbox';
-import { NameAndIdObject } from "./checkboxes-filter.types";
+import { INameAndIdObject } from './checkboxes-filter.types';
 
 interface ICategoryFilterProps {
-  filterTitle: string; 
-  data: NameAndIdObject[];
+  filterTitle: string;
+  data: INameAndIdObject[];
 }
 
 function CheckboxesFilter({ filterTitle, data }: ICategoryFilterProps) {

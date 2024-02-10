@@ -6,26 +6,22 @@ export function configurateUrlParams<T extends Object>(object: T) {
   });
 }
 
-type Config = {
+interface IConfig {
   tryToParseNumbersInArray?: true;
   tryToParseNumbersInObject?: true;
   tryToParsePrimitive?: true;
 };
 
-const c: Config = {
-  tryToParseNumbersInArray: true
-};
-
 export function parseParamsFromUrl<T extends Object>(
   params: string,
-  config: Config = {}
+  config: IConfig = {}
 ) {
   const result = qs.parse(params, { allowDots: true }) as unknown as T; // ¯\_(ツ)_/¯
   if (Object.keys(config).length === 0) return result;
   return getParamsWithConfig<T>(result, config);
 }
 
-function getParamsWithConfig<T extends Object>(object: T, config?: Config) {
+function getParamsWithConfig<T extends Object>(object: T, config?: IConfig) {
   let key: keyof T;
 
   for (key in object) {

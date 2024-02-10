@@ -1,10 +1,10 @@
 import classes from './styles.module.scss';
 
-interface QuantityProps {
+interface IQuantityProps {
   quantity: number;
 }
 
-function Quantity({ quantity }: QuantityProps) {
+function Quantity({ quantity }: IQuantityProps) {
   if (quantity === 0) return null;
 
   const quantityClasses =

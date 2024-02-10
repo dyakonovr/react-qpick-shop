@@ -1,4 +1,4 @@
-export type IUpdateBasketItemData = {
+export interface IUpdateBasketItemData {
   basketItemId: number;
   quantity: number;
-}
+};

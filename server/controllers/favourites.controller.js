@@ -9,10 +9,13 @@ class FavouritesController {
 
       if (!user) return next(ApiErrorHandler.notFound("Пользователь не найден"));
 
-      const favourites = await user.getProducts();
+      const favourites = await user.getProducts({
+        attributes: { exclude: ["slug", "category_id"] }
+      });
 
       const productsWithoutFavourites = favourites.map(({ dataValues }) => {
-        const { favourites, ...rest } = dataValues; // favourites - объект, связывающий пользователя и товар из соответствующей таблицы
+        // favourites - объект, связывающий пользователя и товар из соответствующей таблицы
+        const { favourites, ...rest } = dataValues; 
         return rest;
       });
 
@@ -32,7 +35,7 @@ class FavouritesController {
 
       const product = await Product.findByPk(productId);
       if (!product) return next(ApiErrorHandler.notFound("Такого продукта не найдено"));
-
+      
       await user.addProduct(product);
       return res.json(product);
     } catch (error) {
@@ -52,7 +55,7 @@ class FavouritesController {
       if (!product) return next(ApiErrorHandler.notFound("Такого продукта не найдено"));
 
       await user.removeProduct(product);
-      return res.json({ productId: product.id });
+      return res.json();
     } catch (error) {
       return next(ApiErrorHandler.internal(error.message));
     }

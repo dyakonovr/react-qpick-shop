@@ -1,5 +1,4 @@
-import Logo from '@/components/shared/Logo';
-import Quantity from '@/components/shared/Quantity';
+import Logo from '@/components/layout/components/Logo';
 import { toast } from '@/components/ui/use-toast';
 import { PagePaths } from '@/enum/PagePaths';
 import { useActions } from '@/hooks/general/useActions';
@@ -8,8 +7,9 @@ import { getBasketInfoAndStatusSelector } from '@/store/slices/basket/basket.sel
 import { getFavouriteQuantitySelector } from '@/store/slices/favourites/favourites.selectors';
 import { getUserInfoSelector } from '@/store/slices/user/user.selectors';
 import { Link, useNavigate } from 'react-router-dom';
-import classes from './styles.module.scss';
+import Quantity from './components/Quantity';
 import SearchInput from './components/SearchInput';
+import classes from './styles.module.scss';
 
 function Header() {
   const { isAuth, isAdmin } = useTypedSelector(getUserInfoSelector);

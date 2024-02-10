@@ -25,7 +25,7 @@ function Layout() {
   return (
     <>
       <Header />
-      <div className="main">
+      <div className="flex flex-col main h-full">
         <Outlet />
       </div>
       <Footer />

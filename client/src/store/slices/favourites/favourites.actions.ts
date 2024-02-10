@@ -1,7 +1,6 @@
 import FavouritesService from '@/services/favourites.service';
-import { Product } from '@/types/product.types';
+import { Product } from '@/types/product/product.types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { IProductIdResponse } from './favourites.types';
 
 export const fetchFavourites = createAsyncThunk<Product[]>(
   'favourites/get-all',
@@ -27,14 +26,14 @@ export const addProductToFavourites = createAsyncThunk<Product, number>(
   }
 );
 
-export const deleteProductFromFavourites = createAsyncThunk<
-  IProductIdResponse,
-  number
->('favourites/delete', async (productId, thunkApi) => {
-  try {
-    const response = await FavouritesService.delete(productId);
-    return response.data;
-  } catch (error) {
-    return thunkApi.rejectWithValue(error);
+export const deleteProductFromFavourites = createAsyncThunk<number, number>(
+  'favourites/delete',
+  async (productId, thunkApi) => {
+    try {
+      await FavouritesService.delete(productId);
+      return productId;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
   }
-});
+);

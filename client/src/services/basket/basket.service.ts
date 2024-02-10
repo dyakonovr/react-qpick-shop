@@ -1,5 +1,5 @@
 import { $axios } from '@/api/api.interceptor';
-import { IBasketResponse } from './basket.types';
+import { IBasketResponse } from "./basket.types";
 
 class BasketService {
   private url = '/basket';

@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import classes from './styles.module.scss';
 // @ts-ignore
 import { ReactComponent as IconHeart } from '@/assets/img/svg/icon-heart.svg';
@@ -6,18 +5,16 @@ import { useActions } from '@/hooks/general/useActions';
 import { useTypedSelector } from '@/hooks/general/useTypedSelector';
 import { isProductInFavouritesSelector } from '@/store/slices/favourites/favourites.selectors';
 
-type LikeButtonProps = {
-  productId: number
+interface ILikeButtonProps {
+  productId: number;
 };
 
-function LikeButton({ productId }: LikeButtonProps) {
+function LikeButton({ productId }: ILikeButtonProps) {
   const isProductInFavourites = useTypedSelector(
     isProductInFavouritesSelector(productId)
   );
 
   const { addProductToFavourites, deleteProductFromFavourites } = useActions();
-
-  const btnRef = useRef<HTMLButtonElement>(null);
 
   const buttonClasses = isProductInFavourites
     ? `${classes.btn_like} ${classes['btn_like--active']}`
@@ -25,7 +22,6 @@ function LikeButton({ productId }: LikeButtonProps) {
 
   return (
     <button
-      ref={btnRef}
       className={buttonClasses}
       onClick={
         !isProductInFavourites

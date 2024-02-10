@@ -3,9 +3,12 @@ import { AuthType } from '@/components/screens/Auth/auth.types';
 import { removeFromStorage } from '@/services/auth/auth.helper';
 import AuthService from '@/services/auth/auth.service';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import {
+  IAuthResponse,
+  IEmailPassword,
+} from '../../../services/auth/user.types';
 import { clearBasket } from '../basket/basket.slice';
 import { clearFavourites } from '../favourites/favourites.slice';
-import { IAuthResponse, IEmailPassword } from './user.interface';
 
 export const auth = createAsyncThunk<
   IAuthResponse,

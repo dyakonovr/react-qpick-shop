@@ -3,21 +3,21 @@ import { normalizePrice } from '@/functions/normalizePrice';
 import { useActions } from '@/hooks/general/useActions';
 import useDebounce from '@/hooks/general/useDebounce';
 import { useImageLoader } from '@/hooks/general/useImageLoader';
-import { IBasketItem } from '@/services/basket/basket.types';
+import { IBasketItem } from '@/types/basket-item.types';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import classes from './styles.module.scss';
 
-interface BasketItemProps {
+interface IBasketItemProps {
   basketItem: IBasketItem;
 }
 
-function BasketItem({ basketItem }: BasketItemProps) {
+function BasketItem({ basketItem }: IBasketItemProps) {
   const { isImageLoaded } = useImageLoader(basketItem.product.image);
   const { id: basketItemId, product, quantity } = basketItem;
   const { deleteProductFromBasket, updateBasketItemQuantity } = useActions();
 
-  const [productQuantity, setProductQuantity] = useState<number>(quantity);
+  const [productQuantity, setProductQuantity] = useState(quantity);
   const debouncedProductQuantity = useDebounce<number>(productQuantity, 500);
 
   useEffect(() => {

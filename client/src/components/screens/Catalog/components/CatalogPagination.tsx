@@ -9,7 +9,7 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination';
 
-type CatalogPaginationProps = {
+interface ICatalogPaginationProps {
   currentPage: number;
   totalPages: number;
   setCurrentPage: (newPage: number) => void;
@@ -19,7 +19,7 @@ function CatalogPagination({
   currentPage = 0,
   totalPages = 0,
   setCurrentPage,
-}: CatalogPaginationProps) {
+}: ICatalogPaginationProps) {
   if (!currentPage || !totalPages) return null;
 
   const pages = getPagesObject();
@@ -34,21 +34,17 @@ function CatalogPagination({
         currentPage + 1 > totalPages ? null : currentPage + 1,
         currentPage + 2 > totalPages ? null : currentPage + 2,
       ];
-    }
-
-    else if (currentPage === totalPages) {
+    } else if (currentPage === totalPages) {
       result = [
         currentPage - 2 < 1 ? null : currentPage - 2,
         currentPage - 1 < 1 ? null : currentPage - 1,
         currentPage,
       ];
-    }
-
-    else {
+    } else {
       result = [currentPage - 1, currentPage, currentPage + 1];
     }
 
-    return result.filter(el => el) as number[];
+    return result.filter((el) => el) as number[];
   }
   // Функции END
 

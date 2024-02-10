@@ -1,4 +1,5 @@
 import { RootType } from '@/store/store';
+import { IBasketItem } from '@/types/basket-item.types';
 import { createSelector } from '@reduxjs/toolkit';
 
 export const getBasketItems = (state: RootType) => state.basket.items;
@@ -29,7 +30,7 @@ export const getBasketItemsAndTotalPriceSelector = createSelector(
   [getBasketInfoSelector],
   (basket) => {
     if (!basket.items || basket.items.length === 0) {
-      return { total: 0, basketItems: [] };
+      return { total: 0, basketItems: [] as IBasketItem[] };
     }
 
     const total = basket.items.reduce(
@@ -43,6 +44,6 @@ export const getBasketItemsAndTotalPriceSelector = createSelector(
 export function getBasketInfoAndStatusSelector(state: RootType) {
   return {
     basketItemsQuantity: state.basket.items?.length || 0,
-    isLoading: state.basket.isLoading
+    isLoading: state.basket.isLoading,
   };
 }

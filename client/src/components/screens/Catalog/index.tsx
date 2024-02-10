@@ -6,7 +6,7 @@ import {
   SheetTrigger,
   SheetContent as SheetWrapper,
 } from '@/components/ui/sheet';
-import { useProducts } from '@/hooks/features/useProducts/useProducts';
+import { useProducts } from '@/hooks/features/useProducts';
 import { Settings2 as FiltersIcon } from 'lucide-react';
 import CatalogPagination from './components/CatalogPagination';
 import FiltersLayout from './components/FiltersLayout';
@@ -14,13 +14,12 @@ import { useFilters } from './hooks/useFilters';
 
 function Catalog() {
   const { filters, changeFilters, page, changePage, searchTerm } = useFilters();
-  const { data, isLoading, isSuccess } = useProducts({
+  const { data, isLoading, isSuccess, isError } = useProducts({
     filters,
     page,
     searchTerm,
   });
   const isPaginationNeeded = data && data.totalPages > 1;
-  const isProductsFound = !isLoading && isSuccess;
 
   return (
     <section className="rows-container">
@@ -50,8 +49,8 @@ function Catalog() {
         products={data?.products}
         isLoading={isLoading}
         isSuccess={isSuccess}
+        isError={isError}
       />
-      {!isProductsFound && <p>Товаров по таким запросам не найдено...</p>}
 
       {isPaginationNeeded && (
         <CatalogPagination

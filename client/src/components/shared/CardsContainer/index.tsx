@@ -1,40 +1,40 @@
-import { Product } from '@/types/product.types';
-import Card from '../Card';
-import CardSkeleton from '../Card/skeleton';
+import { IProduct } from '@/types/product/product.types';
+import Card from './Card';
+import CardSkeleton from './Card/skeleton';
 import classes from './styles.module.scss';
-import { Fragment } from "react";
 
-type ICardsContainerProps = {
+interface ICardsContainerProps {
   isLoading: boolean;
   isSuccess: boolean;
-  products: Product[] | undefined | null;
-};
+  isError: boolean;
+  products: IProduct[] | undefined | null;
+}
 
 function CardsContainer({
   isLoading,
   isSuccess,
+  isError,
   products,
 }: ICardsContainerProps) {
-  const isShowProducts = isSuccess && products;
-
-  // Функции
-  function getSkeletons() {
-    return (
-      <Fragment>
-        <CardSkeleton key="skeleton 1" />
-        <CardSkeleton key="skeleton 2" />
-        <CardSkeleton key="skeleton 3" />
-      </Fragment>
-    );
-  }
-  // Функции END
+  const isProductsAvailable = products && products.length !== 0;
+  const isNoProducts = !isProductsAvailable && isSuccess;
+  const isBlockNeeded = !isError && !isNoProducts;
 
   return (
-    <div className={classes.products_grid}>
-      {isLoading && getSkeletons()}
-      {isShowProducts &&
-        products.map((product) => <Card {...product} key={product.id} />)}
-    </div>
+    <>
+      {isBlockNeeded && (
+        <div className={classes.products_grid}>
+          {isLoading &&
+            Array.from({ length: 3 }, (_, index) => (
+              <CardSkeleton key={`skeleton ${index + 1}`} />
+            ))}
+          {isProductsAvailable &&
+            products.map((product) => <Card {...product} key={product.id} />)}
+        </div>
+      )}
+      {isError && <p>Возникла ошибка. Попробуйте обновить страницу</p>}
+      {isNoProducts && <p>Товаров по такому запросу не нашлось...</p>}
+    </>
   );
 }
 

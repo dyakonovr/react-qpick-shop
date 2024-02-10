@@ -1,5 +1,5 @@
 import { $axios } from '@/api/api.interceptor';
-import { IUpdateBasketItemData } from "@/store/slices/basket/basket.types";
+import { IUpdateBasketItemData } from "./basket-item.types";
 
 class BasketItemService {
   private url = '/basket-item';

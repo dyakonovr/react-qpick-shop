@@ -4,28 +4,13 @@
 
   .price {
     font-weight: 600;
-
-    &--current {
-      font-size: 17px;
-      color: var(--color-orange);
-    }
-
-    &--old {
-      font-size: 13px;
-      color: var(--color-yellow);
-      text-decoration: line-through;
-    }
+    font-size: 17px;
+    color: var(--color-orange);
   }
 
   &--big {
     .price {
-      &--current {
-        font-size: 28px;
-      }
-
-      &--old {
-        font-size: 20px;
-      }
+      font-size: 28px;
     }
   }
 }

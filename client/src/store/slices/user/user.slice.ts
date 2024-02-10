@@ -1,14 +1,20 @@
 import { getValueFromLocalStorage } from '@/functions/getValueFromLocalStorage';
 import { createSlice } from '@reduxjs/toolkit';
 import { auth, checkAuth, logout } from './user.actions';
-import { IInitialState } from './user.interface';
+import { IUser } from "@/types/user.types";
 
 type Status = 'loading' | 'success' | 'error';
+ 
+interface IInitialState {
+  user: IUser | null;
+  isLoading: boolean;
+  errorMessage: string | null;
+}
 
 const initialState: IInitialState = {
-  user: getValueFromLocalStorage('user'),
+  user: null, // getValueFromLocalStorage('user')
   isLoading: false,
-  errorMessage: null
+  errorMessage: null,
 };
 
 const userSlice = createSlice({
@@ -29,7 +35,7 @@ const userSlice = createSlice({
       .addCase(auth.rejected, (state, action) => {
         state.isLoading = false;
         state.user = null;
-        // state.errorMessage = 
+        // state.errorMessage =
       })
 
       .addCase(logout.fulfilled, (state) => {

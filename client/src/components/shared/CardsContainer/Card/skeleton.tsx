@@ -1,8 +1,8 @@
 import { Skeleton } from '@/components/ui/skeleton';
 import classes from './styles.module.scss';
 // @ts-ignore
-import LikeButtonSkeleton from '../LikeButton/skeleton';
-import PriceSkeleton from '../Price/skeleton';
+import LikeButtonSkeleton from '../../LikeButton/skeleton';
+import PriceSkeleton from '../../Price/skeleton';
 
 function CardSkeleton() {
   return (

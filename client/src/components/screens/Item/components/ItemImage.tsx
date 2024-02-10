@@ -2,12 +2,12 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useImageLoader } from '@/hooks/general/useImageLoader';
 import classes from '../styles.module.scss';
 
-type ItemImage = {
+interface IItemImage {
   src: string;
   alt: string;
 };
 
-function ItemImage({ src, alt }: ItemImage) {
+function ItemImage({ src, alt }: IItemImage) {
   const { isImageLoaded } = useImageLoader(src);
 
   return (

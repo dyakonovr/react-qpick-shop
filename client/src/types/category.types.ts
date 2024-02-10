@@ -1,4 +1,4 @@
-export type ICategory = {
+export interface ICategory {
   id: number,
   name: string
 }

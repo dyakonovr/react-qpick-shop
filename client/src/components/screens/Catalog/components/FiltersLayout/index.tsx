@@ -1,31 +1,27 @@
 import { SheetClose } from '@/components/ui/sheet';
 import { useCategories } from '@/hooks/features/useCategories';
-import {
-  IMinMaxRange,
-  IProductFitlers,
-} from '@/hooks/features/useProducts/filters.types';
-import { useEffect, useRef } from 'react';
+import { IMinMaxRange, IProductFitlers } from '@/types/product/filters.types';
+import { useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import CheckboxesFilter from '../CheckboxesFilter';
-import RangeFilter from '../RangeFilter';
 import { getDirtyValues } from './get-dirty-values.helper';
+import RangeFilter from "./components/RangeFilter";
+import CheckboxesFilter from "./components/CheckboxesFilter";
 
-export type FiltersFormValues = {
+interface IFiltersFormValues {
   categories?: string[]; // number[] after getDirtyValues();
   price?: IMinMaxRange;
   rating?: IMinMaxRange;
 };
 
-type FiltersLayoutProps = {
+interface IFiltersLayoutProps {
   changeFilters: (filters: IProductFitlers) => void;
   filters: IProductFitlers;
 };
 
-function FiltersLayout({ filters, changeFilters }: FiltersLayoutProps) {
-  const methods = useForm<FiltersFormValues>({ mode: 'onChange' });
+function FiltersLayout({ filters, changeFilters }: IFiltersLayoutProps) {
+  const methods = useForm<IFiltersFormValues>({ mode: 'onChange' });
   const { handleSubmit, setValue, reset } = methods;
   const { categories } = useCategories();
-  const closeSheetButtonRef = useRef(null);
 
   useEffect(() => {
     if (Object.keys(filters).length === 0) return reset();
@@ -34,16 +30,16 @@ function FiltersLayout({ filters, changeFilters }: FiltersLayoutProps) {
   }, [filters]);
 
   // Функции
-  function onSubmit(data: FiltersFormValues) {
-    const dirtyValues = getDirtyValues(data, {
+  function onSubmit(data: IFiltersFormValues) {
+    const dirtyValues = getDirtyValues<IFiltersFormValues>(data, {
       tryToParseNumbersInArray: true,
-    });
+    }) as IProductFitlers;
     changeFilters(dirtyValues);
   }
 
   function setAllFormValues() {
     try {
-      let filterKey: keyof FiltersFormValues;
+      let filterKey: keyof IFiltersFormValues;
       for (filterKey in filters) {
         const filter = filters[filterKey];
 
@@ -55,9 +51,7 @@ function FiltersLayout({ filters, changeFilters }: FiltersLayoutProps) {
             setValue(`${filterKey}.${innerObjectKey}`, filter[innerObjectKey]);
           }
           continue;
-        }
-
-        if (Array.isArray(filter)) {
+        } else if (Array.isArray(filter)) {
           setValue(
             filterKey,
             filter.map((el) => String(el))

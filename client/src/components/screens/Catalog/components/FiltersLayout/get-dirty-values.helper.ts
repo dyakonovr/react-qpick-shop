@@ -1,13 +1,8 @@
-import { FormValuesObject } from '../../types/catalog.types';
-
-type DirtyValuesConfig = {
+interface IDirtyValuesConfig {
   tryToParseNumbersInArray?: boolean;
 };
 
-export const getDirtyValues = (
-  data: FormValuesObject,
-  config?: DirtyValuesConfig
-) => {
+export const getDirtyValues = <T>(data: T, config?: IDirtyValuesConfig) => {
   for (let filterKey in data) {
     const filter = data[filterKey];
 
@@ -45,15 +40,15 @@ export const getDirtyValues = (
   return data;
 };
 
-type NestedObject = {
-  [key: string]: number | NestedObject;
+interface INestedObject {
+  [key: string]: number | INestedObject;
 };
 
 // Удаляю пустые поля из объекта
-function removeInvalidFieldsFromObject(obj: NestedObject): void {
+function removeInvalidFieldsFromObject(obj: INestedObject): void {
   for (const key in obj) {
     if (typeof obj[key] === 'object' && !!obj[key]) {
-      removeInvalidFieldsFromObject(obj[key] as NestedObject);
+      removeInvalidFieldsFromObject(obj[key] as INestedObject);
       if (Object.keys(obj[key]).length === 0) {
         delete obj[key];
       }

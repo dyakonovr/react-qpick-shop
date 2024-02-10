@@ -1,4 +1,4 @@
-import Logo from '@/components/shared/Logo';
+import Logo from '@/components/layout/components/Logo';
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import classes from './styles.module.scss';

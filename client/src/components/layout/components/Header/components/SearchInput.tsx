@@ -12,9 +12,7 @@ function SearchInput({ placeholder }: SearchInputProps) {
   // Функции
   function handleEnterDown(e: KeyboardEvent<HTMLInputElement>) {
     if (e.key !== 'Enter') return;
-    navigate(`${PagePaths.CATALOG}?searchTerm=${e.currentTarget.value}`, {
-      state: { xyz: true },
-    });
+    navigate(`${PagePaths.CATALOG}?searchTerm=${e.currentTarget.value}`);
   }
   // Функции END
 

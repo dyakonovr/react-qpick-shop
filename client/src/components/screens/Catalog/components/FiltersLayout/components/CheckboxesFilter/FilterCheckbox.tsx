@@ -1,10 +1,10 @@
 import { Separator } from '@/components/ui/separator';
 import { useFormContext } from 'react-hook-form';
-import { NameAndIdObject } from "./checkboxes-filter.types";
+import { INameAndIdObject } from './checkboxes-filter.types';
 
-type ICheckboxProps = {
+interface ICheckboxProps {
   registerKey: string;
-  object: NameAndIdObject;
+  object: INameAndIdObject;
 };
 
 function FilterCheckbox({ registerKey, object }: ICheckboxProps) {

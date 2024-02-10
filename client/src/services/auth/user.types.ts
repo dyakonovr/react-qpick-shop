@@ -1,11 +1,5 @@
 import { IUser } from '@/types/user.types';
 
-export interface IInitialState {
-  user: IUser | null;
-  isLoading: boolean;
-  errorMessage: string | null;
-}
-
 export interface IEmailPassword {
   email: string;
   password: string;

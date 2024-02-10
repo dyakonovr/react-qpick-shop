@@ -1,5 +1,5 @@
-import { TokenNames } from "@/enum/TokenNames";
-import { IAuthResponse } from '@/store/slices/user/user.interface';
+import { TokenNames } from '@/enum/TokenNames';
+import { IAuthResponse } from '@/services/auth/user.types';
 import Cookies from 'js-cookie';
 
 export const checkAccessToken = () => {

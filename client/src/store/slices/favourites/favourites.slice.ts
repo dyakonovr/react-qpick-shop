@@ -1,4 +1,4 @@
-import { Product } from '@/types/product.types';
+import { IProduct } from '@/types/product/product.types';
 import { createSlice } from '@reduxjs/toolkit';
 import {
   addProductToFavourites,
@@ -6,10 +6,10 @@ import {
   fetchFavourites,
 } from './favourites.actions';
 
-type IFavouritesInitialState = {
-  data: Product[] | null;
+interface IFavouritesInitialState {
+  data: IProduct[] | null;
   isLoading: boolean;
-};
+}
 
 const initialState: IFavouritesInitialState = {
   data: null,
@@ -51,7 +51,7 @@ const favouritesSlice = createSlice({
         if (!state.data || state.data.length === 0) return;
 
         state.data = state.data.filter(
-          (product) => product.id !== action.payload.productId
+          (product) => product.id !== action.payload
         );
       });
   },

@@ -2,14 +2,14 @@ import { useActions } from '@/hooks/general/useActions';
 import { useTypedSelector } from '@/hooks/general/useTypedSelector';
 import { isProductInBasketSelector } from '@/store/slices/basket/basket.selectors';
 import { getUserInfoSelector } from '@/store/slices/user/user.selectors';
-import { ExtendedProduct } from '@/types/product.types';
+import { IExtendedProduct } from '@/types/product/product.types';
 import classes from './styles.module.scss';
 
-interface ItemButtonsProps {
-  product: ExtendedProduct;
+interface IItemButtonsProps {
+  product: IExtendedProduct;
 }
 
-function ItemButtons({ product }: ItemButtonsProps) {
+function ItemButtons({ product }: IItemButtonsProps) {
   const { isAdmin } = useTypedSelector(getUserInfoSelector);
   const { isAddedToBasket, basketItemId } = useTypedSelector(
     isProductInBasketSelector(product.id)

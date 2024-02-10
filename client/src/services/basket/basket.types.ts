@@ -1,12 +1,6 @@
-import { BasketProduct } from '@/types/product.types';
+import { IBasketItem } from "@/types/basket-item.types";
 
-export type IBasketResponse = {
+export interface IBasketResponse {
   id: number;
   products: IBasketItem[];
-};
-
-export type IBasketItem = {
-  id: number;
-  quantity: number;
-  product: BasketProduct;
 };

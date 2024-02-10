@@ -24,37 +24,39 @@ import {
   productFormDefaultValues,
   profileFormSchema,
 } from './product-form.constants';
-import { ProductWithoutId } from "@/types/product.types";
 
 export function AdminProductForm() {
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues: productFormDefaultValues,
-    mode: 'onBlur',
+    mode: 'onChange',
   });
 
-  const { fields: urlsFields, append: urlsAppend } = useFieldArray({
-    name: 'imgs',
-    control: form.control,
-  });
+  // const { fields: urlsFields, append: urlsAppend } = useFieldArray({
+  //   name: 'gallery',
+  //   control: form.control,
+  // });
 
   const { fields: infoFields, append: infoAppend } = useFieldArray({
     name: 'info',
     control: form.control,
   });
-  // Валидация и настройка формы END
 
   const { categories } = useCategories();
 
+  console.log('!!!');
+
   // Функции
-  async function onSubmit(data: ProfileFormValues) {
-    // const product: ProductWithoutId = {
+  function onSubmit(data: ProfileFormValues) {
+    console.log('!!!!');
+    console.log(data);
+    // const product: ProductForCreating = {
     //   name: data.name,
     //   rating: Number(data.rating),
     //   price: Number(data.price),
     //   categoryId: Number(data.categoryId),
-    //   imgs: data.imgs.map((obj) => obj.value),
-    //   info: data.info.map((obj) => obj.value),
+    //   gallery: data.gallery,
+    //   // info: data.info.map((obj) => obj.value),
     // };
     // dispatch(createProduct(product));
   }
@@ -164,19 +166,19 @@ export function AdminProductForm() {
             variant="outline"
             size="sm"
             className="mt-2"
-            onClick={() => infoAppend({ value: '' })}
+            onClick={() => infoAppend({ value: '', name: '' })}
           >
             Добавить характеристику
           </Button>
         </div>
 
-        <div>
+        {/* <div>
           <FormLabel className="mr-2">Ссылки на фотографии</FormLabel>
           {urlsFields.map((field, index) => (
             <FormField
               control={form.control}
               key={field.id}
-              name={`imgs.${index}.value`}
+              name={`gallery.${index}`}
               render={({ field }) => (
                 <FormItem className="mt-3">
                   <FormControl>
@@ -196,7 +198,7 @@ export function AdminProductForm() {
           >
             Добавить URL
           </Button>
-        </div>
+        </div> */}
         <Button type="submit">Создать товар</Button>
       </form>
     </Form>

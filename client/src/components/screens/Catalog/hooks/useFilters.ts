@@ -1,5 +1,5 @@
-import { IProductFitlers } from '@/hooks/features/useProducts/filters.types';
-import { ProductQueryData } from '@/services/product/product.types';
+import { IProductFitlers } from '@/types/product/filters.types';
+import { IProductQueryData } from '@/types/product/query-data.types';
 import { useSearchParams } from 'react-router-dom';
 import {
   configurateUrlParams,
@@ -9,7 +9,7 @@ import {
 export const useFilters = () => {
   const [_, setSearchParams] = useSearchParams();
   const params = window.location.search.slice(1);
-  const { filters, page, searchTerm } = parseParamsFromUrl<ProductQueryData>(
+  const { filters, page, searchTerm } = parseParamsFromUrl<IProductQueryData>(
     params,
     {
       tryToParseNumbersInArray: true,

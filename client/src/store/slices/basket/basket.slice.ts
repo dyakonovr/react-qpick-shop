@@ -1,4 +1,4 @@
-import { IBasketItem } from '@/services/basket/basket.types';
+import { IBasketItem } from '@/types/basket-item.types';
 import { createSlice } from '@reduxjs/toolkit';
 import {
   addProductToBasket,
@@ -7,7 +7,7 @@ import {
   updateBasketItemQuantity,
 } from './basket.actions';
 
-type IBasketInitialState = {
+interface IBasketInitialState {
   id: number | null;
   items: IBasketItem[] | null;
   isLoading: boolean;

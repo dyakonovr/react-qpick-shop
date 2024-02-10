@@ -1,9 +1,10 @@
-import BasketItemService from '@/services/basket-item.service';
+import BasketItemService from '@/services/basket-item/basket-item.service';
+import { IUpdateBasketItemData } from "@/services/basket-item/basket-item.types";
 import BasketService from '@/services/basket/basket.service';
-import { IBasketItem, IBasketResponse } from '@/services/basket/basket.types';
+import { IBasketResponse } from '@/services/basket/basket.types';
 import { RootType } from '@/store/store';
+import { IBasketItem } from '@/types/basket-item.types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { IUpdateBasketItemData } from './basket.types';
 
 export const fetchBasketAndItems = createAsyncThunk<IBasketResponse>(
   'basket/get-all',

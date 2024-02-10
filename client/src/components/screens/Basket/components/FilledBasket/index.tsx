@@ -2,18 +2,16 @@ import { normalizePrice } from '@/functions/normalizePrice';
 import { useTypedSelector } from '@/hooks/general/useTypedSelector';
 import { getBasketItemsAndTotalPriceSelector } from '@/store/slices/basket/basket.selectors';
 import { Link } from 'react-router-dom';
+import BasketItem from './BasketItem';
+import FilledCartSkeleton from './skeleton';
 import classes from './styles.module.scss';
-import FilledCartSkeleton from "./skeleton";
-import BasketItem from "./components/BasketItem";
 
 function FilledBasket() {
   const { basketItems, total, isLoading } = useTypedSelector(
     getBasketItemsAndTotalPriceSelector
   );
-    
-  if (isLoading) return <FilledCartSkeleton />;
 
-  if (!basketItems) return null;
+  if (isLoading) return <FilledCartSkeleton />;
 
   return (
     <>
