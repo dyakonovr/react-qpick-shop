@@ -1,13 +1,13 @@
-import classes from "../styles.module.scss";
+import classes from "../../styles.module.scss";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useImageLoader } from "@/hooks/general/useImageLoader";
 
-interface IItemImage {
+interface IItemImageProps {
   src: string;
   alt: string;
 }
 
-function ItemImage({ src, alt }: IItemImage) {
+function ItemImage({ src, alt }: IItemImageProps) {
   const { isImageLoaded } = useImageLoader(src);
 
   return (

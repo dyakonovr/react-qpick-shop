@@ -2,7 +2,10 @@ interface IDirtyValuesConfig {
   tryToParseNumbersInArray?: boolean;
 }
 
-export const getDirtyValues = <T>(data: T, config?: IDirtyValuesConfig) => {
+export const getDirtyValues = <T extends object>(
+  data: T,
+  config?: IDirtyValuesConfig
+) => {
   for (const filterKey in data) {
     const filter = data[filterKey];
 
@@ -41,11 +44,11 @@ export const getDirtyValues = <T>(data: T, config?: IDirtyValuesConfig) => {
 };
 
 interface INestedObject {
-  [key: string]: number | INestedObject;
+  [key: string]: number | string | number[] | string[] | INestedObject;
 }
 
 // Удаляю пустые поля из объекта
-function removeInvalidFieldsFromObject(obj: INestedObject): void {
+function removeInvalidFieldsFromObject(obj: INestedObject) {
   for (const key in obj) {
     if (typeof obj[key] === "object" && !!obj[key]) {
       removeInvalidFieldsFromObject(obj[key] as INestedObject);

@@ -42,12 +42,24 @@ class ProductController {
 
       if (!product) return next(ApiErrorHandler.notFound("Продукт не найден"));
 
+      const similar = await Product.findAll({
+        where: {
+          category_id: product.category.id,
+          id: { [Op.ne]: id }
+        },
+        attributes: { exclude: ["slug", "category_id"]},
+        limit: 3
+      });
+
       const { categories, product_images: gallery, product_characteristics: info, ...restProductData } = product.dataValues;
       return res.json({
-        ...restProductData,
-        category: product.category.name,
-        gallery: product.product_images.map(obj => obj.url),
-        info
+        product: {
+          ...restProductData,
+          category: product.category.name,
+          gallery: product.product_images.map(obj => obj.url),
+          info,
+        },
+        similar
       });
     } catch (error) {
       next(ApiErrorHandler.internal(error.message));
@@ -94,9 +106,10 @@ class ProductController {
 
       const products = await Product.findAll({
         where: {
-          category: { id: currentProduct.category_id },
+          category_id: currentProduct.category_id,
           id: { [Op.ne]: id }
-        }
+        },
+        limit: 3
       });
 
       return res.json(products);

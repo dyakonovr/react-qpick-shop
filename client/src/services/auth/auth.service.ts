@@ -10,10 +10,7 @@ class AuthSerice {
   private url = "auth";
 
   main = async (type: AuthType, data: IEmailPassword) => {
-    const response = await $axios.post<IAuthResponse>(
-      `/${this.url}/${type}`,
-      data
-    );
+    const response = await $axios.post<IAuthResponse>(`/${this.url}/${type}`, data);
 
     if (response.data.accessToken) saveToStorage(response.data);
     return response.data;

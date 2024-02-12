@@ -1,10 +1,12 @@
 import { MoveLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import ItemButtons from "./components/ItemButtons";
-import ItemImage from "./components/ItemImage";
 import classes from "./styles.module.scss";
+import ItemInfo from "./components/ItemInfo";
+import ItemGallery from "./components/ItemGallery";
+import ItemDetails from "./components/ItemDetails";
+import ItemSimilarProducts from "./components/ItemSimilarProducts";
 import { IExtendedProduct } from "@/types/product/product.types";
-import Price from "@/components/shared/Price";
 import LikeButton from "@/components/shared/LikeButton";
 
 interface IItemPageProps {
@@ -25,41 +27,23 @@ function ItemPage({ product }: IItemPageProps) {
       <div className={`block ${classes.content}`}>
         <div className={classes.content__main}>
           <LikeButton productId={product.id} />
-          <div className={classes.content__photos}>
-            <ItemImage src={product.image} alt={`Фото ${product.name} №1`} />
-            {product.gallery.map((image, idx) => (
-              <ItemImage
-                src={image}
-                alt={`Фото ${product.name} №${idx + 1}`}
-                key={image}
-              />
-            ))}
-          </div>
-          <div className={classes.content__footer}>
-            <div>
-              <strong className="subtitle subtitle--gray">{product.category}</strong>
-              <strong className={classes.content__title}>{product.name}</strong>
-            </div>
-
-            <Price price={product.price} isBigFont={true} />
-          </div>
+          <ItemGallery
+            gallery={[...product.gallery, product.image]}
+            productName={product.name}
+          />
+          <ItemDetails
+            id={product.id}
+            name={product.name}
+            category={product.category}
+            price={product.price}
+          />
         </div>
       </div>
       <div className={classes.info}>
-        <div className={classes.info__wrapper}>
-          <strong className={`subtitle block ${classes.info__title}`}>
-            Описание и характеристики
-          </strong>
-          <div className={classes.info__container}>
-            {product.info.map((infoObject) => (
-              <p className={classes.info__text} key={infoObject.name}>
-                {`${infoObject.name}: ${infoObject.value}`}
-              </p>
-            ))}
-          </div>
-        </div>
+        <ItemInfo info={product.info} />
         <ItemButtons product={product} />
       </div>
+      <ItemSimilarProducts />
     </section>
   );
 }

@@ -5,15 +5,17 @@ class FavouritesService {
   private url = "/favourites";
 
   getAll = async () => {
-    return $axios.get<IProduct[]>(this.url);
+    const response = await $axios.get<IProduct[]>(this.url);
+    return response.data;
   };
 
   create = async (productId: string | number) => {
-    return $axios.post<IProduct>(`${this.url}/${productId}`);
+    const response = await $axios.post<IProduct>(`${this.url}/${productId}`);
+    return response.data;
   };
 
   delete = async (productId: string | number) => {
-    return $axios.delete(`${this.url}/${productId}`);
+    $axios.delete(`${this.url}/${productId}`);
   };
 }
 

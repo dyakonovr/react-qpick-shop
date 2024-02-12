@@ -11,7 +11,7 @@ export const fetchBasketAndItems = createAsyncThunk<IBasketResponse>(
   async (_, thunkApi) => {
     try {
       const response = await BasketService.getById();
-      return response.data;
+      return response;
     } catch (error) {
       return thunkApi.rejectWithValue(error);
     }
@@ -24,13 +24,11 @@ export const addProductToBasket = createAsyncThunk<IBasketItem, number>(
     try {
       const basketId = (thunkApi.getState() as RootType).basket.id;
       if (!basketId) {
-        return thunkApi.rejectWithValue(
-          new Error("Ошибка добавление товара в корзину")
-        );
+        return thunkApi.rejectWithValue(new Error("Ошибка добавление товара в корзину"));
       }
 
       const response = await BasketItemService.create(productId, basketId);
-      return response.data;
+      return response;
     } catch (error) {
       return thunkApi.rejectWithValue(error);
     }
@@ -41,6 +39,10 @@ export const deleteProductFromBasket = createAsyncThunk<number, number>(
   "basket/delete-product",
   async (basketItemId, thunkApi) => {
     try {
+      if (!confirm("Вы точно хотите удалить товар из корзины?")) {
+        return thunkApi.rejectWithValue("rejected");
+      }
+
       await BasketItemService.delete(basketItemId);
       return basketItemId;
     } catch (error) {

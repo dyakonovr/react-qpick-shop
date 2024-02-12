@@ -41,9 +41,12 @@ export const getBasketItemsAndTotalPriceSelector = createSelector(
   }
 );
 
-export function getBasketInfoAndStatusSelector(state: RootType) {
-  return {
-    basketItemsQuantity: state.basket.items?.length || 0,
-    isLoading: state.basket.isLoading
-  };
-}
+export const getBasketInfoAndStatusSelector = createSelector(
+  [getBasketInfoSelector],
+  (basket) => {
+    return {
+      basketItemsQuantity: basket.items?.length || 0,
+      isLoading: basket.isLoading
+    };
+  }
+);

@@ -1,9 +1,6 @@
 import { IProductResponse } from "./product.types";
 import { $axios } from "@/api/api.interceptor";
-import {
-  IExtendedProduct,
-  IProductForCreating
-} from "@/types/product/product.types";
+import { IExtendedProduct, IProductForCreating } from "@/types/product/product.types";
 import { IProductQueryData } from "@/types/product/query-data.types";
 
 class ProductService {
@@ -18,7 +15,6 @@ class ProductService {
   };
 
   getById = async (id: string | number) => {
-    // return $axios.get<IProduct>(`${this.url}/${id}`);
     const response = await $axios.get<IExtendedProduct>(`${this.url}/${id}`);
     return response.data;
   };
@@ -32,9 +28,7 @@ class ProductService {
   };
 
   getByCategory = async (categorySlug: string) => {
-    return $axios.get<IExtendedProduct>(
-      `${this.url}/by-category/${categorySlug}`
-    );
+    return $axios.get<IExtendedProduct>(`${this.url}/by-category/${categorySlug}`);
   };
 
   create = async (data: IProductForCreating) => {

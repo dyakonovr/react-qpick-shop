@@ -6,9 +6,9 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { normalizeRating } from "@/functions/normalizeRating";
 import { normalizeText } from "@/functions/normalizeText";
 import { useImageLoader } from "@/hooks/general/useImageLoader";
-import { Product } from "@/types/product/product.types";
+import { IProduct } from "@/types/product/product.types";
 
-function Card({ id, name, price, image: imagePath, rating }: Product) {
+function Card({ id, name, price, image: imagePath, rating }: IProduct) {
   const { isImageLoaded } = useImageLoader(imagePath);
 
   return (
@@ -24,7 +24,7 @@ function Card({ id, name, price, image: imagePath, rating }: Product) {
         </div>
         <div className={classes.card__wrapper}>
           <strong className={classes.card__title}>{normalizeText(name)}</strong>
-          <Price oldPrice={0} price={price} />
+          <Price price={price} />
         </div>
         <span className={classes.card__grade}>{normalizeRating(rating)}</span>
       </Link>

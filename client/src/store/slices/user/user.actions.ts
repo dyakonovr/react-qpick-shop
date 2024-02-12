@@ -1,16 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import {
-  IAuthResponse,
-  IEmailPassword
-} from "../../../services/auth/user.types";
+import { IAuthResponse, IEmailPassword } from "../../../services/auth/user.types";
 import { clearBasket } from "../basket/basket.slice";
 import { clearFavourites } from "../favourites/favourites.slice";
 import { errorCatch } from "@/api/api.helper";
 import { AuthType } from "@/components/screens/Auth/auth.types";
-import {
-  checkAccessToken,
-  removeFromStorage
-} from "@/services/auth/auth.helper";
+import { checkAccessToken, removeFromStorage } from "@/services/auth/auth.helper";
 import AuthService from "@/services/auth/auth.service";
 
 export const auth = createAsyncThunk<

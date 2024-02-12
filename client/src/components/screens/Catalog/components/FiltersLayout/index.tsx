@@ -75,9 +75,7 @@ function FiltersLayout({ filters, changeFilters }: IFiltersLayoutProps) {
           max={10000}
           step={1}
         />
-        {categories && (
-          <CheckboxesFilter filterTitle="Категория" data={categories} />
-        )}
+        {categories && <CheckboxesFilter filterTitle="Категория" data={categories} />}
         <RangeFilter
           filterTitle="Рейтинг"
           registerMinInputKey="rating.min"

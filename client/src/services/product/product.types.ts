@@ -1,4 +1,4 @@
-import { IProduct } from "@/types/product/product.types";
+import { IExtendedProduct, IProduct } from "@/types/product/product.types";
 // export enum ProductSortEnum {
 //   HIGH_PRICE = 'high-price',
 //   LOW_PRICE = 'low-price',
@@ -10,4 +10,9 @@ export interface IProductResponse {
   products: IProduct[];
   currentPage: number;
   totalPages: number;
+}
+
+export interface IGetProductByIdResponse {
+  product: IExtendedProduct;
+  similar: IProduct[];
 }

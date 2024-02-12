@@ -10,9 +10,7 @@ function EmptyBasket() {
         <img src={cartImage} alt="" />
       </div>
       <strong className={classes.empty_cart__title}>Корзина пуста</strong>
-      <p className={classes.empty_cart__descr}>
-        Но это никогда не поздно исправить :)
-      </p>
+      <p className={classes.empty_cart__descr}>Но это никогда не поздно исправить :)</p>
       <Link
         to={PagePaths.CATALOG}
         className={["link", classes.empty_cart__link].join(" ")}
