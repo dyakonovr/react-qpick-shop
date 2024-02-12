@@ -1,4 +1,4 @@
-import { IProductResponse } from "./product.types";
+import { IGetProductByIdResponse, IProductResponse } from "./product.types";
 import { $axios } from "@/api/api.interceptor";
 import { IExtendedProduct, IProductForCreating } from "@/types/product/product.types";
 import { IProductQueryData } from "@/types/product/query-data.types";
@@ -15,7 +15,7 @@ class ProductService {
   };
 
   getById = async (id: string | number) => {
-    const response = await $axios.get<IExtendedProduct>(`${this.url}/${id}`);
+    const response = await $axios.get<IGetProductByIdResponse>(`${this.url}/${id}`);
     return response.data;
   };
 

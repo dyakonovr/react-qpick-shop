@@ -14,5 +14,5 @@ export interface IProductResponse {
 
 export interface IGetProductByIdResponse {
   product: IExtendedProduct;
-  similar: IProduct[];
+  similarProducts: IProduct[];
 }

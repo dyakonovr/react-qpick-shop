@@ -42,7 +42,7 @@ class ProductController {
 
       if (!product) return next(ApiErrorHandler.notFound("Продукт не найден"));
 
-      const similar = await Product.findAll({
+      const similarProducts = await Product.findAll({
         where: {
           category_id: product.category.id,
           id: { [Op.ne]: id }
@@ -59,7 +59,7 @@ class ProductController {
           gallery: product.product_images.map(obj => obj.url),
           info,
         },
-        similar
+        similarProducts
       });
     } catch (error) {
       next(ApiErrorHandler.internal(error.message));

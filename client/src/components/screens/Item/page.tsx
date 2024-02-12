@@ -6,14 +6,15 @@ import ItemInfo from "./components/ItemInfo";
 import ItemGallery from "./components/ItemGallery";
 import ItemDetails from "./components/ItemDetails";
 import ItemSimilarProducts from "./components/ItemSimilarProducts";
-import { IExtendedProduct } from "@/types/product/product.types";
 import LikeButton from "@/components/shared/LikeButton";
+import { IGetProductByIdResponse } from "@/services/product/product.types";
 
 interface IItemPageProps {
-  product: IExtendedProduct;
+  data: IGetProductByIdResponse;
 }
 
-function ItemPage({ product }: IItemPageProps) {
+function ItemPage({ data }: IItemPageProps) {
+  const { product, similarProducts } = data;
   const navigate = useNavigate();
 
   return (
@@ -43,7 +44,7 @@ function ItemPage({ product }: IItemPageProps) {
         <ItemInfo info={product.info} />
         <ItemButtons product={product} />
       </div>
-      <ItemSimilarProducts />
+      <ItemSimilarProducts products={similarProducts} />
     </section>
   );
 }

@@ -7,12 +7,12 @@ import { useProduct } from "@/hooks/features/useProduct";
 function Item() {
   const productId = Number(useQueryParams("id"));
   const navigate = useNavigate();
-  const { product, isLoading, isError } = useProduct(productId);
+  const { data, isLoading, isError } = useProduct(productId);
 
   if (isLoading) return <ItemSkeleton />;
   if (isError) navigate("*");
 
-  return product ? <ItemPage product={product} /> : <Navigate to={"*"} />;
+  return data?.product ? <ItemPage data={data} /> : <Navigate to={"*"} />;
 }
 
 export default Item;

@@ -8,7 +8,7 @@ export const useProduct = (id: number | string) => {
   });
 
   return {
-    product: data,
+    data,
     isLoading,
     isError
   };
