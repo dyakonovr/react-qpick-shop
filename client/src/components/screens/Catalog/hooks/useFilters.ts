@@ -1,10 +1,10 @@
-import { IProductFitlers } from '@/types/product/filters.types';
-import { IProductQueryData } from '@/types/product/query-data.types';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from "react-router-dom";
 import {
   configurateUrlParams,
-  parseParamsFromUrl,
-} from '../helpers/catalog.helpers';
+  parseParamsFromUrl
+} from "../helpers/catalog.helpers";
+import { IProductFitlers } from "@/types/product/filters.types";
+import { IProductQueryData } from "@/types/product/query-data.types";
 
 export const useFilters = () => {
   const [_, setSearchParams] = useSearchParams();
@@ -14,7 +14,7 @@ export const useFilters = () => {
     {
       tryToParseNumbersInArray: true,
       tryToParseNumbersInObject: true,
-      tryToParsePrimitive: true,
+      tryToParsePrimitive: true
     }
   );
 
@@ -28,7 +28,7 @@ export const useFilters = () => {
       paramsObject = {
         page: 1,
         filters: newFilters,
-        searchTerm,
+        searchTerm
       };
     }
 
@@ -47,6 +47,6 @@ export const useFilters = () => {
     changeFilters,
     page: page ? +page : 1,
     changePage,
-    searchTerm,
+    searchTerm
   };
 };

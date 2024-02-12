@@ -1,4 +1,11 @@
-import { Button } from '@/components/ui/button';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useFieldArray, useForm } from "react-hook-form";
+import {
+  ProfileFormValues,
+  productFormDefaultValues,
+  profileFormSchema
+} from "./product-form.constants";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -6,30 +13,23 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+  FormMessage
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { useCategories } from '@/hooks/features/useCategories';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useFieldArray, useForm } from 'react-hook-form';
-import {
-  ProfileFormValues,
-  productFormDefaultValues,
-  profileFormSchema,
-} from './product-form.constants';
+  SelectValue
+} from "@/components/ui/select";
+import { useCategories } from "@/hooks/features/useCategories";
 
 export function AdminProductForm() {
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues: productFormDefaultValues,
-    mode: 'onChange',
+    mode: "onChange"
   });
 
   // const { fields: urlsFields, append: urlsAppend } = useFieldArray({
@@ -38,17 +38,17 @@ export function AdminProductForm() {
   // });
 
   const { fields: infoFields, append: infoAppend } = useFieldArray({
-    name: 'info',
-    control: form.control,
+    name: "info",
+    control: form.control
   });
 
   const { categories } = useCategories();
 
-  console.log('!!!');
+  console.log("!!!");
 
   // Функции
   function onSubmit(data: ProfileFormValues) {
-    console.log('!!!!');
+    console.log("!!!!");
     console.log(data);
     // const product: ProductForCreating = {
     //   name: data.name,
@@ -166,7 +166,7 @@ export function AdminProductForm() {
             variant="outline"
             size="sm"
             className="mt-2"
-            onClick={() => infoAppend({ value: '', name: '' })}
+            onClick={() => infoAppend({ value: "", name: "" })}
           >
             Добавить характеристику
           </Button>

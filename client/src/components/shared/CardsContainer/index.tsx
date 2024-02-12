@@ -1,7 +1,7 @@
-import { IProduct } from '@/types/product/product.types';
-import Card from './Card';
-import CardSkeleton from './Card/skeleton';
-import classes from './styles.module.scss';
+import Card from "./Card";
+import CardSkeleton from "./Card/skeleton";
+import classes from "./styles.module.scss";
+import { IProduct } from "@/types/product/product.types";
 
 interface ICardsContainerProps {
   isLoading: boolean;
@@ -14,7 +14,7 @@ function CardsContainer({
   isLoading,
   isSuccess,
   isError,
-  products,
+  products
 }: ICardsContainerProps) {
   const isProductsAvailable = products && products.length !== 0;
   const isNoProducts = !isProductsAvailable && isSuccess;

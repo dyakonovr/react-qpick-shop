@@ -1,4 +1,4 @@
-import { IProduct } from '@/types/product/product.types';
+import { IProduct } from "@/types/product/product.types";
 // export enum ProductSortEnum {
 //   HIGH_PRICE = 'high-price',
 //   LOW_PRICE = 'low-price',

@@ -1,9 +1,9 @@
 interface IDirtyValuesConfig {
   tryToParseNumbersInArray?: boolean;
-};
+}
 
 export const getDirtyValues = <T>(data: T, config?: IDirtyValuesConfig) => {
-  for (let filterKey in data) {
+  for (const filterKey in data) {
     const filter = data[filterKey];
 
     if (Array.isArray(filter)) {
@@ -15,7 +15,7 @@ export const getDirtyValues = <T>(data: T, config?: IDirtyValuesConfig) => {
       if (config?.tryToParseNumbersInArray) {
         data = {
           ...data,
-          [filterKey]: filter.map((el) => (isNaN(+el) ? el : +el)),
+          [filterKey]: filter.map((el) => (isNaN(+el) ? el : +el))
         };
         continue;
       }
@@ -42,12 +42,12 @@ export const getDirtyValues = <T>(data: T, config?: IDirtyValuesConfig) => {
 
 interface INestedObject {
   [key: string]: number | INestedObject;
-};
+}
 
 // Удаляю пустые поля из объекта
 function removeInvalidFieldsFromObject(obj: INestedObject): void {
   for (const key in obj) {
-    if (typeof obj[key] === 'object' && !!obj[key]) {
+    if (typeof obj[key] === "object" && !!obj[key]) {
       removeInvalidFieldsFromObject(obj[key] as INestedObject);
       if (Object.keys(obj[key]).length === 0) {
         delete obj[key];

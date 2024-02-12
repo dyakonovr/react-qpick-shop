@@ -1,9 +1,9 @@
-import LikeButtonSkeleton from '@/components/shared/LikeButton/skeleton';
-import PriceSkeleton from '@/components/shared/Price/skeleton';
-import { Skeleton } from '@/components/ui/skeleton';
-import { MoveLeft } from 'lucide-react';
-import classes from './styles.module.scss';
-import ItemButtonsSkeleton from './components/ItemButtons/skeleton';
+import { MoveLeft } from "lucide-react";
+import classes from "./styles.module.scss";
+import ItemButtonsSkeleton from "./components/ItemButtons/skeleton";
+import LikeButtonSkeleton from "@/components/shared/LikeButton/skeleton";
+import PriceSkeleton from "@/components/shared/Price/skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 
 function ItemSkeleton() {
   return (
@@ -20,8 +20,8 @@ function ItemSkeleton() {
                 <Skeleton
                   className={[
                     classes.content__photo,
-                    'w-[300px] h-[300px]',
-                  ].join(' ')}
+                    "w-[300px] h-[300px]"
+                  ].join(" ")}
                   key={el}
                 />
               </div>

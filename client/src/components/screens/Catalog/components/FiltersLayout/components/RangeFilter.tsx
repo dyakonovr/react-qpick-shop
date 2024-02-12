@@ -1,5 +1,5 @@
-import { InputHTMLAttributes } from 'react';
-import { useFormContext } from 'react-hook-form';
+import { InputHTMLAttributes } from "react";
+import { useFormContext } from "react-hook-form";
 
 interface IRangeFitlerProps extends InputHTMLAttributes<HTMLInputElement> {
   filterTitle: string;
@@ -15,14 +15,14 @@ function RangeFilter({
   registerMaxInputKey,
   min,
   max,
-  step,
+  step
 }: IRangeFitlerProps) {
   const { register, setValue, getValues } = useFormContext();
 
   // Функции
   const handleMinInputBlur = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let minValue = +event.target.value;
-    let maxValue = getValues(registerMaxInputKey);
+    const minValue = +event.target.value;
+    const maxValue = getValues(registerMaxInputKey);
 
     if (minValue && maxValue && minValue > maxValue) {
       const newMaxValue = Math.min(max, Math.ceil(minValue * 1.2));
@@ -33,8 +33,8 @@ function RangeFilter({
   };
 
   const handleMaxInputBlur = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let maxValue = +event.target.value;
-    let minValue = getValues(registerMinInputKey);
+    const maxValue = +event.target.value;
+    const minValue = getValues(registerMinInputKey);
 
     if (minValue && maxValue && maxValue < minValue) {
       const newMinValue = Math.max(min, Math.floor(maxValue * 0.8));
@@ -59,7 +59,7 @@ function RangeFilter({
           {...register(registerMinInputKey, {
             setValueAs: (value) => +value,
             min,
-            max,
+            max
           })}
           onBlur={handleMinInputBlur}
         />
@@ -73,7 +73,7 @@ function RangeFilter({
           {...register(registerMaxInputKey, {
             setValueAs: (value) => +value,
             min,
-            max,
+            max
           })}
           onBlur={handleMaxInputBlur}
         />

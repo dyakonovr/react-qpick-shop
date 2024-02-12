@@ -1,26 +1,34 @@
-import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 
 const profileFormSchema = z.object({
-  name: z.string().min(3, {message: "Минимальная длина названия категории - 3 символа"}),
-})
+  name: z
+    .string()
+    .min(3, { message: "Минимальная длина названия категории - 3 символа" })
+});
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
 export function AdminCategoryForm() {
-  
   // Валидация и настройка формы
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues: {
-      name: "",
+      name: ""
     },
-    mode: "onChange",
-  })
+    mode: "onChange"
+  });
   // Валидация и настройка формы END
 
   // Функции
@@ -48,5 +56,5 @@ export function AdminCategoryForm() {
         <Button type="submit">Создать категорию</Button>
       </form>
     </Form>
-  )
+  );
 }

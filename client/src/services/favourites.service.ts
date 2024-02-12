@@ -1,8 +1,8 @@
-import { $axios } from '@/api/api.interceptor';
+import { $axios } from "@/api/api.interceptor";
 import { IProduct } from "@/types/product/product.types";
 
 class FavouritesService {
-  private url = '/favourites';
+  private url = "/favourites";
 
   getAll = async () => {
     return $axios.get<IProduct[]>(this.url);

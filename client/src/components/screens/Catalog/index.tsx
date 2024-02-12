@@ -1,23 +1,23 @@
-import CardsContainer from '@/components/shared/CardsContainer';
+import { Settings2 as FiltersIcon } from "lucide-react";
+import CatalogPagination from "./components/CatalogPagination";
+import FiltersLayout from "./components/FiltersLayout";
+import { useFilters } from "./hooks/useFilters";
+import { useProducts } from "@/hooks/features/useProducts";
 import {
   Sheet,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-  SheetContent as SheetWrapper,
-} from '@/components/ui/sheet';
-import { useProducts } from '@/hooks/features/useProducts';
-import { Settings2 as FiltersIcon } from 'lucide-react';
-import CatalogPagination from './components/CatalogPagination';
-import FiltersLayout from './components/FiltersLayout';
-import { useFilters } from './hooks/useFilters';
+  SheetContent as SheetWrapper
+} from "@/components/ui/sheet";
+import CardsContainer from "@/components/shared/CardsContainer";
 
 function Catalog() {
   const { filters, changeFilters, page, changePage, searchTerm } = useFilters();
   const { data, isLoading, isSuccess, isError } = useProducts({
     filters,
     page,
-    searchTerm,
+    searchTerm
   });
   const isPaginationNeeded = data && data.totalPages > 1;
 

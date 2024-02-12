@@ -1,12 +1,12 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 const initialState: IOrderState = {
   list: [],
-  lastOrderId: 0,
-}
- 
+  lastOrderId: 0
+};
+
 const ordersSlice = createSlice({
-  name: 'orders',
+  name: "orders",
   initialState,
   reducers: {
     addNewOrder(state, action: PayloadAction<IOrder>) {
@@ -14,7 +14,7 @@ const ordersSlice = createSlice({
       state.lastOrderId += 1;
 
       console.log("New order:", action.payload);
-    },
+    }
   }
 });
 

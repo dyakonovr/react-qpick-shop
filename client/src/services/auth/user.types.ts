@@ -1,4 +1,4 @@
-import { IUser } from '@/types/user.types';
+import { IUser } from "@/types/user.types";
 
 export interface IEmailPassword {
   email: string;

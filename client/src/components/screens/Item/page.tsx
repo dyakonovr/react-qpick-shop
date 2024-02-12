@@ -1,11 +1,11 @@
-import LikeButton from '@/components/shared/LikeButton';
-import Price from '@/components/shared/Price';
-import { IExtendedProduct } from '@/types/product/product.types';
-import { MoveLeft } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import ItemButtons from './components/ItemButtons';
-import ItemImage from './components/ItemImage';
-import classes from './styles.module.scss';
+import { MoveLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import ItemButtons from "./components/ItemButtons";
+import ItemImage from "./components/ItemImage";
+import classes from "./styles.module.scss";
+import { IExtendedProduct } from "@/types/product/product.types";
+import Price from "@/components/shared/Price";
+import LikeButton from "@/components/shared/LikeButton";
 
 interface IItemPageProps {
   product: IExtendedProduct;
@@ -37,9 +37,7 @@ function ItemPage({ product }: IItemPageProps) {
           </div>
           <div className={classes.content__footer}>
             <div>
-              <strong className={`subtitle subtitle--gray`}>
-                {product.category}
-              </strong>
+              <strong className="subtitle subtitle--gray">{product.category}</strong>
               <strong className={classes.content__title}>{product.name}</strong>
             </div>
 

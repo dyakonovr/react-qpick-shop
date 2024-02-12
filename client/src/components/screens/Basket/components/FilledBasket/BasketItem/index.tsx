@@ -1,12 +1,12 @@
-import { Skeleton } from '@/components/ui/skeleton';
-import { normalizePrice } from '@/functions/normalizePrice';
-import { useActions } from '@/hooks/general/useActions';
-import useDebounce from '@/hooks/general/useDebounce';
-import { useImageLoader } from '@/hooks/general/useImageLoader';
-import { IBasketItem } from '@/types/basket-item.types';
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import classes from './styles.module.scss';
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import classes from "./styles.module.scss";
+import { Skeleton } from "@/components/ui/skeleton";
+import { normalizePrice } from "@/functions/normalizePrice";
+import { useActions } from "@/hooks/general/useActions";
+import useDebounce from "@/hooks/general/useDebounce";
+import { useImageLoader } from "@/hooks/general/useImageLoader";
+import { IBasketItem } from "@/types/basket-item.types";
 
 interface IBasketItemProps {
   basketItem: IBasketItem;
@@ -25,17 +25,14 @@ function BasketItem({ basketItem }: IBasketItemProps) {
 
     updateBasketItemQuantity({
       basketItemId,
-      quantity: debouncedProductQuantity,
+      quantity: debouncedProductQuantity
     });
   }, [debouncedProductQuantity]);
 
   return (
-    <li
-      className={[classes.cart__item, classes.item].join(' ')}
-      key={product.id}
-    >
+    <li className={[classes.cart__item, classes.item].join(" ")} key={product.id}>
       <button
-        className={classes['item__btn-delete']}
+        className={classes["item__btn-delete"]}
         onClick={() => deleteProductFromBasket(basketItemId)}
         data-product-id={product.id}
       ></button>
@@ -49,9 +46,7 @@ function BasketItem({ basketItem }: IBasketItemProps) {
         </div>
         <div className={classes.item__info}>
           <strong className={classes.item__title}>{product.name}</strong>
-          <span className={classes.item__price}>
-            {normalizePrice(product.price)}
-          </span>
+          <span className={classes.item__price}>{normalizePrice(product.price)}</span>
         </div>
       </Link>
       <div className={classes.item__footer}>
@@ -60,17 +55,17 @@ function BasketItem({ basketItem }: IBasketItemProps) {
             disabled={productQuantity <= 1}
             data-product-id={product.id}
             onClick={() => setProductQuantity((prev) => prev - 1)}
-            className={`${classes.item__btn} ${classes['item__btn--minus']}`}
+            className={`${classes.item__btn} ${classes["item__btn--minus"]}`}
           ></button>
           <span className={classes.item__quantity}>{productQuantity}</span>
           <button
             disabled={productQuantity >= 10}
             data-product-id={product.id}
             onClick={() => setProductQuantity((prev) => prev + 1)}
-            className={`${classes.item__btn} ${classes['item__btn--plus']}`}
+            className={`${classes.item__btn} ${classes["item__btn--plus"]}`}
           ></button>
         </div>
-        <span className={classes['item__total-price']}>
+        <span className={classes["item__total-price"]}>
           {normalizePrice(product.price * quantity)}
         </span>
       </div>

@@ -1,33 +1,33 @@
-import { IBasketItem } from '@/types/basket-item.types';
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 import {
   addProductToBasket,
   deleteProductFromBasket,
   fetchBasketAndItems,
-  updateBasketItemQuantity,
-} from './basket.actions';
+  updateBasketItemQuantity
+} from "./basket.actions";
+import { IBasketItem } from "@/types/basket-item.types";
 
 interface IBasketInitialState {
   id: number | null;
   items: IBasketItem[] | null;
   isLoading: boolean;
-};
+}
 
 const initialState: IBasketInitialState = {
   id: null,
   items: null,
-  isLoading: false,
+  isLoading: false
 };
 
 const basketSlice = createSlice({
-  name: 'basket',
+  name: "basket",
   initialState,
   reducers: {
     clearBasket(state) {
       state.id = null;
       state.isLoading = false;
       state.items = null;
-    },
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -69,7 +69,7 @@ const basketSlice = createSlice({
           return { ...basketItem, quantity: action.payload.quantity };
         });
       });
-  },
+  }
 });
 
 export default basketSlice.reducer;

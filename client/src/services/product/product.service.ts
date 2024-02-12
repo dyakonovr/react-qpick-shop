@@ -1,13 +1,13 @@
-import { $axios } from '@/api/api.interceptor';
+import { IProductResponse } from "./product.types";
+import { $axios } from "@/api/api.interceptor";
 import {
   IExtendedProduct,
-  IProductForCreating,
-} from '@/types/product/product.types';
-import { IProductQueryData } from '@/types/product/query-data.types';
-import { IProductResponse } from "./product.types";
+  IProductForCreating
+} from "@/types/product/product.types";
+import { IProductQueryData } from "@/types/product/query-data.types";
 
 class ProductService {
-  private url = '/product';
+  private url = "/product";
 
   getAll = async (queryData = {} as IProductQueryData) => {
     const response = await $axios.post<IProductResponse>(

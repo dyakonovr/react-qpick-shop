@@ -1,8 +1,8 @@
-import { $axios } from '@/api/api.interceptor';
-import { ICategory } from '@/types/category.types';
+import { $axios } from "@/api/api.interceptor";
+import { ICategory } from "@/types/category.types";
 
 class CategorySerice {
-  private url = '/category';
+  private url = "/category";
 
   getAll = async () => {
     const response = await $axios.get<ICategory[]>(this.url);

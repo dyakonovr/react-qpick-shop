@@ -1,5 +1,5 @@
-import { normalizePrice } from '@/functions/normalizePrice';
-import classes from './styles.module.scss';
+import classes from "./styles.module.scss";
+import { normalizePrice } from "@/functions/normalizePrice";
 
 interface IPriceProps {
   price: number;
@@ -8,12 +8,12 @@ interface IPriceProps {
 
 function Price({ price = 0, isBigFont = false }: IPriceProps) {
   const classNames = isBigFont
-    ? `${classes.prices} ${classes['prices--big']}`
+    ? `${classes.prices} ${classes["prices--big"]}`
     : classes.prices;
 
   return (
     <div className={classNames}>
-      <span className={classes['price']}>{normalizePrice(price)}</span>
+      <span className={classes["price"]}>{normalizePrice(price)}</span>
     </div>
   );
 }

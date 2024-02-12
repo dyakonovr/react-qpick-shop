@@ -1,47 +1,47 @@
-import { Button } from '@/components/ui/button';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { AuthFormSchema } from "./auth.constants";
+import { AuthFormValuesType, AuthType } from "./auth.types";
+import { useActions } from "@/hooks/general/useActions";
+import { PagePaths } from "@/enum/PagePaths";
+import { Input } from "@/components/ui/input";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { PagePaths } from '@/enum/PagePaths';
-import { useActions } from '@/hooks/general/useActions';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import { AuthFormSchema } from './auth.constants';
-import { AuthFormValuesType, AuthType } from './auth.types';
+  FormMessage
+} from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
 
 const textFields = {
   login: {
-    title: 'Авторизация',
-    buttonSubmitText: 'Авторизироваться',
-    buttonChangeTypeText: 'регистрации',
+    title: "Авторизация",
+    buttonSubmitText: "Авторизироваться",
+    buttonChangeTypeText: "регистрации"
   },
   registration: {
-    title: 'Регистрация',
-    buttonSubmitText: 'Зарегистрироваться',
-    buttonChangeTypeText: 'авторизации',
-  },
+    title: "Регистрация",
+    buttonSubmitText: "Зарегистрироваться",
+    buttonChangeTypeText: "авторизации"
+  }
 };
 
 export function AuthForm() {
   const navigate = useNavigate();
   const { auth } = useActions();
-  const [type, setType] = useState<AuthType>('login');
+  const [type, setType] = useState<AuthType>("login");
 
   const form = useForm<AuthFormValuesType>({
     resolver: zodResolver(AuthFormSchema),
     defaultValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: ""
     },
-    mode: 'onBlur',
+    mode: "onBlur"
   });
 
   // Функции
@@ -55,8 +55,8 @@ export function AuthForm() {
   }
 
   function handleChangeType() {
-    if (type === 'login') setType('registration');
-    else setType('login');
+    if (type === "login") setType("registration");
+    else setType("login");
   }
   // Функции END
 

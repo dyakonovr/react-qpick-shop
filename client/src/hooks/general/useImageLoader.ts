@@ -10,6 +10,6 @@ export const useImageLoader = (src: string) => {
       setIsImageLoaded(true);
     };
   }, [src]);
-  
+
   return { isImageLoaded };
-}
+};

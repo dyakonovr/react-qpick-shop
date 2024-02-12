@@ -1,10 +1,10 @@
-import { Skeleton } from '@/components/ui/skeleton';
-import classes from './styles.module.scss';
+import classes from "./styles.module.scss";
+import { Skeleton } from "@/components/ui/skeleton";
 
 function BasketItemSkeleton() {
   return (
-    <li className={[classes.cart__item, classes.item].join(' ')}>
-      <button className={classes['item__btn-delete']}></button>
+    <li className={[classes.cart__item, classes.item].join(" ")}>
+      <button className={classes["item__btn-delete"]}></button>
       <div className={classes.item__content}>
         <div className={classes.item__image}>
           <Skeleton className="w-[140px] h-[140px]" />

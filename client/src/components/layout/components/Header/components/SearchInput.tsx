@@ -1,17 +1,17 @@
-import { PagePaths } from '@/enum/PagePaths';
-import { useQueryParams } from '@/hooks/general/useQueryParams';
-import { InputHTMLAttributes, KeyboardEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { InputHTMLAttributes, KeyboardEvent } from "react";
+import { useNavigate } from "react-router-dom";
+import { PagePaths } from "@/enum/PagePaths";
+import { useQueryParams } from "@/hooks/general/useQueryParams";
 
-interface SearchInputProps extends InputHTMLAttributes<HTMLInputElement> {}
+type SearchInputProps = InputHTMLAttributes<HTMLInputElement>;
 
 function SearchInput({ placeholder }: SearchInputProps) {
   const navigate = useNavigate();
-  const searchTerm = useQueryParams('searchTerm');
+  const searchTerm = useQueryParams("searchTerm");
 
   // Функции
   function handleEnterDown(e: KeyboardEvent<HTMLInputElement>) {
-    if (e.key !== 'Enter') return;
+    if (e.key !== "Enter") return;
     navigate(`${PagePaths.CATALOG}?searchTerm=${e.currentTarget.value}`);
   }
   // Функции END
@@ -26,7 +26,7 @@ function SearchInput({ placeholder }: SearchInputProps) {
         className="w-full py-1 px-3 rounded-md"
         type="search"
         placeholder={placeholder}
-        defaultValue={searchTerm || ''}
+        defaultValue={searchTerm || ""}
         aria-label="Search"
         onKeyDown={handleEnterDown}
       />

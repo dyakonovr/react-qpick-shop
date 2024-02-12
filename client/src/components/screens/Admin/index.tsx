@@ -1,21 +1,21 @@
-import { Separator } from '@/components/ui/separator';
-import { SidebarNav } from '@/components/ui/sidebar-nav';
-import { PagePaths } from '@/enum/PagePaths';
-import { Outlet } from 'react-router-dom';
+import { Outlet } from "react-router-dom";
+import { Separator } from "@/components/ui/separator";
+import { SidebarNav } from "@/components/ui/sidebar-nav";
+import { PagePaths } from "@/enum/PagePaths";
 
 const sidebarNavItems = [
   {
-    title: 'Создать товар',
-    href: PagePaths.ADMIN.HOME,
+    title: "Создать товар",
+    href: PagePaths.ADMIN.HOME
   },
   {
-    title: 'Создать категорию',
-    href: PagePaths.ADMIN.CATEGORY,
+    title: "Создать категорию",
+    href: PagePaths.ADMIN.CATEGORY
   },
   {
-    title: 'Создать пользователя',
-    href: PagePaths.ADMIN.USER,
-  },
+    title: "Создать пользователя",
+    href: PagePaths.ADMIN.USER
+  }
 ];
 
 export default function Admin() {

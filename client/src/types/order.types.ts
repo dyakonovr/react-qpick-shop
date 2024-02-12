@@ -1,5 +1,5 @@
 // import { IBasketItem } from './basket.interface';
-import { IUser } from './user.types';
+import { IUser } from "./user.types";
 
 // export interface IOrder {
 //   id: number;

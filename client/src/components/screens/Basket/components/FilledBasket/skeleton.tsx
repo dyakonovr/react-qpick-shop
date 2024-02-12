@@ -1,6 +1,6 @@
-import { Skeleton } from '@/components/ui/skeleton';
-import BasketItemSkeleton from './BasketItem/skeleton';
-import classes from './styles.module.scss';
+import BasketItemSkeleton from "./BasketItem/skeleton";
+import classes from "./styles.module.scss";
+import { Skeleton } from "@/components/ui/skeleton";
 
 function FilledBasketSkeleton() {
   return (
@@ -19,7 +19,7 @@ function FilledBasketSkeleton() {
             <span className={classes.filled_cart__text}>ИТОГО</span>
             <Skeleton className="w-[52px] h-[22px]" />
           </div>
-          <Skeleton className={['link', classes.filled_cart__link].join(' ')}>
+          <Skeleton className={["link", classes.filled_cart__link].join(" ")}>
             Перейти к оформлению
           </Skeleton>
         </div>

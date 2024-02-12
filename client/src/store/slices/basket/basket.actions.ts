@@ -1,13 +1,13 @@
-import BasketItemService from '@/services/basket-item/basket-item.service';
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import BasketItemService from "@/services/basket-item/basket-item.service";
 import { IUpdateBasketItemData } from "@/services/basket-item/basket-item.types";
-import BasketService from '@/services/basket/basket.service';
-import { IBasketResponse } from '@/services/basket/basket.types';
-import { RootType } from '@/store/store';
-import { IBasketItem } from '@/types/basket-item.types';
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import BasketService from "@/services/basket/basket.service";
+import { IBasketResponse } from "@/services/basket/basket.types";
+import { RootType } from "@/store/store";
+import { IBasketItem } from "@/types/basket-item.types";
 
 export const fetchBasketAndItems = createAsyncThunk<IBasketResponse>(
-  'basket/get-all',
+  "basket/get-all",
   async (_, thunkApi) => {
     try {
       const response = await BasketService.getById();
@@ -19,13 +19,13 @@ export const fetchBasketAndItems = createAsyncThunk<IBasketResponse>(
 );
 
 export const addProductToBasket = createAsyncThunk<IBasketItem, number>(
-  'basket/add-product',
+  "basket/add-product",
   async (productId, thunkApi) => {
     try {
       const basketId = (thunkApi.getState() as RootType).basket.id;
       if (!basketId) {
         return thunkApi.rejectWithValue(
-          new Error('Ошибка добавление товара в корзину')
+          new Error("Ошибка добавление товара в корзину")
         );
       }
 
@@ -38,7 +38,7 @@ export const addProductToBasket = createAsyncThunk<IBasketItem, number>(
 );
 
 export const deleteProductFromBasket = createAsyncThunk<number, number>(
-  'basket/delete-product',
+  "basket/delete-product",
   async (basketItemId, thunkApi) => {
     try {
       await BasketItemService.delete(basketItemId);
@@ -52,7 +52,7 @@ export const deleteProductFromBasket = createAsyncThunk<number, number>(
 export const updateBasketItemQuantity = createAsyncThunk<
   IUpdateBasketItemData,
   IUpdateBasketItemData
->('basket/update-product-quantity', async (updateData, thunkApi) => {
+>("basket/update-product-quantity", async (updateData, thunkApi) => {
   try {
     await BasketItemService.update(updateData);
     return updateData;

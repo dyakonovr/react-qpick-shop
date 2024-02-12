@@ -1,52 +1,54 @@
-import { getValueFromLocalStorage } from '@/functions/getValueFromLocalStorage';
-import { createSlice } from '@reduxjs/toolkit';
-import { auth, checkAuth, logout } from './user.actions';
+import { createSlice } from "@reduxjs/toolkit";
+import { auth, checkAuth, logout } from "./user.actions";
 import { IUser } from "@/types/user.types";
 
-type Status = 'loading' | 'success' | 'error';
- 
+type Status = "unauthorized" | "loading" | "success" | "error";
+
 interface IInitialState {
-  user: IUser | null;
-  isLoading: boolean;
-  errorMessage: string | null;
+  data: IUser | null;
+  status: Status | null;
 }
 
 const initialState: IInitialState = {
-  user: null, // getValueFromLocalStorage('user')
-  isLoading: false,
-  errorMessage: null,
+  data: null,
+  status: null
 };
 
 const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(auth.pending, (state) => {
-        state.isLoading = true;
+        state.status = "loading";
       })
 
       .addCase(auth.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.user = action.payload.user;
+        state.status = "success";
+        state.data = action.payload.user;
       })
 
-      .addCase(auth.rejected, (state, action) => {
-        state.isLoading = false;
-        state.user = null;
-        // state.errorMessage =
+      .addCase(auth.rejected, (state) => {
+        state.status = "error";
+        state.data = null;
       })
 
       .addCase(logout.fulfilled, (state) => {
-        state.isLoading = false;
-        state.user = null;
+        state.status = "unauthorized";
+        state.data = null;
       })
 
       .addCase(checkAuth.fulfilled, (state, action) => {
-        state.user = action.payload.user;
+        state.status = "success";
+        state.data = action.payload.user;
+      })
+
+      .addCase(checkAuth.rejected, (state) => {
+        state.status = "unauthorized";
+        state.data = null;
       });
-  },
+  }
 });
 
 export default userSlice.reducer;

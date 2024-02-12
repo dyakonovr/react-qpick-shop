@@ -1,10 +1,10 @@
-import { IProduct } from '@/types/product/product.types';
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 import {
   addProductToFavourites,
   deleteProductFromFavourites,
-  fetchFavourites,
-} from './favourites.actions';
+  fetchFavourites
+} from "./favourites.actions";
+import { IProduct } from "@/types/product/product.types";
 
 interface IFavouritesInitialState {
   data: IProduct[] | null;
@@ -13,17 +13,17 @@ interface IFavouritesInitialState {
 
 const initialState: IFavouritesInitialState = {
   data: null,
-  isLoading: false,
+  isLoading: false
 };
 
 const favouritesSlice = createSlice({
-  name: 'favourites',
+  name: "favourites",
   initialState,
   reducers: {
     clearFavourites(state) {
       state.data = null;
       state.isLoading = false;
-    },
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -54,7 +54,7 @@ const favouritesSlice = createSlice({
           (product) => product.id !== action.payload
         );
       });
-  },
+  }
 });
 
 export default favouritesSlice.reducer;

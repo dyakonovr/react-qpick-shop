@@ -1,6 +1,8 @@
-import './wdyr';
-import ReactDOM from 'react-dom/client';
-import App from './App.tsx';
-import './assets/styles/index.scss';
+import "./wdyr";
+import ReactDOM from "react-dom/client";
+import App from "./App.tsx";
+import "./assets/styles/index.scss";
 
-ReactDOM.createRoot(document.querySelector('.root') as HTMLElement).render(<App />)
+ReactDOM.createRoot(document.querySelector(".root") as HTMLElement).render(
+  <App />
+);

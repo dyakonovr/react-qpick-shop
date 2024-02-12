@@ -1,10 +1,10 @@
-import { normalizePrice } from '@/functions/normalizePrice';
-import { useTypedSelector } from '@/hooks/general/useTypedSelector';
-import { getBasketItemsAndTotalPriceSelector } from '@/store/slices/basket/basket.selectors';
-import { Link } from 'react-router-dom';
-import BasketItem from './BasketItem';
-import FilledCartSkeleton from './skeleton';
-import classes from './styles.module.scss';
+import { Link } from "react-router-dom";
+import BasketItem from "./BasketItem";
+import FilledCartSkeleton from "./skeleton";
+import classes from "./styles.module.scss";
+import { getBasketItemsAndTotalPriceSelector } from "@/store/slices/basket/basket.selectors";
+import { useTypedSelector } from "@/hooks/general/useTypedSelector";
+import { normalizePrice } from "@/functions/normalizePrice";
 
 function FilledBasket() {
   const { basketItems, total, isLoading } = useTypedSelector(
@@ -33,7 +33,7 @@ function FilledBasket() {
           </div>
           <Link
             to="/order"
-            className={['link', classes.filled_cart__link].join(' ')}
+            className={["link", classes.filled_cart__link].join(" ")}
           >
             Перейти к оформлению
           </Link>

@@ -1,7 +1,7 @@
-import Logo from '@/components/layout/components/Logo';
-import { memo } from 'react';
-import { Link } from 'react-router-dom';
-import classes from './styles.module.scss';
+import { memo } from "react";
+import { Link } from "react-router-dom";
+import classes from "./styles.module.scss";
+import Logo from "@/components/layout/components/Logo";
 
 function Footer() {
   // console.log("<Footer /> render");
@@ -36,7 +36,7 @@ function Footer() {
           <a
             href="#"
             className={[classes.footer__social, classes.footer__social_vk].join(
-              ' '
+              " "
             )}
           ></a>
         </li>
@@ -45,15 +45,15 @@ function Footer() {
             href="#"
             className={[
               classes.footer__social,
-              classes.footer__social_inst,
-            ].join(' ')}
+              classes.footer__social_inst
+            ].join(" ")}
           ></a>
         </li>
         <li>
           <a
             href="#"
             className={[classes.footer__social, classes.footer__social_tg].join(
-              ' '
+              " "
             )}
           ></a>
         </li>
@@ -62,8 +62,8 @@ function Footer() {
             href="#"
             className={[
               classes.footer__social,
-              classes.footer__social_whatsapp,
-            ].join(' ')}
+              classes.footer__social_whatsapp
+            ].join(" ")}
           ></a>
         </li>
       </ul>

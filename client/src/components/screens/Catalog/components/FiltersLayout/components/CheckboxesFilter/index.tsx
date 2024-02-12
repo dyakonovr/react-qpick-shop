@@ -1,6 +1,6 @@
-import { ScrollArea } from '@/components/ui/scroll-area';
-import FilterCheckbox from './FilterCheckbox';
-import { INameAndIdObject } from './checkboxes-filter.types';
+import FilterCheckbox from "./FilterCheckbox";
+import { INameAndIdObject } from "./checkboxes-filter.types";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface ICategoryFilterProps {
   filterTitle: string;

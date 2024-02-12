@@ -1,9 +1,9 @@
-import FavouritesService from '@/services/favourites.service';
-import { Product } from '@/types/product/product.types';
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import FavouritesService from "@/services/favourites.service";
+import { Product } from "@/types/product/product.types";
 
 export const fetchFavourites = createAsyncThunk<Product[]>(
-  'favourites/get-all',
+  "favourites/get-all",
   async (_, thunkApi) => {
     try {
       const response = await FavouritesService.getAll();
@@ -15,7 +15,7 @@ export const fetchFavourites = createAsyncThunk<Product[]>(
 );
 
 export const addProductToFavourites = createAsyncThunk<Product, number>(
-  'favourites/create',
+  "favourites/create",
   async (productId, thunkApi) => {
     try {
       const response = await FavouritesService.create(productId);
@@ -27,7 +27,7 @@ export const addProductToFavourites = createAsyncThunk<Product, number>(
 );
 
 export const deleteProductFromFavourites = createAsyncThunk<number, number>(
-  'favourites/delete',
+  "favourites/delete",
   async (productId, thunkApi) => {
     try {
       await FavouritesService.delete(productId);

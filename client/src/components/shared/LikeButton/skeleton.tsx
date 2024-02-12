@@ -1,10 +1,10 @@
-import classes from './styles.module.scss';
+import classes from "./styles.module.scss";
 // @ts-ignore
-import { ReactComponent as IconHeart } from '@/assets/img/svg/icon-heart.svg';
+import { ReactComponent as IconHeart } from "@/assets/img/svg/icon-heart.svg";
 
 function LikeButtonSkeleton() {
   return (
-    <button className={[classes.btn_like, 'opacity-50'].join(' ')}>
+    <button className={[classes.btn_like, "opacity-50"].join(" ")}>
       <IconHeart />
     </button>
   );

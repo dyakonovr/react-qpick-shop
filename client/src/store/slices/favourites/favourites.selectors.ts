@@ -1,4 +1,4 @@
-import { RootType } from '@/store/store';
+import { RootType } from "@/store/store";
 
 export const getFavouritesSelector = (state: RootType) => {
   const { data, isLoading } = state.favourites;
@@ -6,7 +6,7 @@ export const getFavouritesSelector = (state: RootType) => {
     favourites: data,
     isLoading,
     isSuccess: !!data
-  }
+  };
 };
 
 export function isProductInFavouritesSelector(productId: number) {

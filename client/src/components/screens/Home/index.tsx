@@ -1,8 +1,8 @@
-import CardsContainer from '@/components/shared/CardsContainer';
-import { PagePaths } from '@/enum/PagePaths';
-import { useProducts } from '@/hooks/features/useProducts';
-import { Link } from 'react-router-dom';
-import Banner from './components/Banner';
+import { Link } from "react-router-dom";
+import Banner from "./components/Banner";
+import CardsContainer from "@/components/shared/CardsContainer";
+import { PagePaths } from "@/enum/PagePaths";
+import { useProducts } from "@/hooks/features/useProducts";
 
 function Home() {
   const { data, isLoading, isSuccess, isError } = useProducts();

@@ -1,7 +1,7 @@
-import { Skeleton } from '@/components/ui/skeleton';
-import { useTypedSelector } from '@/hooks/general/useTypedSelector';
-import { getUserInfoSelector } from '@/store/slices/user/user.selectors';
-import classes from './styles.module.scss';
+import classes from "./styles.module.scss";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useTypedSelector } from "@/hooks/general/useTypedSelector";
+import { getUserInfoSelector } from "@/store/slices/user/user.selectors";
 
 function ItemButtonsSkeleton() {
   const { isAdmin } = useTypedSelector(getUserInfoSelector);

@@ -1,14 +1,14 @@
-import { Roles } from '@/enum/Roles';
-import { RootType } from '@/store/store';
-import { createSelector } from '@reduxjs/toolkit';
+import { createSelector } from "@reduxjs/toolkit";
+import { Roles } from "@/enum/Roles";
+import { RootType } from "@/store/store";
 
-const getUser = (state: RootType) => state.user.user;
+const getUser = (state: RootType) => state.user;
 
-export const getUserInfoSelector = createSelector([getUser], (user) => {
+export const getUserInfoSelector = createSelector([getUser], (state) => {
   return {
-    isAuth: !!user,
-    isAdmin: user ? user.role === Roles.ADMIN : false,
-    id: user?.id || null,
-    email: user?.email || null,
+    isAuth: state.status === "success" || state.status === null,
+    isAdmin: state.data ? state.data.role === Roles.ADMIN : false,
+    id: state.data?.id || null,
+    email: state.data?.email || null
   };
 });

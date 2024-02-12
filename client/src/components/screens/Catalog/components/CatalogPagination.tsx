@@ -6,19 +6,19 @@ import {
   PaginationLastPage,
   PaginationLink,
   PaginationNext,
-  PaginationPrevious,
-} from '@/components/ui/pagination';
+  PaginationPrevious
+} from "@/components/ui/pagination";
 
 interface ICatalogPaginationProps {
   currentPage: number;
   totalPages: number;
   setCurrentPage: (newPage: number) => void;
-};
+}
 
 function CatalogPagination({
   currentPage = 0,
   totalPages = 0,
-  setCurrentPage,
+  setCurrentPage
 }: ICatalogPaginationProps) {
   if (!currentPage || !totalPages) return null;
 
@@ -32,13 +32,13 @@ function CatalogPagination({
       result = [
         currentPage,
         currentPage + 1 > totalPages ? null : currentPage + 1,
-        currentPage + 2 > totalPages ? null : currentPage + 2,
+        currentPage + 2 > totalPages ? null : currentPage + 2
       ];
     } else if (currentPage === totalPages) {
       result = [
         currentPage - 2 < 1 ? null : currentPage - 2,
         currentPage - 1 < 1 ? null : currentPage - 1,
-        currentPage,
+        currentPage
       ];
     } else {
       result = [currentPage - 1, currentPage, currentPage + 1];
@@ -56,7 +56,7 @@ function CatalogPagination({
           <PaginationFirstPage
             onClick={() => setCurrentPage(1)}
             className={
-              currentPage - 1 < 1 ? 'pointer-events-none opacity-40' : ''
+              currentPage - 1 < 1 ? "pointer-events-none opacity-40" : ""
             }
           />
         </PaginationItem>
@@ -65,7 +65,7 @@ function CatalogPagination({
           <PaginationPrevious
             onClick={() => setCurrentPage(currentPage - 1)}
             className={
-              currentPage - 1 < 1 ? 'pointer-events-none opacity-40' : ''
+              currentPage - 1 < 1 ? "pointer-events-none opacity-40" : ""
             }
           />
         </PaginationItem>
@@ -90,8 +90,8 @@ function CatalogPagination({
             onClick={() => setCurrentPage(currentPage + 1)}
             className={
               currentPage + 1 > totalPages
-                ? 'pointer-events-none opacity-40'
-                : ''
+                ? "pointer-events-none opacity-40"
+                : ""
             }
           />
         </PaginationItem>
@@ -101,8 +101,8 @@ function CatalogPagination({
             onClick={() => setCurrentPage(totalPages)}
             className={
               currentPage + 1 > totalPages
-                ? 'pointer-events-none opacity-40'
-                : ''
+                ? "pointer-events-none opacity-40"
+                : ""
             }
           />
         </PaginationItem>

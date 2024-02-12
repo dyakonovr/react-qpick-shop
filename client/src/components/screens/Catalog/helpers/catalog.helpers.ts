@@ -1,6 +1,6 @@
-import qs from 'qs';
+import qs from "qs";
 
-export function configurateUrlParams<T extends Object>(object: T) {
+export function configurateUrlParams<T extends object>(object: T) {
   return qs.stringify(object, {
     skipNulls: true
   });
@@ -10,9 +10,9 @@ interface IConfig {
   tryToParseNumbersInArray?: true;
   tryToParseNumbersInObject?: true;
   tryToParsePrimitive?: true;
-};
+}
 
-export function parseParamsFromUrl<T extends Object>(
+export function parseParamsFromUrl<T extends object>(
   params: string,
   config: IConfig = {}
 ) {
@@ -21,7 +21,7 @@ export function parseParamsFromUrl<T extends Object>(
   return getParamsWithConfig<T>(result, config);
 }
 
-function getParamsWithConfig<T extends Object>(object: T, config?: IConfig) {
+function getParamsWithConfig<T extends object>(object: T, config?: IConfig) {
   let key: keyof T;
 
   for (key in object) {
@@ -30,19 +30,19 @@ function getParamsWithConfig<T extends Object>(object: T, config?: IConfig) {
     if (Array.isArray(value) && config?.tryToParseNumbersInArray) {
       object = {
         ...object,
-        [key]: value.map((el) => tryToParseValueInNumber(el)),
+        [key]: value.map((el) => tryToParseValueInNumber(el))
       };
       continue;
     } else if (value instanceof Object && config?.tryToParseNumbersInObject) {
       object = {
         ...object,
-        [key]: getParamsWithConfig(value, config),
+        [key]: getParamsWithConfig(value, config)
       };
       continue;
-    } else if (typeof value === 'string' && config?.tryToParsePrimitive) {
+    } else if (typeof value === "string" && config?.tryToParsePrimitive) {
       object = {
         ...object,
-        [key]: tryToParseValueInNumber(value),
+        [key]: tryToParseValueInNumber(value)
       };
     }
   }

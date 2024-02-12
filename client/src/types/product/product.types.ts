@@ -6,7 +6,7 @@ export interface IProduct {
   image: string;
 }
 
-export type IBasketProduct = Omit<IProduct, 'rating'>;
+export type IBasketProduct = Omit<IProduct, "rating">;
 
 export interface IProductInfo {
   name: string;
@@ -20,6 +20,6 @@ export interface IExtendedProduct extends IProduct {
 }
 
 export interface IProductForCreating
-  extends Omit<IExtendedProduct, 'id' | 'category'> {
+  extends Omit<IExtendedProduct, "id" | "category"> {
   categoryId: number;
 }

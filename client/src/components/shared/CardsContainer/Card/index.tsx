@@ -1,12 +1,12 @@
-import { Skeleton } from '@/components/ui/skeleton';
-import { normalizeRating } from '@/functions/normalizeRating';
-import { normalizeText } from '@/functions/normalizeText';
-import { useImageLoader } from '@/hooks/general/useImageLoader';
-import { Product } from '@/types/product/product.types';
-import { Link } from 'react-router-dom';
-import LikeButton from '../../LikeButton';
-import Price from '../../Price';
-import classes from './styles.module.scss';
+import { Link } from "react-router-dom";
+import LikeButton from "../../LikeButton";
+import Price from "../../Price";
+import classes from "./styles.module.scss";
+import { Skeleton } from "@/components/ui/skeleton";
+import { normalizeRating } from "@/functions/normalizeRating";
+import { normalizeText } from "@/functions/normalizeText";
+import { useImageLoader } from "@/hooks/general/useImageLoader";
+import { Product } from "@/types/product/product.types";
 
 function Card({ id, name, price, image: imagePath, rating }: Product) {
   const { isImageLoaded } = useImageLoader(imagePath);

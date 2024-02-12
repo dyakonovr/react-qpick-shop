@@ -1,25 +1,25 @@
-import { SheetClose } from '@/components/ui/sheet';
-import { useCategories } from '@/hooks/features/useCategories';
-import { IMinMaxRange, IProductFitlers } from '@/types/product/filters.types';
-import { useEffect } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
-import { getDirtyValues } from './get-dirty-values.helper';
+import { useEffect } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { getDirtyValues } from "./get-dirty-values.helper";
 import RangeFilter from "./components/RangeFilter";
 import CheckboxesFilter from "./components/CheckboxesFilter";
+import { IMinMaxRange, IProductFitlers } from "@/types/product/filters.types";
+import { useCategories } from "@/hooks/features/useCategories";
+import { SheetClose } from "@/components/ui/sheet";
 
 interface IFiltersFormValues {
   categories?: string[]; // number[] after getDirtyValues();
   price?: IMinMaxRange;
   rating?: IMinMaxRange;
-};
+}
 
 interface IFiltersLayoutProps {
   changeFilters: (filters: IProductFitlers) => void;
   filters: IProductFitlers;
-};
+}
 
 function FiltersLayout({ filters, changeFilters }: IFiltersLayoutProps) {
-  const methods = useForm<IFiltersFormValues>({ mode: 'onChange' });
+  const methods = useForm<IFiltersFormValues>({ mode: "onChange" });
   const { handleSubmit, setValue, reset } = methods;
   const { categories } = useCategories();
 
@@ -32,7 +32,7 @@ function FiltersLayout({ filters, changeFilters }: IFiltersLayoutProps) {
   // Функции
   function onSubmit(data: IFiltersFormValues) {
     const dirtyValues = getDirtyValues<IFiltersFormValues>(data, {
-      tryToParseNumbersInArray: true,
+      tryToParseNumbersInArray: true
     }) as IProductFitlers;
     changeFilters(dirtyValues);
   }
