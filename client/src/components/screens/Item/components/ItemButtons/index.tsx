@@ -4,7 +4,7 @@ import { useActions } from "@/hooks/general/useActions";
 import { useTypedSelector } from "@/hooks/general/useTypedSelector";
 import { isProductInBasketSelector } from "@/store/slices/basket/basket.selectors";
 import { getUserInfoSelector } from "@/store/slices/user/user.selectors";
-import { IExtendedProduct } from "@/types/product/product.types";
+import { IExtendedProduct } from "@/types/features/product/product.types";
 
 interface IItemButtonsProps {
   product: IExtendedProduct;

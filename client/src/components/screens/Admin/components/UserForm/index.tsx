@@ -1,7 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/shadcn/button";
 import {
   Form,
   FormControl,
@@ -9,16 +10,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from "@/components/ui/shadcn/form";
+import { Input } from "@/components/ui/shadcn/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue
-} from "@/components/ui/select";
-import { toast } from "@/components/ui/use-toast";
+} from "@/components/ui/shadcn/select";
 
 const profileFormSchema = z.object({
   email: z.string().email(),
@@ -42,8 +42,7 @@ export function AdminUserForm() {
   function onSubmit(data: ProfileFormValues) {
     console.log("!", data);
 
-    toast({
-      title: "Создание пользователя",
+    toast("Создание пользователя", {
       description: <span>Выполнено успешно</span>
     });
   }

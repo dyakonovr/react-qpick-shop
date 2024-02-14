@@ -1,9 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 import Quantity from "./components/Quantity";
 import SearchInput from "./components/SearchInput";
 import classes from "./styles.module.scss";
 import Logo from "@/components/layout/components/Logo";
-import { toast } from "@/components/ui/use-toast";
 import { PagePaths } from "@/enum/PagePaths";
 import { useActions } from "@/hooks/general/useActions";
 import { useTypedSelector } from "@/hooks/general/useTypedSelector";
@@ -27,7 +27,7 @@ function Header() {
     if (!isAuth) return navigate(PagePaths.AUTHENTICATION);
 
     logout();
-    toast({ title: `Вы успешно вышли из аккаунта!` });
+    toast(`Вы успешно вышли из аккаунта!`);
   }
   // Функции END
 

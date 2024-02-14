@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import FavouritesService from "@/services/favourites.service";
-import { IProduct } from "@/types/product/product.types";
+import { IProduct } from "@/types/features/product/product.types";
+import { showErrorToast } from "@/store/show-error-toast.helper";
 
 export const fetchFavourites = createAsyncThunk<IProduct[]>(
   "favourites/get-all",
@@ -9,6 +10,7 @@ export const fetchFavourites = createAsyncThunk<IProduct[]>(
       const response = await FavouritesService.getAll();
       return response;
     } catch (error) {
+      showErrorToast(error as Error, "Ошибка получения избранных товаров");
       return thunkApi.rejectWithValue(error);
     }
   }
@@ -21,6 +23,7 @@ export const addProductToFavourites = createAsyncThunk<IProduct, number>(
       const response = await FavouritesService.create(productId);
       return response;
     } catch (error) {
+      showErrorToast(error as Error, "Ошибка добавления товара в избранные");
       return thunkApi.rejectWithValue(error);
     }
   }
@@ -33,6 +36,7 @@ export const deleteProductFromFavourites = createAsyncThunk<number, number>(
       await FavouritesService.delete(productId);
       return productId;
     } catch (error) {
+      showErrorToast(error as Error, "Ошибка удаления товара из избранных");
       return thunkApi.rejectWithValue(error);
     }
   }

@@ -6,6 +6,7 @@ import { errorCatch } from "@/api/api.helper";
 import { AuthType } from "@/components/screens/Auth/auth.types";
 import { checkAccessToken, removeFromStorage } from "@/services/auth/auth.helper";
 import AuthService from "@/services/auth/auth.service";
+import { showErrorToast } from "@/store/show-error-toast.helper";
 
 export const auth = createAsyncThunk<
   IAuthResponse,
@@ -15,6 +16,7 @@ export const auth = createAsyncThunk<
     const response = await AuthService.main(type, data);
     return response;
   } catch (error) {
+    showErrorToast(error as Error, "Ошибка авторизации/регистрации");
     return thunkApi.rejectWithValue(error);
   }
 });
@@ -36,6 +38,7 @@ export const checkAuth = createAsyncThunk<IAuthResponse>(
     } catch (error) {
       if (errorCatch(error) === "jwt expired") thunkApi.dispatch(logout());
 
+      showErrorToast(error as Error, "Ошибка авторизации");
       return thunkApi.rejectWithValue(error);
     }
   }

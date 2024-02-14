@@ -1,33 +1,20 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import classes from "./styles.module.scss";
-import { Skeleton } from "@/components/ui/skeleton";
+import BasketItemQuantity from "./BasketItemQuantity";
+import { Skeleton } from "@/components/ui/shadcn/skeleton";
 import { normalizePrice } from "@/functions/normalizePrice";
 import { useActions } from "@/hooks/general/useActions";
-import useDebounce from "@/hooks/general/useDebounce";
 import { useImageLoader } from "@/hooks/general/useImageLoader";
-import { IBasketItem } from "@/types/basket-item.types";
+import { IBasketItem } from "@/types/features/basket-item.types";
 
 interface IBasketItemProps {
   basketItem: IBasketItem;
 }
 
 function BasketItem({ basketItem }: IBasketItemProps) {
-  const { isImageLoaded } = useImageLoader(basketItem.product.image);
   const { id: basketItemId, product, quantity } = basketItem;
-  const { deleteProductFromBasket, updateBasketItemQuantity } = useActions();
-
-  const [productQuantity, setProductQuantity] = useState(quantity);
-  const debouncedProductQuantity = useDebounce<number>(productQuantity, 500);
-
-  useEffect(() => {
-    if (debouncedProductQuantity === quantity) return;
-
-    updateBasketItemQuantity({
-      basketItemId,
-      quantity: debouncedProductQuantity
-    });
-  }, [debouncedProductQuantity]);
+  const { isImageLoaded } = useImageLoader(product.image);
+  const { deleteProductFromBasket } = useActions();
 
   return (
     <li className={[classes.cart__item, classes.item].join(" ")} key={product.id}>
@@ -50,21 +37,7 @@ function BasketItem({ basketItem }: IBasketItemProps) {
         </div>
       </Link>
       <div className={classes.item__footer}>
-        <div className={classes.item__counter}>
-          <button
-            disabled={productQuantity <= 1}
-            data-product-id={product.id}
-            onClick={() => setProductQuantity((prev) => prev - 1)}
-            className={`${classes.item__btn} ${classes["item__btn--minus"]}`}
-          ></button>
-          <span className={classes.item__quantity}>{productQuantity}</span>
-          <button
-            disabled={productQuantity >= 10}
-            data-product-id={product.id}
-            onClick={() => setProductQuantity((prev) => prev + 1)}
-            className={`${classes.item__btn} ${classes["item__btn--plus"]}`}
-          ></button>
-        </div>
+        <BasketItemQuantity id={basketItemId} quantity={quantity} />
         <span className={classes["item__total-price"]}>
           {normalizePrice(product.price * quantity)}
         </span>

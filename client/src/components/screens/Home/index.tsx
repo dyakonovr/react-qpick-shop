@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Banner from "./components/Banner";
-import CardsContainer from "@/components/shared/CardsContainer";
+import CardsContainer from "@/components/ui/local/CardsContainer";
 import { PagePaths } from "@/enum/PagePaths";
 import { useProducts } from "@/hooks/features/useProducts";
 

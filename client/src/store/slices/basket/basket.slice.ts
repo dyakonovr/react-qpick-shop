@@ -5,11 +5,12 @@ import {
   fetchBasketAndItems,
   updateBasketItemQuantity
 } from "./basket.actions";
-import { IBasketItem } from "@/types/basket-item.types";
+import { IBasketItem } from "@/types/features/basket-item.types";
+import { Nullable } from "@/types/general/nullable.type";
 
 interface IBasketInitialState {
-  id: number | null;
-  items: IBasketItem[] | null;
+  id: Nullable<number>;
+  items: Nullable<IBasketItem[]>;
   isLoading: boolean;
 }
 
@@ -48,8 +49,7 @@ const basketSlice = createSlice({
       })
 
       .addCase(addProductToBasket.fulfilled, (state, action) => {
-        if (!state.items || state.items.length === 0)
-          state.items = [action.payload];
+        if (!state.items || state.items.length === 0) state.items = [action.payload];
         else state.items = [...state.items, action.payload];
       })
 

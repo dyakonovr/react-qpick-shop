@@ -4,7 +4,8 @@ import { IUpdateBasketItemData } from "@/services/basket-item/basket-item.types"
 import BasketService from "@/services/basket/basket.service";
 import { IBasketResponse } from "@/services/basket/basket.types";
 import { RootType } from "@/store/store";
-import { IBasketItem } from "@/types/basket-item.types";
+import { IBasketItem } from "@/types/features/basket-item.types";
+import { showErrorToast } from "@/store/show-error-toast.helper";
 
 export const fetchBasketAndItems = createAsyncThunk<IBasketResponse>(
   "basket/get-all",
@@ -13,6 +14,7 @@ export const fetchBasketAndItems = createAsyncThunk<IBasketResponse>(
       const response = await BasketService.getById();
       return response;
     } catch (error) {
+      showErrorToast(error as Error, "Ошибка получения товаров корзины");
       return thunkApi.rejectWithValue(error);
     }
   }
@@ -24,12 +26,15 @@ export const addProductToBasket = createAsyncThunk<IBasketItem, number>(
     try {
       const basketId = (thunkApi.getState() as RootType).basket.id;
       if (!basketId) {
-        return thunkApi.rejectWithValue(new Error("Ошибка добавление товара в корзину"));
+        const error = new Error("Попробуйте обновить страницу");
+        showErrorToast(error, "Ошибка добавления товара в корзину");
+        return thunkApi.rejectWithValue("Непредвиденная ошибка");
       }
 
       const response = await BasketItemService.create(productId, basketId);
       return response;
     } catch (error) {
+      showErrorToast(error as Error, "Ошибка добавления товара в корзину");
       return thunkApi.rejectWithValue(error);
     }
   }
@@ -46,6 +51,7 @@ export const deleteProductFromBasket = createAsyncThunk<number, number>(
       await BasketItemService.delete(basketItemId);
       return basketItemId;
     } catch (error) {
+      showErrorToast(error as Error, "Ошибка удаления товара из корзины");
       return thunkApi.rejectWithValue(error);
     }
   }
@@ -59,6 +65,7 @@ export const updateBasketItemQuantity = createAsyncThunk<
     await BasketItemService.update(updateData);
     return updateData;
   } catch (error) {
+    showErrorToast(error as Error, "Ошибка обновления количества товара в корзине");
     return thunkApi.rejectWithValue(error);
   }
 });

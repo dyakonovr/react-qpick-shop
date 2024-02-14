@@ -1,5 +1,5 @@
 import classes from "./styles.module.scss";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@/components/ui/shadcn/skeleton";
 
 function BasketItemSkeleton() {
   return (

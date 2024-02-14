@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/shadcn/button";
 import {
   Form,
   FormControl,
@@ -9,13 +9,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from "@/components/ui/shadcn/form";
+import { Input } from "@/components/ui/shadcn/input";
 
 const profileFormSchema = z.object({
-  name: z
-    .string()
-    .min(3, { message: "Минимальная длина названия категории - 3 символа" })
+  name: z.string().min(3, { message: "Минимальная длина названия категории - 3 символа" })
 });
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>;

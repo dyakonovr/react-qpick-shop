@@ -1,6 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { RootType } from "@/store/store";
-import { IBasketItem } from "@/types/basket-item.types";
+import { IBasketItem } from "@/types/features/basket-item.types";
 
 export const getBasketItems = (state: RootType) => state.basket.items;
 

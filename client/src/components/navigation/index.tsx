@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
 import Layout from "../layout";
 import ScrollToTop from "../other/ScrollToTop";
 import Admin from "../screens/Admin";
@@ -13,7 +12,7 @@ import ErrorPage from "../screens/ErrorPage";
 import Favourites from "../screens/Favourites";
 import Home from "../screens/Home";
 import Item from "../screens/Item";
-import { Toaster } from "../ui/toaster";
+import { Toaster } from "../ui/shadcn/sonner";
 import PrivateRoutes from "./components/ProtectedRoutes";
 import { PagePaths } from "@/enum/PagePaths";
 

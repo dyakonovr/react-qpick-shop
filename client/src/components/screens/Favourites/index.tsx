@@ -1,11 +1,9 @@
-import CardsContainer from "@/components/shared/CardsContainer";
+import CardsContainer from "@/components/ui/local/CardsContainer";
 import { useTypedSelector } from "@/hooks/general/useTypedSelector";
 import { getFavouritesSelector } from "@/store/slices/favourites/favourites.selectors";
 
 function Favourites() {
-  const { favourites, isLoading, isSuccess } = useTypedSelector(
-    getFavouritesSelector
-  );
+  const { favourites, isLoading, isSuccess } = useTypedSelector(getFavouritesSelector);
   const isFavouritesEmpty = isSuccess && favourites?.length === 0;
 
   return (

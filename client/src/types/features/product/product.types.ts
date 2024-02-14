@@ -19,7 +19,6 @@ export interface IExtendedProduct extends IProduct {
   category: string;
 }
 
-export interface IProductForCreating
-  extends Omit<IExtendedProduct, "id" | "category"> {
+export interface IProductForCreating extends Omit<IExtendedProduct, "id" | "category"> {
   categoryId: number;
 }

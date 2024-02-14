@@ -1,4 +1,4 @@
-import { IBasketItem } from "@/types/basket-item.types";
+import { IBasketItem } from "@/types/features/basket-item.types";
 
 export interface IBasketResponse {
   id: number;

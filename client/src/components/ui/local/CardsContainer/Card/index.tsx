@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 import LikeButton from "../../LikeButton";
 import Price from "../../Price";
 import classes from "./styles.module.scss";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@/components/ui/shadcn/skeleton";
 import { normalizeRating } from "@/functions/normalizeRating";
 import { normalizeText } from "@/functions/normalizeText";
 import { useImageLoader } from "@/hooks/general/useImageLoader";
-import { IProduct } from "@/types/product/product.types";
+import { IProduct } from "@/types/features/product/product.types";
 
 function Card({ id, name, price, image: imagePath, rating }: IProduct) {
   const { isImageLoaded } = useImageLoader(imagePath);

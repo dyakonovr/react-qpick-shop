@@ -9,8 +9,8 @@ import {
   SheetTitle,
   SheetTrigger,
   SheetContent as SheetWrapper
-} from "@/components/ui/sheet";
-import CardsContainer from "@/components/shared/CardsContainer";
+} from "@/components/ui/shadcn/sheet";
+import CardsContainer from "@/components/ui/local/CardsContainer";
 
 function Catalog() {
   const { filters, changeFilters, page, changePage, searchTerm } = useFilters();

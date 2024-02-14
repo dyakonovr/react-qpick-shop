@@ -1,6 +1,6 @@
 import BasketItemSkeleton from "./BasketItem/skeleton";
 import classes from "./styles.module.scss";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@/components/ui/shadcn/skeleton";
 
 function FilledBasketSkeleton() {
   return (

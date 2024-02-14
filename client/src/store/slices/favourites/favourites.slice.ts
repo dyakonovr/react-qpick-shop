@@ -4,10 +4,11 @@ import {
   deleteProductFromFavourites,
   fetchFavourites
 } from "./favourites.actions";
-import { IProduct } from "@/types/product/product.types";
+import { IProduct } from "@/types/features/product/product.types";
+import { Nullable } from "@/types/general/nullable.type";
 
 interface IFavouritesInitialState {
-  data: IProduct[] | null;
+  data: Nullable<IProduct[]>;
   isLoading: boolean;
 }
 
@@ -42,17 +43,14 @@ const favouritesSlice = createSlice({
       })
 
       .addCase(addProductToFavourites.fulfilled, (state, action) => {
-        if (!state.data || state.data.length === 0)
-          state.data = [action.payload];
+        if (!state.data || state.data.length === 0) state.data = [action.payload];
         else state.data = [...state.data, action.payload];
       })
 
       .addCase(deleteProductFromFavourites.fulfilled, (state, action) => {
         if (!state.data || state.data.length === 0) return;
 
-        state.data = state.data.filter(
-          (product) => product.id !== action.payload
-        );
+        state.data = state.data.filter((product) => product.id !== action.payload);
       });
   }
 });

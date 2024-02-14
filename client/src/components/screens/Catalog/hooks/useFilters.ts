@@ -1,22 +1,16 @@
 import { useSearchParams } from "react-router-dom";
-import {
-  configurateUrlParams,
-  parseParamsFromUrl
-} from "../helpers/catalog.helpers";
-import { IProductFitlers } from "@/types/product/filters.types";
-import { IProductQueryData } from "@/types/product/query-data.types";
+import { configurateUrlParams, parseParamsFromUrl } from "../helpers/catalog.helpers";
+import { IProductFitlers } from "@/types/features/product/filters.types";
+import { IProductQueryData } from "@/types/features/product/query-data.types";
 
 export const useFilters = () => {
   const [_, setSearchParams] = useSearchParams();
   const params = window.location.search.slice(1);
-  const { filters, page, searchTerm } = parseParamsFromUrl<IProductQueryData>(
-    params,
-    {
-      tryToParseNumbersInArray: true,
-      tryToParseNumbersInObject: true,
-      tryToParsePrimitive: true
-    }
-  );
+  const { filters, page, searchTerm } = parseParamsFromUrl<IProductQueryData>(params, {
+    tryToParseNumbersInArray: true,
+    tryToParseNumbersInObject: true,
+    tryToParsePrimitive: true
+  });
 
   // Функции
   function changeFilters(newFilters: IProductFitlers) {
@@ -36,9 +30,7 @@ export const useFilters = () => {
   }
 
   function changePage(newPage: number) {
-    setSearchParams(
-      configurateUrlParams({ filters, page: newPage, searchTerm })
-    );
+    setSearchParams(configurateUrlParams({ filters, page: newPage, searchTerm }));
   }
   // Функции END
 

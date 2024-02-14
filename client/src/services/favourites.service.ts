@@ -1,5 +1,5 @@
 import { $axios } from "@/api/api.interceptor";
-import { IProduct } from "@/types/product/product.types";
+import { IProduct } from "@/types/features/product/product.types";
 
 class FavouritesService {
   private url = "/favourites";

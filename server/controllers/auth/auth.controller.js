@@ -33,7 +33,7 @@ class AuthController {
       if (!user) return next(ApiErrorHandler.notFound("Такого пользователя не найдено"));
 
       const comparePassword = await verify(user.password, password);
-      if (!comparePassword) return next(ApiErrorHandler.badRequest("Указан неверный пароль"));
+      if (!comparePassword) return next(ApiErrorHandler.forbidden("Указан неверный пароль"));
 
       const tokens = this.issueTokens(user.id, user.role, user.email);
       return res.json({ user: this.returnUserFields(user), ...tokens });
@@ -42,9 +42,13 @@ class AuthController {
     }
   }
 
-  getNewTokens = (req, res) => {
-    const tokens = this.issueTokens(req.user.id, req.user.role, req.user.email);
-    return res.json({ user: this.returnUserFields(req.user), ...tokens });
+  getNewTokens = (req, res, next) => {
+    try {
+      const tokens = this.issueTokens(req.user.id, req.user.role, req.user.email);
+      return res.json({ user: this.returnUserFields(req.user), ...tokens });
+    } catch (error) {
+      return next(ApiErrorHandler.internal(error.message));
+    }
   }
 
   returnUserFields = (user) => {

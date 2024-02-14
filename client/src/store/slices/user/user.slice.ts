@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { auth, checkAuth, logout } from "./user.actions";
-import { IUser } from "@/types/user.types";
+import { IUser } from "@/types/features/user.types";
+import { Nullable } from "@/types/general/nullable.type";
 
 type Status = "unauthorized" | "loading" | "success" | "error";
 
 interface IInitialState {
-  data: IUser | null;
-  status: Status | null;
+  data: Nullable<IUser>;
+  status: Nullable<Status>;
 }
 
 const initialState: IInitialState = {

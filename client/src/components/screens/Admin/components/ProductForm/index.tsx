@@ -5,7 +5,7 @@ import {
   productFormDefaultValues,
   profileFormSchema
 } from "./product-form.constants";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/shadcn/button";
 import {
   Form,
   FormControl,
@@ -14,15 +14,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from "@/components/ui/shadcn/form";
+import { Input } from "@/components/ui/shadcn/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue
-} from "@/components/ui/select";
+} from "@/components/ui/shadcn/select";
 import { useCategories } from "@/hooks/features/useCategories";
 
 export function AdminProductForm() {
@@ -158,8 +158,8 @@ export function AdminProductForm() {
             />
           ))}
           <FormDescription>
-            Вводите характеристики в формате (без кавычек) -
-            "Название_характеристики: текст"
+            Вводите характеристики в формате (без кавычек) - "Название_характеристики:
+            текст"
           </FormDescription>
           <Button
             type="button"

@@ -1,6 +1,6 @@
 import classes from "../styles.module.scss";
-import Price from "@/components/shared/Price";
-import { IExtendedProduct } from "@/types/product/product.types";
+import Price from "@/components/ui/local/Price";
+import { IExtendedProduct } from "@/types/features/product/product.types";
 
 type IItemDetailsProps = Pick<IExtendedProduct, "id" | "name" | "category" | "price">;
 

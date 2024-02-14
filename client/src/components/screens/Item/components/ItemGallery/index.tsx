@@ -1,18 +1,16 @@
-import classes from "../../styles.module.scss";
-import ItemImage from "./ItemImage";
-import { IExtendedProduct } from "@/types/product/product.types";
+import ItemGalleryCarousel from "./components/ItemGalleryCarousel";
+import ItemGalleryGrid from "./components/ItemGalleryGrid";
+import { IProductGallery } from "./product-gallery.type";
 
-interface IItemGalleryProps extends Pick<IExtendedProduct, "gallery"> {
+interface IItemGalleryProps extends IProductGallery {
   productName: string;
 }
 
 function ItemGallery({ gallery, productName }: IItemGalleryProps) {
-  return (
-    <div className={classes.content__photos}>
-      {gallery.map((image, idx) => (
-        <ItemImage src={image} alt={`Фото ${productName} №${idx + 1}`} key={image} />
-      ))}
-    </div>
+  return gallery.length > 3 ? (
+    <ItemGalleryCarousel gallery={gallery} productName={productName} />
+  ) : (
+    <ItemGalleryGrid gallery={gallery} productName={productName} />
   );
 }
 

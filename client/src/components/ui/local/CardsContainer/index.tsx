@@ -1,13 +1,14 @@
 import Card from "./Card";
 import CardSkeleton from "./Card/skeleton";
 import classes from "./styles.module.scss";
-import { IProduct } from "@/types/product/product.types";
+import { Nullable } from "@/types/general/nullable.type";
+import { IProduct } from "@/types/features/product/product.types";
 
 interface ICardsContainerProps {
   isLoading: boolean;
   isSuccess: boolean;
   isError: boolean;
-  products: IProduct[] | undefined | null;
+  products: Nullable<IProduct[]> | undefined;
 }
 
 function CardsContainer({

@@ -1,5 +1,5 @@
 import classes from "../styles.module.scss";
-import { IExtendedProduct } from "@/types/product/product.types";
+import { IExtendedProduct } from "@/types/features/product/product.types";
 
 type IItemInfoProps = Pick<IExtendedProduct, "info">;
 

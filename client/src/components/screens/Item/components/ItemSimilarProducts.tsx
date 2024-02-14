@@ -1,5 +1,5 @@
-import CardsContainer from "@/components/shared/CardsContainer";
-import { IProduct } from "@/types/product/product.types";
+import CardsContainer from "@/components/ui/local/CardsContainer";
+import { IProduct } from "@/types/features/product/product.types";
 
 interface IItemSimilarProductsProps {
   products: IProduct[];

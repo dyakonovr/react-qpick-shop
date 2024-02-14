@@ -2,11 +2,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { unwrapResult } from "@reduxjs/toolkit";
 import { AuthFormSchema } from "./auth.constants";
 import { AuthFormValuesType, AuthType } from "./auth.types";
 import { useActions } from "@/hooks/general/useActions";
 import { PagePaths } from "@/enum/PagePaths";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/components/ui/shadcn/input";
 import {
   Form,
   FormControl,
@@ -14,8 +15,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage
-} from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
+} from "@/components/ui/shadcn/form";
+import { Button } from "@/components/ui/shadcn/button";
 
 const textFields = {
   login: {
@@ -46,12 +47,16 @@ export function AuthForm() {
 
   // Функции
   async function onSubmit(data: AuthFormValuesType) {
-    // try {
-    auth({ type, data });
-    navigate(PagePaths.HOME, { replace: true });
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      // "await" ВЛИЯЕТ на тип этого выражения =)
+      const result = await auth({ type, data });
+      // Это нужно, чтобы отловить ошибку при авторизации
+      // @ts-ignore
+      unwrapResult(result);
+      navigate(PagePaths.HOME, { replace: true });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   function handleChangeType() {
@@ -64,10 +69,7 @@ export function AuthForm() {
     <div className="flex flex-col w-full max-w-[500px] m-auto">
       <h1 className="text-3xl mb-7 text-center">{textFields[type].title}</h1>
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col space-y-6"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col space-y-6">
           <FormField
             control={form.control}
             name="email"

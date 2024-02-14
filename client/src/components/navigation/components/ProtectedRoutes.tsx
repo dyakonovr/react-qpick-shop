@@ -7,9 +7,6 @@ function PrivateRoutes() {
   const { isAuth } = useTypedSelector(getUserInfoSelector);
 
   if (!isAuth) {
-    // setTimeout(() => {
-    //   protectedRouteMiddleware();
-    // }, 100);
     return <Navigate to={PagePaths.HOME} />;
   }
 

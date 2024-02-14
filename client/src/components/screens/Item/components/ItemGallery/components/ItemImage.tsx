@@ -1,5 +1,5 @@
-import classes from "../../styles.module.scss";
-import { Skeleton } from "@/components/ui/skeleton";
+import classes from "../../../styles.module.scss";
+import { Skeleton } from "@/components/ui/shadcn/skeleton";
 import { useImageLoader } from "@/hooks/general/useImageLoader";
 
 interface IItemImageProps {

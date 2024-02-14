@@ -1,9 +1,9 @@
 import { MoveLeft } from "lucide-react";
 import classes from "./styles.module.scss";
 import ItemButtonsSkeleton from "./components/ItemButtons/skeleton";
-import LikeButtonSkeleton from "@/components/shared/LikeButton/skeleton";
-import PriceSkeleton from "@/components/shared/Price/skeleton";
-import { Skeleton } from "@/components/ui/skeleton";
+import LikeButtonSkeleton from "@/components/ui/local/LikeButton/skeleton";
+import PriceSkeleton from "@/components/ui/local/Price/skeleton";
+import { Skeleton } from "@/components/ui/shadcn/skeleton";
 
 function ItemSkeleton() {
   return (
@@ -18,10 +18,7 @@ function ItemSkeleton() {
             {[1, 2, 3].map((el) => (
               <div className={classes.content__photo} key={el}>
                 <Skeleton
-                  className={[
-                    classes.content__photo,
-                    "w-[300px] h-[300px]"
-                  ].join(" ")}
+                  className={[classes.content__photo, "w-[300px] h-[300px]"].join(" ")}
                   key={el}
                 />
               </div>

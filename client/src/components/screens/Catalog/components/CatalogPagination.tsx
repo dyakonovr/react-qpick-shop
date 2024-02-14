@@ -7,7 +7,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious
-} from "@/components/ui/pagination";
+} from "@/components/ui/shadcn/pagination";
 
 interface ICatalogPaginationProps {
   currentPage: number;
@@ -55,18 +55,14 @@ function CatalogPagination({
         <PaginationItem>
           <PaginationFirstPage
             onClick={() => setCurrentPage(1)}
-            className={
-              currentPage - 1 < 1 ? "pointer-events-none opacity-40" : ""
-            }
+            className={currentPage - 1 < 1 ? "pointer-events-none opacity-40" : ""}
           />
         </PaginationItem>
         {/* Prev button */}
         <PaginationItem>
           <PaginationPrevious
             onClick={() => setCurrentPage(currentPage - 1)}
-            className={
-              currentPage - 1 < 1 ? "pointer-events-none opacity-40" : ""
-            }
+            className={currentPage - 1 < 1 ? "pointer-events-none opacity-40" : ""}
           />
         </PaginationItem>
 
@@ -89,9 +85,7 @@ function CatalogPagination({
           <PaginationNext
             onClick={() => setCurrentPage(currentPage + 1)}
             className={
-              currentPage + 1 > totalPages
-                ? "pointer-events-none opacity-40"
-                : ""
+              currentPage + 1 > totalPages ? "pointer-events-none opacity-40" : ""
             }
           />
         </PaginationItem>
@@ -100,9 +94,7 @@ function CatalogPagination({
           <PaginationLastPage
             onClick={() => setCurrentPage(totalPages)}
             className={
-              currentPage + 1 > totalPages
-                ? "pointer-events-none opacity-40"
-                : ""
+              currentPage + 1 > totalPages ? "pointer-events-none opacity-40" : ""
             }
           />
         </PaginationItem>

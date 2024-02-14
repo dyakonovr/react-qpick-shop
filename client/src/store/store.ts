@@ -12,7 +12,10 @@ const rootReducer = combineReducers({
 });
 
 export const store = configureStore({
-  reducer: rootReducer
+  reducer: rootReducer,
+  middleware(getDefaultMiddleware) {
+    return getDefaultMiddleware();
+  }
 });
 
 export type RootType = ReturnType<typeof rootReducer>;

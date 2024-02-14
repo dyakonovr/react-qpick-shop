@@ -6,7 +6,7 @@ import ItemInfo from "./components/ItemInfo";
 import ItemGallery from "./components/ItemGallery";
 import ItemDetails from "./components/ItemDetails";
 import ItemSimilarProducts from "./components/ItemSimilarProducts";
-import LikeButton from "@/components/shared/LikeButton";
+import LikeButton from "@/components/ui/local/LikeButton";
 import { IGetProductByIdResponse } from "@/services/product/product.types";
 
 interface IItemPageProps {

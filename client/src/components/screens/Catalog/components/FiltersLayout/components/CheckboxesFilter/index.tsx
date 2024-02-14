@@ -1,6 +1,6 @@
 import FilterCheckbox from "./FilterCheckbox";
 import { INameAndIdObject } from "./checkboxes-filter.types";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea } from "@/components/ui/shadcn/scroll-area";
 
 interface ICategoryFilterProps {
   filterTitle: string;
@@ -15,11 +15,7 @@ function CheckboxesFilter({ filterTitle, data }: ICategoryFilterProps) {
         <ScrollArea className="max-h-[190px]">
           {data &&
             data.map((object) => (
-              <FilterCheckbox
-                registerKey="categories"
-                object={object}
-                key={object.id}
-              />
+              <FilterCheckbox registerKey="categories" object={object} key={object.id} />
             ))}
         </ScrollArea>
       </div>
