@@ -2,8 +2,9 @@ import { Op } from "sequelize";
 
 import { ApiErrorHandler } from "../../error/api-error.handler.js";
 import { Category, Product, ProductCharacteristic, ProductImage } from "../../models/models.js";
-import { getFilters } from "./product.helper.js";
 import { generateSlug } from "../../helpers/generate-slug.helper.js";
+import { getFilters } from "./helpers/product-filter.helper.js";
+import { getOrderArray } from './helpers/get-order-array.helper.js';
 
 class ProductController {
   create = async (req, res, next) => {
@@ -47,7 +48,7 @@ class ProductController {
           category_id: product.category.id,
           id: { [Op.ne]: id }
         },
-        attributes: { exclude: ["slug", "category_id"]},
+        attributes: { exclude: ["slug", "category_id"] },
         limit: 3
       });
 
@@ -124,6 +125,9 @@ class ProductController {
       const perPage = parseInt(req.body.perPage) || 9;
       const offset = (page - 1) * perPage; // Вычисляем смещение
 
+      const sort = req.body.sort;
+      const orderArray = getOrderArray(sort);
+
       const { filters, searchTerm } = req.body;
       const [whereOption, includeOption] = await getFilters(filters, searchTerm);
       const config = {
@@ -137,20 +141,20 @@ class ProductController {
       }
 
       if (Object.keys(includeOption).length !== 0) {
-        config.include = [
-          {
-            model: ProductImage,
-            attributes: { exclude: ["id", "product_id"] },
-          },
-          {
-            model: ProductCharacteristic,
-            attributes: { exclude: ["id", "product_id"] },
-          },
-          includeOption
-        ];
+        config.include = includeOption;
       }
 
-      const products = await Product.findAndCountAll(config);
+      if (orderArray) {
+        config.order = [orderArray];
+      }
+
+      const products = await Product.findAndCountAll(config).then(result => {
+        result.rows = result.rows.map(({ dataValues }) => {
+          const { category, ...rest } = dataValues;
+          return rest;
+        })
+        return result;
+      });
 
       const totalPages = Math.ceil(products.count / perPage); // Вычисляем общее количество страниц
 

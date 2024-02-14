@@ -1,10 +1,11 @@
 import { IExtendedProduct, IProduct } from "@/types/features/product/product.types";
-// export enum ProductSortEnum {
-//   HIGH_PRICE = 'high-price',
-//   LOW_PRICE = 'low-price',
-//   NEWEST = 'newest',
-//   OLDEST = 'oldest',
-// }
+
+export type ProductSort =
+  | "high-price"
+  | "low-price"
+  | "high-rating"
+  | "low-rating"
+  | "default";
 
 export interface IProductResponse {
   products: IProduct[];

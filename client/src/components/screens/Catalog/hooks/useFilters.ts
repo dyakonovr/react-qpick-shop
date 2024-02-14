@@ -2,15 +2,21 @@ import { useSearchParams } from "react-router-dom";
 import { configurateUrlParams, parseParamsFromUrl } from "../helpers/catalog.helpers";
 import { IProductFitlers } from "@/types/features/product/filters.types";
 import { IProductQueryData } from "@/types/features/product/query-data.types";
+import { ProductSort } from "@/services/product/product.types";
 
 export const useFilters = () => {
-  const [_, setSearchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams();
   const params = window.location.search.slice(1);
-  const { filters, page, searchTerm } = parseParamsFromUrl<IProductQueryData>(params, {
-    tryToParseNumbersInArray: true,
-    tryToParseNumbersInObject: true,
-    tryToParsePrimitive: true
-  });
+  const { filters, page, searchTerm, sort } = parseParamsFromUrl<IProductQueryData>(
+    params,
+    {
+      tryToParseNumbersInArray: true,
+      tryToParseNumbersInObject: true,
+      tryToParsePrimitive: true
+    }
+  );
+
+  console.log("sort after parse:", sort);
 
   // Функции
   function changeFilters(newFilters: IProductFitlers) {
@@ -22,7 +28,8 @@ export const useFilters = () => {
       paramsObject = {
         page: 1,
         filters: newFilters,
-        searchTerm
+        searchTerm,
+        sort
       };
     }
 
@@ -30,7 +37,11 @@ export const useFilters = () => {
   }
 
   function changePage(newPage: number) {
-    setSearchParams(configurateUrlParams({ filters, page: newPage, searchTerm }));
+    setSearchParams(configurateUrlParams({ filters, page: newPage, searchTerm, sort }));
+  }
+
+  function changeSort(newSort: ProductSort) {
+    setSearchParams(configurateUrlParams({ filters, page, searchTerm, sort: newSort }));
   }
   // Функции END
 
@@ -39,6 +50,8 @@ export const useFilters = () => {
     changeFilters,
     page: page ? +page : 1,
     changePage,
+    sort,
+    changeSort,
     searchTerm
   };
 };

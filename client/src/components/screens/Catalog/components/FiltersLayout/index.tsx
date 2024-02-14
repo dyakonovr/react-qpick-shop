@@ -14,7 +14,7 @@ interface IFiltersFormValues {
 }
 
 interface IFiltersLayoutProps {
-  changeFilters: (filters: IProductFitlers) => void;
+  changeFilters: (filters: Partial<IProductFitlers>) => void;
   filters: IProductFitlers;
 }
 

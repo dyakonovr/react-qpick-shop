@@ -1,7 +1,7 @@
 import { Op } from "sequelize";
 
-import { Category } from "../../models/models.js";
-import { generateSlug } from "../../helpers/generate-slug.helper.js";
+import { Category } from "../../../models/models.js";
+import { generateSlug } from "../../../helpers/generate-slug.helper.js";
 
 export const getFilters = async (oldFilters, searchTerm) => {
   const filters = {};

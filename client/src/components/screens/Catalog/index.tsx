@@ -2,6 +2,7 @@ import { Settings2 as FiltersIcon } from "lucide-react";
 import CatalogPagination from "./components/CatalogPagination";
 import FiltersLayout from "./components/FiltersLayout";
 import { useFilters } from "./hooks/useFilters";
+import CatalogSortSelect from "./components/CatalogSortSelect";
 import { useProducts } from "@/hooks/features/useProducts";
 import {
   Sheet,
@@ -13,11 +14,13 @@ import {
 import CardsContainer from "@/components/ui/local/CardsContainer";
 
 function Catalog() {
-  const { filters, changeFilters, page, changePage, searchTerm } = useFilters();
+  const { filters, changeFilters, page, changePage, sort, changeSort, searchTerm } =
+    useFilters();
   const { data, isLoading, isSuccess, isError } = useProducts({
     filters,
     page,
-    searchTerm
+    searchTerm,
+    sort
   });
   const isPaginationNeeded = data && data.totalPages > 1;
 
@@ -30,6 +33,7 @@ function Catalog() {
             <FiltersIcon />
             Посмотреть фильтры
           </SheetTrigger>
+          <CatalogSortSelect sort={sort} changeSort={changeSort} />
         </div>
         <SheetWrapper>
           <SheetHeader className="mb-7">
