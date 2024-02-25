@@ -9,10 +9,18 @@ import { getOrderArray } from './helpers/get-order-array.helper.js';
 class ProductController {
   create = async (req, res, next) => {
     try {
-      const { name, price, categoryId, info, rating, imgs } = req.body;
-      const product = await Product.create({ name, price, categoryId, info, rating, imgs, slug: generateSlug(name) });
+      const { name, price, categoryId: category_id, info, rating, image, gallery } = req.body;
+      const product = await Product.create({ name, price, category_id, info, rating, image, slug: generateSlug(name) });
 
-      return res.json(product);
+      for (let index = 0; index < gallery.length; index++) {
+        await ProductImage.create({ url: gallery[index], product_id: product.id })
+      }
+
+      for (let index = 0; index < info.length; index++) {
+        await ProductCharacteristic.create({ ...info[index], product_id: product.id })
+      }
+
+      return res.json();
     } catch (e) {
       next(ApiErrorHandler.internal(e.message));
     }
@@ -62,58 +70,6 @@ class ProductController {
         },
         similarProducts
       });
-    } catch (error) {
-      next(ApiErrorHandler.internal(error.message));
-    }
-  }
-
-  getBySlug = async (req, res, next) => {
-    try {
-      const { slug } = req.params;
-      const product = await Product.findOne({ where: { slug } });
-
-      if (!product) return next(ApiErrorHandler.notFound("Продукт не найден"));
-
-      return res.json(product);
-    } catch (error) {
-      next(ApiErrorHandler.internal(error.message));
-    }
-  }
-
-  getByCategory = async (req, res, next) => {
-    try {
-      const { categorySlug } = req.params;
-      const product = await Product.findMany({
-        include: [{
-          model: Category,
-          where: { slug: categorySlug }
-        }]
-      });
-
-      if (!product) return next(ApiErrorHandler.notFound("Продукт не найден"));
-
-      return res.json(product);
-    } catch (error) {
-      next(ApiErrorHandler.internal(error.message));
-    }
-  }
-
-  getSimilar = async (req, res, next) => {
-    try {
-      const { id } = req.params;
-      const currentProduct = await Product.findByPk(id);
-
-      if (!currentProduct) return next(ApiErrorHandler.notFound("Продукт не найден"));
-
-      const products = await Product.findAll({
-        where: {
-          category_id: currentProduct.category_id,
-          id: { [Op.ne]: id }
-        },
-        limit: 3
-      });
-
-      return res.json(products);
     } catch (error) {
       next(ApiErrorHandler.internal(error.message));
     }
@@ -195,7 +151,7 @@ class ProductController {
 
       await product.destroy();
 
-      return res.json({ done: true });
+      return res.json();
     } catch (error) {
       next(ApiErrorHandler.internal(error.message));
     }

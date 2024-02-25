@@ -1,7 +1,7 @@
-import { ProductSort } from "@/services/product/product.types";
+import { ProductSortType } from "@/services/product/product.types";
 
 type ISortTypes = {
-  [key in ProductSort]: string;
+  [key in ProductSortType]: string;
 };
 
 export const sortTypes: ISortTypes = {

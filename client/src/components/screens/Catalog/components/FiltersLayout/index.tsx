@@ -6,6 +6,7 @@ import CheckboxesFilter from "./components/CheckboxesFilter";
 import { IMinMaxRange, IProductFitlers } from "@/types/features/product/filters.types";
 import { useCategories } from "@/hooks/features/useCategories";
 import { SheetClose } from "@/components/ui/shadcn/sheet";
+import { IProductQueryData } from "@/types/features/product/query-data.types";
 
 interface IFiltersFormValues {
   categories?: string[]; // number[] after getDirtyValues();
@@ -14,11 +15,11 @@ interface IFiltersFormValues {
 }
 
 interface IFiltersLayoutProps {
-  changeFilters: (filters: Partial<IProductFitlers>) => void;
+  changeQueryParams: (queryData: IProductQueryData) => void;
   filters: IProductFitlers;
 }
 
-function FiltersLayout({ filters, changeFilters }: IFiltersLayoutProps) {
+function FiltersLayout({ filters, changeQueryParams }: IFiltersLayoutProps) {
   const methods = useForm<IFiltersFormValues>({ mode: "onChange" });
   const { handleSubmit, setValue, reset } = methods;
   const { categories } = useCategories();
@@ -34,7 +35,7 @@ function FiltersLayout({ filters, changeFilters }: IFiltersLayoutProps) {
     const dirtyValues = getDirtyValues<IFiltersFormValues>(data, {
       tryToParseNumbersInArray: true
     }) as IProductFitlers;
-    changeFilters(dirtyValues);
+    changeQueryParams({ filters: dirtyValues });
   }
 
   function setAllFormValues() {
@@ -93,7 +94,7 @@ function FiltersLayout({ filters, changeFilters }: IFiltersLayoutProps) {
           <button
             type="button"
             className="link w-fit px-5 py-1"
-            onClick={() => changeFilters({})}
+            onClick={() => changeQueryParams({})}
           >
             Очистить фильтры
           </button>

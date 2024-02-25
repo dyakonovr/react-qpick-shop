@@ -1,29 +1,30 @@
+import { Link } from "react-router-dom";
 import classes from "./styles.module.scss";
 import { useNotifyUnauthorizedAction } from "@/hooks/general/useNotifyUnauthorizedAction";
 import { useActions } from "@/hooks/general/useActions";
 import { useTypedSelector } from "@/hooks/general/useTypedSelector";
 import { isProductInBasketSelector } from "@/store/slices/basket/basket.selectors";
 import { getUserInfoSelector } from "@/store/slices/user/user.selectors";
-import { IExtendedProduct } from "@/types/features/product/product.types";
+import { PagePaths } from "@/enum/PagePaths";
 
 interface IItemButtonsProps {
-  product: IExtendedProduct;
+  productId: number;
 }
 
-function ItemButtons({ product }: IItemButtonsProps) {
+function ItemButtons({ productId }: IItemButtonsProps) {
   const { isAuth, isAdmin } = useTypedSelector(getUserInfoSelector);
   const { isAddedToBasket, basketItemId } = useTypedSelector(
-    isProductInBasketSelector(product.id)
+    isProductInBasketSelector(productId)
   );
   const { addProductToBasket, deleteProductFromBasket } = useActions();
   const notifyUnauthorizedAction = useNotifyUnauthorizedAction();
 
   // Функции
   function handleBasketButtonClick() {
-    if (!isAuth) notifyUnauthorizedAction();
+    if (!isAuth) return notifyUnauthorizedAction();
 
     return !isAddedToBasket
-      ? addProductToBasket(product.id)
+      ? addProductToBasket(productId)
       : deleteProductFromBasket(basketItemId);
   }
   // Функции END
@@ -38,22 +39,9 @@ function ItemButtons({ product }: IItemButtonsProps) {
         {isAddedToBasket ? "Удалить из корзины" : "Добавить в корзину"}
       </button>
       {isAdmin && (
-        <>
-          <button
-            type="button"
-            className={`link ${classes.info_btn} ${classes["info_btn--edit"]}`}
-            // onClick={isAuth ? handleAddToCartButton : () => navigate(PagePaths.AUTHENTICATION.LOGIN)}
-          >
-            Редактировать товар
-          </button>
-          <button
-            type="button"
-            className={`link ${classes.info_btn} ${classes["info_btn--delete"]}`}
-            // onClick={isAuth ? handleAddToCartButton : () => navigate(PagePaths.AUTHENTICATION.LOGIN)}
-          >
-            Удалить товар
-          </button>
-        </>
+        <Link to={PagePaths.ADMIN.HOME} className={`link ${classes.info_btn}`}>
+          Перейти в админку
+        </Link>
       )}
     </div>
   );

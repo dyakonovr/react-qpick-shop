@@ -5,8 +5,7 @@ import { IProductQueryData } from "@/types/features/product/query-data.types";
 export const useProducts = (filters?: IProductQueryData) => {
   const { data, isLoading, isSuccess, isError } = useQuery({
     queryKey: ["products", filters],
-    queryFn: () => ProductService.getAll(filters),
-    staleTime: Infinity
+    queryFn: () => ProductService.getAll(filters)
   });
 
   return { data, isLoading, isSuccess, isError };

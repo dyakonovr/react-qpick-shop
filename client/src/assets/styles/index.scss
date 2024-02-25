@@ -38,7 +38,7 @@
   }
 }
 
-.block {
+.rounded_white_block {
   padding: var(--medium-offset);
   box-shadow: var(--box-shadow);
   border-radius: var(--border-radius);
@@ -128,6 +128,10 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
   /* Firefox */
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+  display: none;
 }
 
 // .slide-in {

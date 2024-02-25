@@ -22,20 +22,8 @@ class ProductService {
     return response.data;
   };
 
-  getBySimilar = async (id: string | number) => {
-    return $axios.get<IExtendedProduct[]>(`${this.url}/similar/${id}`);
-  };
-
-  getBySlug = async (slug: string) => {
-    return $axios.get<IExtendedProduct>(`${this.url}/by-slug/${slug}`);
-  };
-
-  getByCategory = async (categorySlug: string) => {
-    return $axios.get<IExtendedProduct>(`${this.url}/by-category/${categorySlug}`);
-  };
-
   create = async (data: IProductForCreating) => {
-    return $axios.post<IExtendedProduct>(this.url, data);
+    return $axios.post(`${this.url}/create`, data);
   };
 
   update = async (id: string | number, data: IProductForCreating) => {
@@ -43,7 +31,7 @@ class ProductService {
   };
 
   delete = async (id: string | number) => {
-    return $axios.delete<IExtendedProduct>(`${this.url}/${id}`);
+    return $axios.delete(`${this.url}/${id}`);
   };
 }
 

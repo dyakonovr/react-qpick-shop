@@ -1,13 +1,8 @@
-import axios from "axios";
 import { toast } from "sonner";
+import { errorCatch } from "@/api/api.helper";
 
 export function showErrorToast(error: Error, toastTitle: string) {
-  let errorMessage;
-
-  if (axios.isAxiosError(error)) errorMessage = error.response?.data.message;
-  else errorMessage = error.message;
-
   toast(toastTitle, {
-    description: errorMessage
+    description: errorCatch(error)
   });
 }

@@ -8,7 +8,7 @@ export interface IProduct {
 
 export type IBasketProduct = Omit<IProduct, "rating">;
 
-export interface IProductInfo {
+interface IProductInfo {
   name: string;
   value: string;
 }

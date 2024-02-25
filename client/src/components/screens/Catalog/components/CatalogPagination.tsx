@@ -8,17 +8,18 @@ import {
   PaginationNext,
   PaginationPrevious
 } from "@/components/ui/shadcn/pagination";
+import { IProductQueryData } from "@/types/features/product/query-data.types";
 
 interface ICatalogPaginationProps {
   currentPage: number;
   totalPages: number;
-  setCurrentPage: (newPage: number) => void;
+  changeQueryParams: (queryData: IProductQueryData) => void;
 }
 
 function CatalogPagination({
   currentPage = 0,
   totalPages = 0,
-  setCurrentPage
+  changeQueryParams
 }: ICatalogPaginationProps) {
   if (!currentPage || !totalPages) return null;
 
@@ -54,14 +55,14 @@ function CatalogPagination({
         {/* First page button */}
         <PaginationItem>
           <PaginationFirstPage
-            onClick={() => setCurrentPage(1)}
+            onClick={() => changeQueryParams({ page: 1 })}
             className={currentPage - 1 < 1 ? "pointer-events-none opacity-40" : ""}
           />
         </PaginationItem>
         {/* Prev button */}
         <PaginationItem>
           <PaginationPrevious
-            onClick={() => setCurrentPage(currentPage - 1)}
+            onClick={() => changeQueryParams({ page: currentPage - 1 })}
             className={currentPage - 1 < 1 ? "pointer-events-none opacity-40" : ""}
           />
         </PaginationItem>
@@ -72,7 +73,7 @@ function CatalogPagination({
             <PaginationLink
               isActive={currentPage === page}
               className="cursor-pointer select-none"
-              onClick={() => setCurrentPage(page)}
+              onClick={() => changeQueryParams({ page })}
             >
               {page}
             </PaginationLink>
@@ -83,7 +84,7 @@ function CatalogPagination({
         {/* Next button */}
         <PaginationItem>
           <PaginationNext
-            onClick={() => setCurrentPage(currentPage + 1)}
+            onClick={() => changeQueryParams({ page: currentPage + 1 })}
             className={
               currentPage + 1 > totalPages ? "pointer-events-none opacity-40" : ""
             }
@@ -92,7 +93,7 @@ function CatalogPagination({
         {/* Last page button */}
         <PaginationItem>
           <PaginationLastPage
-            onClick={() => setCurrentPage(totalPages)}
+            onClick={() => changeQueryParams({ page: totalPages })}
             className={
               currentPage + 1 > totalPages ? "pointer-events-none opacity-40" : ""
             }

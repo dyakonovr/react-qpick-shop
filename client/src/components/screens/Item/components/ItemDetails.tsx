@@ -1,10 +1,14 @@
 import classes from "../styles.module.scss";
 import Price from "@/components/ui/local/Price";
+import Rating from "@/components/ui/local/Rating";
 import { IExtendedProduct } from "@/types/features/product/product.types";
 
-type IItemDetailsProps = Pick<IExtendedProduct, "id" | "name" | "category" | "price">;
+type IItemDetailsProps = Pick<
+  IExtendedProduct,
+  "id" | "name" | "category" | "price" | "rating"
+>;
 
-function ItemDetails({ id, name, category, price }: IItemDetailsProps) {
+function ItemDetails({ id, name, category, price, rating }: IItemDetailsProps) {
   return (
     <div className={classes.content__footer}>
       <div className="flex flex-col">
@@ -13,7 +17,10 @@ function ItemDetails({ id, name, category, price }: IItemDetailsProps) {
         <span className="text-neutral-500">Артикул {id}</span>
       </div>
 
-      <Price price={price} isBigFont={true} />
+      <div className="flex flex-col items-end">
+        <Rating rating={rating} />
+        <Price price={price} isBigFont={true} />
+      </div>
     </div>
   );
 }

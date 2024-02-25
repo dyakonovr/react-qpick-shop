@@ -15,6 +15,7 @@ interface IItemPageProps {
 
 function ItemPage({ data }: IItemPageProps) {
   const { product, similarProducts } = data;
+  const { id, name, info, category, price, rating, image, gallery } = product;
   const navigate = useNavigate();
 
   return (
@@ -25,24 +26,22 @@ function ItemPage({ data }: IItemPageProps) {
       >
         <MoveLeft /> Назад
       </strong>
-      <div className={`block ${classes.content}`}>
+      <div className={`rounded_white_block ${classes.content}`}>
         <div className={classes.content__main}>
-          <LikeButton productId={product.id} />
-          <ItemGallery
-            gallery={[...product.gallery, product.image]}
-            productName={product.name}
-          />
+          <LikeButton productId={id} />
+          <ItemGallery gallery={[...gallery, image]} productName={name} />
           <ItemDetails
-            id={product.id}
-            name={product.name}
-            category={product.category}
-            price={product.price}
+            id={id}
+            name={name}
+            category={category}
+            price={price}
+            rating={rating}
           />
         </div>
       </div>
       <div className={classes.info}>
-        <ItemInfo info={product.info} />
-        <ItemButtons product={product} />
+        <ItemInfo info={info} />
+        <ItemButtons productId={id} />
       </div>
       <ItemSimilarProducts products={similarProducts} />
     </section>

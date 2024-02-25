@@ -14,8 +14,7 @@ import {
 import CardsContainer from "@/components/ui/local/CardsContainer";
 
 function Catalog() {
-  const { filters, changeFilters, page, changePage, sort, changeSort, searchTerm } =
-    useFilters();
+  const { filters, changeQueryParams, page, sort, searchTerm } = useFilters();
   const { data, isLoading, isSuccess, isError } = useProducts({
     filters,
     page,
@@ -23,6 +22,7 @@ function Catalog() {
     sort
   });
   const isPaginationNeeded = data && data.totalPages > 1;
+  const isSortSelectNeeded = data?.products && data.products.length !== 0;
 
   return (
     <section className="rows-container">
@@ -33,7 +33,9 @@ function Catalog() {
             <FiltersIcon />
             Посмотреть фильтры
           </SheetTrigger>
-          <CatalogSortSelect sort={sort} changeSort={changeSort} />
+          {isSortSelectNeeded && (
+            <CatalogSortSelect sort={sort} changeQueryParams={changeQueryParams} />
+          )}
         </div>
         <SheetWrapper>
           <SheetHeader className="mb-7">
@@ -43,7 +45,7 @@ function Catalog() {
           </SheetHeader>
           {/* Sheet Content */}
           <div>
-            <FiltersLayout filters={filters} changeFilters={changeFilters} />
+            <FiltersLayout filters={filters} changeQueryParams={changeQueryParams} />
           </div>
           {/* Sheet Content END */}
         </SheetWrapper>
@@ -60,7 +62,7 @@ function Catalog() {
         <CatalogPagination
           currentPage={page}
           totalPages={data.totalPages}
-          setCurrentPage={changePage}
+          changeQueryParams={changeQueryParams}
         />
       )}
     </section>

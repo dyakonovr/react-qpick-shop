@@ -6,7 +6,7 @@ type IItemInfoProps = Pick<IExtendedProduct, "info">;
 function ItemInfo({ info }: IItemInfoProps) {
   return (
     <div className={classes.info__wrapper}>
-      <strong className={`subtitle block ${classes.info__title}`}>
+      <strong className={`subtitle rounded_white_block ${classes.info__title}`}>
         Описание и характеристики
       </strong>
       <div className={classes.info__container}>

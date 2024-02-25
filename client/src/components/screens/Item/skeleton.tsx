@@ -11,7 +11,7 @@ function ItemSkeleton() {
       <strong className={`subtitle ${classes.item__back_link}`}>
         <MoveLeft /> Назад
       </strong>
-      <div className={`block ${classes.content}`}>
+      <div className={`rounded_white_block ${classes.content}`}>
         <div className={classes.content__main}>
           <LikeButtonSkeleton />
           <div className={classes.content__photos}>
@@ -35,7 +35,7 @@ function ItemSkeleton() {
       </div>
       <div className={classes.info}>
         <div className={classes.info__wrapper}>
-          <strong className={`subtitle block ${classes.info__title}`}>
+          <strong className={`subtitle rounded_white_block ${classes.info__title}`}>
             Описание и характеристики
           </strong>
           <div className={classes.info__container}>

@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import LikeButton from "../../LikeButton";
 import Price from "../../Price";
+import Rating from "../../Rating";
 import classes from "./styles.module.scss";
 import { Skeleton } from "@/components/ui/shadcn/skeleton";
-import { normalizeRating } from "@/functions/normalizeRating";
 import { normalizeText } from "@/functions/normalizeText";
 import { useImageLoader } from "@/hooks/general/useImageLoader";
 import { IProduct } from "@/types/features/product/product.types";
@@ -26,7 +26,7 @@ function Card({ id, name, price, image: imagePath, rating }: IProduct) {
           <strong className={classes.card__title}>{normalizeText(name)}</strong>
           <Price price={price} />
         </div>
-        <span className={classes.card__grade}>{normalizeRating(rating)}</span>
+        <Rating rating={rating} className="mt-auto" />
       </Link>
     </li>
   );

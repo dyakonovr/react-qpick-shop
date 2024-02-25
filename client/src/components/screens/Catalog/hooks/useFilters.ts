@@ -1,12 +1,14 @@
 import { useSearchParams } from "react-router-dom";
+import { useEffect, useRef } from "react";
 import { configurateUrlParams, parseParamsFromUrl } from "../helpers/catalog.helpers";
-import { IProductFitlers } from "@/types/features/product/filters.types";
 import { IProductQueryData } from "@/types/features/product/query-data.types";
-import { ProductSort } from "@/services/product/product.types";
 
 export const useFilters = () => {
-  const [, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const params = window.location.search.slice(1);
+
+  const queryDataRef = useRef<string | null>(null);
+
   const { filters, page, searchTerm, sort } = parseParamsFromUrl<IProductQueryData>(
     params,
     {
@@ -16,42 +18,40 @@ export const useFilters = () => {
     }
   );
 
-  console.log("sort after parse:", sort);
+  // console.log(searchParams);
+
+  useEffect(() => {
+    // queryDataRef.current = "my filters";
+    // console.log("useFilters started work!");
+    // console.log("searchParams changed");
+  }, [searchParams]);
 
   // Функции
-  function changeFilters(newFilters: IProductFitlers) {
-    const isReset = Object.keys(newFilters).length === 0;
-    let paramsObject;
-
-    if (isReset) paramsObject = {};
-    else {
-      paramsObject = {
-        page: 1,
-        filters: newFilters,
-        searchTerm,
-        sort
-      };
+  function changeQueryParams(queryData: IProductQueryData) {
+    if (Object.keys(queryData).length === 0) {
+      return setSearchParams(configurateUrlParams({ searchTerm, sort }));
     }
 
-    setSearchParams(configurateUrlParams(paramsObject));
-  }
+    const result: IProductQueryData = {};
 
-  function changePage(newPage: number) {
-    setSearchParams(configurateUrlParams({ filters, page: newPage, searchTerm, sort }));
-  }
+    result.filters = queryData.filters ?? filters;
+    result.searchTerm = queryData.searchTerm ?? searchTerm;
+    result.page =
+      (queryData.filters && Object.keys(queryData.filters).length !== 0) || queryData.sort
+        ? 1
+        : queryData.page ?? page;
+    result.sort = queryData.sort ?? sort;
 
-  function changeSort(newSort: ProductSort) {
-    setSearchParams(configurateUrlParams({ filters, page, searchTerm, sort: newSort }));
+    setSearchParams(configurateUrlParams(result));
+    queryDataRef.current = "new filters!!!";
   }
   // Функции END
 
   return {
     filters: filters || {},
-    changeFilters,
     page: page ? +page : 1,
-    changePage,
     sort,
-    changeSort,
-    searchTerm
+    searchTerm,
+    changeQueryParams
   };
 };

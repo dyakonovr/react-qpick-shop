@@ -1,6 +1,6 @@
 import { IExtendedProduct, IProduct } from "@/types/features/product/product.types";
 
-export type ProductSort =
+export type ProductSortType =
   | "high-price"
   | "low-price"
   | "high-rating"

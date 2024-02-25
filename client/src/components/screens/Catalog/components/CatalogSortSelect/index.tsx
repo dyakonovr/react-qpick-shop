@@ -6,17 +6,18 @@ import {
   SelectTrigger,
   SelectValue
 } from "@/components/ui/shadcn/select";
-import { ProductSort } from "@/services/product/product.types";
+import { ProductSortType } from "@/services/product/product.types";
+import { IProductQueryData } from "@/types/features/product/query-data.types";
 
 interface ICatalogSortSelectProps {
-  sort: ProductSort | undefined;
-  changeSort: (newSort: ProductSort) => void;
+  sort: ProductSortType | undefined;
+  changeQueryParams: (queryData: IProductQueryData) => void;
 }
 
-function CatalogSortSelect({ sort, changeSort }: ICatalogSortSelectProps) {
+function CatalogSortSelect({ sort, changeQueryParams }: ICatalogSortSelectProps) {
   return (
     <Select
-      onValueChange={(value) => changeSort(value as ProductSort)}
+      onValueChange={(value) => changeQueryParams({ sort: value as ProductSortType })}
       defaultValue={sort}
     >
       <SelectTrigger className="w-[180px] ms-auto">

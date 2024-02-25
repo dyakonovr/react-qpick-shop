@@ -6,7 +6,7 @@ function SuccessOrder() {
   const orderId = searchParams.get("id");
 
   return (
-    <div className={`block ${classes.success}`}>
+    <div className={`rounded_white_block ${classes.success}`}>
       Номер вашего заказа №{orderId}, с Вами свяжется наш менеджер.
     </div>
   );

@@ -39,6 +39,8 @@ export function AdminUserForm() {
     mode: "onChange"
   });
 
+  console.log("errors:", form.formState.errors);
+
   function onSubmit(data: ProfileFormValues) {
     console.log("!", data);
 

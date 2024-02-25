@@ -1,9 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
+import { X as DeleteIcon } from "lucide-react";
 import {
-  ProfileFormValues,
+  ProductFormValues,
   productFormDefaultValues,
-  profileFormSchema
+  productFormSchema
 } from "./product-form.constants";
 import { Button } from "@/components/ui/shadcn/button";
 import {
@@ -24,41 +25,50 @@ import {
   SelectValue
 } from "@/components/ui/shadcn/select";
 import { useCategories } from "@/hooks/features/useCategories";
+import { IProductForCreating } from "@/types/features/product/product.types";
+import ProductService from "@/services/product/product.service";
+import { toast } from "sonner";
+import { errorCatch } from "@/api/api.helper";
 
 export function AdminProductForm() {
-  const form = useForm<ProfileFormValues>({
-    resolver: zodResolver(profileFormSchema),
+  const form = useForm<ProductFormValues>({
+    resolver: zodResolver(productFormSchema),
     defaultValues: productFormDefaultValues,
     mode: "onChange"
   });
 
-  // const { fields: urlsFields, append: urlsAppend } = useFieldArray({
-  //   name: 'gallery',
-  //   control: form.control,
-  // });
+  const {
+    fields: galleryFields,
+    append: galleryAppendItem,
+    remove: galleryRemoveItem
+  } = useFieldArray({
+    name: "gallery",
+    control: form.control
+  });
 
-  const { fields: infoFields, append: infoAppend } = useFieldArray({
+  const {
+    fields: infoFields,
+    append: infoAppendItem,
+    remove: infoRemoveItem
+  } = useFieldArray({
     name: "info",
     control: form.control
   });
 
   const { categories } = useCategories();
 
-  console.log("!!!");
-
   // Функции
-  function onSubmit(data: ProfileFormValues) {
-    console.log("!!!!");
-    console.log(data);
-    // const product: ProductForCreating = {
-    //   name: data.name,
-    //   rating: Number(data.rating),
-    //   price: Number(data.price),
-    //   categoryId: Number(data.categoryId),
-    //   gallery: data.gallery,
-    //   // info: data.info.map((obj) => obj.value),
-    // };
-    // dispatch(createProduct(product));
+  async function onSubmit(data: ProductFormValues) {
+    try {
+      await ProductService.create({
+        ...data,
+        gallery: data.gallery.map((el) => el.value),
+        categoryId: +data.categoryId
+      } as IProductForCreating);
+      toast("Продукт создан!");
+    } catch (error) {
+      toast("Ошибка создания продукта: ", { description: errorCatch(error) });
+    }
   }
   // Функции END
 
@@ -85,7 +95,7 @@ export function AdminProductForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Категория</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select onValueChange={field.onChange}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Выберите категорию из списка" />
@@ -140,66 +150,114 @@ export function AdminProductForm() {
           )}
         />
 
+        <FormField
+          control={form.control}
+          name="image"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Ссылка на фото (превью)</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="https://loremflickr.com/300/300"
+                  type="string"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <div>
-          <FormLabel className="mr-2">Характеристики</FormLabel>
-          {infoFields.map((field, index) => (
+          <FormLabel className="mr-2">Галерея</FormLabel>
+          <FormDescription>Добавьте ссылки на фотографии</FormDescription>
+          {galleryFields.map((field, index) => (
             <FormField
               control={form.control}
-              key={field.id}
-              name={`info.${index}.value`}
+              key={field.id + index}
+              name={`gallery.${index}.value`}
               render={({ field }) => (
-                <FormItem className="mt-3">
+                <FormItem className="flex gap-2 align-center mt-3 space-y-0">
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
+                  <button className="mt-0" onClick={() => galleryRemoveItem(index)}>
+                    <DeleteIcon />
+                  </button>
                   <FormMessage />
                 </FormItem>
               )}
             />
           ))}
-          <FormDescription>
-            Вводите характеристики в формате (без кавычек) - "Название_характеристики:
-            текст"
-          </FormDescription>
           <Button
             type="button"
             variant="outline"
             size="sm"
-            className="mt-2"
-            onClick={() => infoAppend({ value: "", name: "" })}
+            className="mt-5"
+            onClick={() => galleryAppendItem({ value: "" })}
+          >
+            Добавить фотографию
+          </Button>
+        </div>
+
+        <div>
+          <FormLabel className="mr-2">Характеристики</FormLabel>
+          <div className="w-full">
+            <div className="mt-4 mb-3 grid grid-cols-2">
+              <FormDescription>Название характеристики</FormDescription>
+              <FormDescription className="ml-[-10px]">Значение</FormDescription>
+            </div>
+            {infoFields.map((field, index) => (
+              <div className="flex align-center gap-2 w-full mb-3" key={field.id + index}>
+                <FormField
+                  control={form.control}
+                  key={field.id}
+                  name={`info.${index}.name`}
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  key={field.id + index}
+                  name={`info.${index}.value`}
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <button className="mt-0" onClick={() => infoRemoveItem(index)}>
+                  <DeleteIcon />
+                </button>
+              </div>
+            ))}
+          </div>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className="mt-3"
+            onClick={() => infoAppendItem({ value: "", name: "" })}
           >
             Добавить характеристику
           </Button>
         </div>
 
-        {/* <div>
-          <FormLabel className="mr-2">Ссылки на фотографии</FormLabel>
-          {urlsFields.map((field, index) => (
-            <FormField
-              control={form.control}
-              key={field.id}
-              name={`gallery.${index}`}
-              render={({ field }) => (
-                <FormItem className="mt-3">
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          ))}
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            className="mt-2"
-            onClick={() => urlsAppend({ value: '' })}
-          >
-            Добавить URL
-          </Button>
-        </div> */}
-        <Button type="submit">Создать товар</Button>
+        <Button
+          type="submit"
+          onClick={() => console.log("errors: ", form.formState.errors)}
+        >
+          Создать товар
+        </Button>
       </form>
     </Form>
   );

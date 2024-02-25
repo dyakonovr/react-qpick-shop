@@ -82,11 +82,9 @@ function Order() {
     const house =
       (document.querySelector("#house-input") as HTMLInputElement).value || "";
     const entrance =
-      (document.querySelector("#entrance-input") as HTMLInputElement).value ||
-      "";
+      (document.querySelector("#entrance-input") as HTMLInputElement).value || "";
     const apartament =
-      (document.querySelector("#apartament-input") as HTMLInputElement).value ||
-      "";
+      (document.querySelector("#apartament-input") as HTMLInputElement).value || "";
 
     const clientNumber =
       (document.querySelector("#number-input") as HTMLInputElement).value || "";
@@ -113,7 +111,7 @@ function Order() {
       <strong className="subtitle">Оформление заказа</strong>
       <div className={classes.order__container}>
         {/* Левый блок с формой */}
-        <div className={`${classes.form} block`}>
+        <div className={`${classes.form} rounded_white_block`}>
           <div className={classes.form__header}>
             <strong className={classes.title}>Доставка курьером</strong>
             {/* <span className={classes.price}>{normalizePrice(deliveryPrice)}</span> */}
@@ -140,7 +138,7 @@ function Order() {
 
         {/* Правый блок с оформлением */}
         <div className={classes.column}>
-          <div className={`${classes["order-list"]} block`}>
+          <div className={`${classes["order-list"]} rounded_white_block`}>
             <strong className={classes.title}>Ваш заказ</strong>
             <div className={classes.column}>
               {/* {createProducts()} */}
@@ -162,15 +160,13 @@ function Order() {
                 <p className={`${classes["order-list__text"]} ${classes.text}`}>
                   К оплате
                 </p>
-                <span
-                  className={`${classes["order-list__price"]} ${classes.price}`}
-                >
+                <span className={`${classes["order-list__price"]} ${classes.price}`}>
                   {/* {normalizePrice(getOrderTotalPrice())} */}
                 </span>
               </div>
             </div>
           </div>
-          <div className={`block ${classes.column}`}>
+          <div className={`rounded_white_block ${classes.column}`}>
             <strong className={`${classes.title}`}>Способ оплаты</strong>
             <Select
               options={bankAccountsSelectOptions}
@@ -180,7 +176,7 @@ function Order() {
             />
             {/* <Input placeholder="Промокод (ENTER для ввода)" maxLength={15} isPromoCode={true} /> */}
           </div>
-          <div className={`block ${classes.column}`}>
+          <div className={`rounded_white_block ${classes.column}`}>
             <strong className={classes.title}>Номер получателя</strong>
             {/* <Input isNumber={true} id="number-input" /> */}
           </div>
