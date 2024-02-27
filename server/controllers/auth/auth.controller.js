@@ -1,4 +1,5 @@
 import { hash, verify } from "argon2";
+import jwt from 'jsonwebtoken';
 
 import { ApiErrorHandler } from "../../error/api-error.handler.js";
 import { Basket, User } from "../../models/models.js";
@@ -44,10 +45,15 @@ class AuthController {
 
   getNewTokens = (req, res, next) => {
     try {
-      const tokens = this.issueTokens(req.user.id, req.user.role, req.user.email);
-      return res.json({ user: this.returnUserFields(req.user), ...tokens });
+      const accessToken = req.headers.authorization.split(' ')[1]; // Удаляю Bearer
+      if (!accessToken) return next(ApiErrorHandler.forbidden("Не авторизован"));
+
+      const decodedUser = jwt.verify(accessToken, process.env.SECRET_KEY);
+
+      const tokens = this.issueTokens(decodedUser.id, decodedUser.role, decodedUser.email);
+      return res.json({ user: decodedUser, ...tokens });
     } catch (error) {
-      return next(ApiErrorHandler.internal(error.message));
+      return next(ApiErrorHandler.forbidden(error.message));
     }
   }
 

@@ -1,5 +1,5 @@
 import { useFormContext } from "react-hook-form";
-import { INameAndIdObject } from "./checkboxes-filter.types";
+import type { INameAndIdObject } from "./checkboxes-filter.types";
 import { Separator } from "@/components/ui/shadcn/separator";
 
 interface ICheckboxProps {

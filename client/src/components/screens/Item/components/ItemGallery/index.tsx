@@ -1,6 +1,6 @@
 import ItemGalleryCarousel from "./components/ItemGalleryCarousel";
 import ItemGalleryGrid from "./components/ItemGalleryGrid";
-import { IProductGallery } from "./product-gallery.type";
+import type { IProductGallery } from "./product-gallery.type";
 
 interface IItemGalleryProps extends IProductGallery {
   productName: string;

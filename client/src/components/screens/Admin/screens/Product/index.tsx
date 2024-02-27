@@ -1,11 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
 import { X as DeleteIcon } from "lucide-react";
-import {
-  ProductFormValues,
-  productFormDefaultValues,
-  productFormSchema
-} from "./product-form.constants";
+import { toast } from "sonner";
+import { productFormDefaultValues, productFormSchema } from "./product-form.constants";
+import type { ProductFormValues } from "./product-form.constants";
+import type { IProductForCreating } from "@/types/features/product/product.types";
 import { Button } from "@/components/ui/shadcn/button";
 import {
   Form,
@@ -25,12 +24,10 @@ import {
   SelectValue
 } from "@/components/ui/shadcn/select";
 import { useCategories } from "@/hooks/features/useCategories";
-import { IProductForCreating } from "@/types/features/product/product.types";
 import ProductService from "@/services/product/product.service";
-import { toast } from "sonner";
 import { errorCatch } from "@/api/api.helper";
 
-export function AdminProductForm() {
+function AdminProductForm() {
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(productFormSchema),
     defaultValues: productFormDefaultValues,
@@ -262,3 +259,5 @@ export function AdminProductForm() {
     </Form>
   );
 }
+
+export default AdminProductForm;

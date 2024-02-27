@@ -1,29 +1,52 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import classes from "./styles.module.scss";
+import { PagePaths } from "./../../../../enum/PagePaths";
 import Logo from "@/components/layout/components/Logo";
-import { PagePaths } from "@/enum/PagePaths";
+import { useNotifyUnauthorizedAction } from "@/hooks/general/useNotifyUnauthorizedAction";
+import { useTypedSelector } from "@/hooks/general/useTypedSelector";
+import { getUserInfoSelector } from "@/store/slices/user/user.selectors";
 
 function Footer() {
+  const navigate = useNavigate();
+  const { isAuth } = useTypedSelector(getUserInfoSelector);
+  const notifyUnauthorizedAction = useNotifyUnauthorizedAction();
+
+  PagePaths;
+  // Функции
+  function navigateAuthorizedUser(path: string) {
+    if (!isAuth) return notifyUnauthorizedAction();
+
+    navigate(path);
+  }
+  // Функции END
+
   return (
     <footer className={classes.footer}>
       <Logo />
 
       <ul className={classes.footer__menu}>
         <li>
-          <Link to={PagePaths.FAVOURITES} className={classes.footer__link}>
+          <span
+            onClick={() => navigateAuthorizedUser(PagePaths.FAVOURITES)}
+            className={classes.footer__link}
+          >
             Избранное
-          </Link>
+          </span>
         </li>
         <li>
-          <Link to={PagePaths.BASKET} className={classes.footer__link}>
+          <span
+            onClick={() => navigateAuthorizedUser(PagePaths.BASKET)}
+            className={classes.footer__link}
+          >
             Корзина
+          </span>
+        </li>
+        <li>
+          <Link to={PagePaths.HOME} className={classes.footer__link}>
+            Условия сервиса
           </Link>
         </li>
       </ul>
-
-      <Link to={PagePaths.HOME} className={classes.footer__link}>
-        Условия сервиса
-      </Link>
 
       <ul className={classes.footer__socials}>
         <li>

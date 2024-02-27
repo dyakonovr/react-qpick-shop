@@ -1,6 +1,6 @@
-import { IProductGallery } from "../product-gallery.type";
 import classes from "../../../styles.module.scss";
 import ItemImage from "./ItemImage";
+import type { IProductGallery } from "../product-gallery.type";
 
 interface IItemGalleryGridProps extends IProductGallery {
   productName: string;

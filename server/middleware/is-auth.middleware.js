@@ -12,6 +12,7 @@ export function isAuthMiddleware (req, res, next) {
     // if (!userInDatabase) res.status(500).json({ message: "Аккаунт деактивирован" });
 
     req.user = decodedUser;
+    console.log("user:", decodedUser);
     next();
   } catch (e) {
     res.status(401).json({ message: "Не авторизован" });

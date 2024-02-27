@@ -7,8 +7,9 @@ import {
   MoreHorizontal
 } from "lucide-react";
 
+import type { ButtonProps } from "@/components/ui/shadcn/button";
 import { cn } from "@/functions/shadcn-utils";
-import { ButtonProps, buttonVariants } from "@/components/ui/shadcn/button";
+import { buttonVariants } from "@/components/ui/shadcn/button";
 
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
   <nav

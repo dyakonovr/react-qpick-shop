@@ -1,8 +1,8 @@
 import Card from "./Card";
 import CardSkeleton from "./Card/skeleton";
 import classes from "./styles.module.scss";
-import { Nullable } from "@/types/general/nullable.type";
-import { IProduct } from "@/types/features/product/product.types";
+import type { Nullable } from "@/types/general/nullable.type";
+import type { IProduct } from "@/types/features/product/product.types";
 
 interface ICardsContainerProps {
   isLoading: boolean;

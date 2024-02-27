@@ -1,10 +1,10 @@
-import { IGetProductByIdResponse, IProductResponse } from "./product.types";
-import { $axios } from "@/api/api.interceptor";
-import {
+import type { IGetProductByIdResponse, IProductResponse } from "./product.types";
+import type {
   IExtendedProduct,
   IProductForCreating
 } from "@/types/features/product/product.types";
-import { IProductQueryData } from "@/types/features/product/query-data.types";
+import type { IProductQueryData } from "@/types/features/product/query-data.types";
+import { $axios } from "@/api/api.interceptor";
 
 class ProductService {
   private url = "/product";

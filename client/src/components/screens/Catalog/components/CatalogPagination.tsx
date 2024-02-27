@@ -1,3 +1,4 @@
+import type { IProductQueryData } from "@/types/features/product/query-data.types";
 import {
   Pagination,
   PaginationContent,
@@ -8,7 +9,6 @@ import {
   PaginationNext,
   PaginationPrevious
 } from "@/components/ui/shadcn/pagination";
-import { IProductQueryData } from "@/types/features/product/query-data.types";
 
 interface ICatalogPaginationProps {
   currentPage: number;

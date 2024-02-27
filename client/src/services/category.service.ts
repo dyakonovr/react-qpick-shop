@@ -1,5 +1,5 @@
+import type { ICategory } from "@/types/features/category.types";
 import { $axios } from "@/api/api.interceptor";
-import { ICategory } from "@/types/features/category.types";
 
 class CategorySerice {
   private url = "/category";

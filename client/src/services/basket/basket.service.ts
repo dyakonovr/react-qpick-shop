@@ -1,4 +1,4 @@
-import { IBasketResponse } from "./basket.types";
+import type { IBasketResponse } from "./basket.types";
 import { $axios } from "@/api/api.interceptor";
 
 class BasketService {

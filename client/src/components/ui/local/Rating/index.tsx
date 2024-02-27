@@ -1,7 +1,7 @@
 import classes from "./styles.module.scss";
+import type { IProduct } from "@/types/features/product/product.types";
 import { normalizeRating } from "@/functions/normalizeRating";
 import { cn } from "@/functions/shadcn-utils";
-import { IProduct } from "@/types/features/product/product.types";
 
 type IRatingProps = Pick<IProduct, "rating"> & React.HTMLAttributes<HTMLSpanElement>;
 

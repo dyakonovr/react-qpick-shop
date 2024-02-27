@@ -9,12 +9,8 @@ const sidebarNavItems = [
     href: PagePaths.ADMIN.HOME
   },
   {
-    title: "Создать категорию",
+    title: "Категории",
     href: PagePaths.ADMIN.CATEGORY
-  },
-  {
-    title: "Создать пользователя",
-    href: PagePaths.ADMIN.USER
   }
 ];
 
@@ -26,10 +22,10 @@ export default function Admin() {
       </div>
       <Separator className="my-6" />
       <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
-        <aside className="lg:w-1/5">
+        <aside className="lg:w-2/12">
           <SidebarNav items={sidebarNavItems} />
         </aside>
-        <div className="flex-1 lg:max-w-2xl">
+        <div className="flex-1 lg:max-w-10/12">
           <Outlet />
         </div>
       </div>

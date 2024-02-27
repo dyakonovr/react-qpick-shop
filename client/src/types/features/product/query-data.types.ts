@@ -1,5 +1,5 @@
-import { IProductFitlers } from "./filters.types";
-import { ProductSortType } from "@/services/product/product.types";
+import type { IProductFitlers } from "./filters.types";
+import type { ProductSortType } from "@/services/product/product.types";
 
 export interface IProductQueryData {
   filters?: IProductFitlers;

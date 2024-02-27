@@ -5,8 +5,8 @@ import {
   fetchBasketAndItems,
   updateBasketItemQuantity
 } from "./basket.actions";
-import { IBasketItem } from "@/types/features/basket-item.types";
-import { Nullable } from "@/types/general/nullable.type";
+import type { IBasketItem } from "@/types/features/basket-item.types";
+import type { Nullable } from "@/types/general/nullable.type";
 
 interface IBasketInitialState {
   id: Nullable<number>;

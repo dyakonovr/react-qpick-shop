@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import type { IProduct } from "@/types/features/product/product.types";
 import FavouritesService from "@/services/favourites.service";
-import { IProduct } from "@/types/features/product/product.types";
 import { showErrorToast } from "@/store/show-error-toast.helper";
 
 export const fetchFavourites = createAsyncThunk<IProduct[]>(

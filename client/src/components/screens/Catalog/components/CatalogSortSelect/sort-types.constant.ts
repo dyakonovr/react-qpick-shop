@@ -1,4 +1,4 @@
-import { ProductSortType } from "@/services/product/product.types";
+import type { ProductSortType } from "@/services/product/product.types";
 
 type ISortTypes = {
   [key in ProductSortType]: string;

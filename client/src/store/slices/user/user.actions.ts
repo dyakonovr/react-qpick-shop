@@ -1,10 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { IAuthResponse, IEmailPassword } from "../../../services/auth/user.types";
+import axios from "axios";
 import { clearBasket } from "../basket/basket.slice";
 import { clearFavourites } from "../favourites/favourites.slice";
+import type { IAuthResponse, IEmailPassword } from "../../../services/auth/user.types";
+import type { AuthType } from "@/components/screens/Auth/auth.types";
 import { errorCatch } from "@/api/api.helper";
-import { AuthType } from "@/components/screens/Auth/auth.types";
-import { checkAccessToken, removeFromStorage } from "@/services/auth/auth.helper";
 import AuthService from "@/services/auth/auth.service";
 import { showErrorToast } from "@/store/show-error-toast.helper";
 
@@ -24,18 +24,19 @@ export const auth = createAsyncThunk<
 export const logout = createAsyncThunk("auth/logout", async (_, thunkApi) => {
   thunkApi.dispatch(clearBasket());
   thunkApi.dispatch(clearFavourites());
-  removeFromStorage();
 });
 
 export const checkAuth = createAsyncThunk<IAuthResponse>(
   "auth/check-auth",
   async (_, thunkApi) => {
     try {
-      if (!checkAccessToken()) return thunkApi.rejectWithValue("Not authorized");
-
       const response = await AuthService.getNewTokens();
       return response;
     } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.status === 403) {
+        // 403 === bad accessToken
+        return thunkApi.rejectWithValue(error);
+      }
       if (errorCatch(error) === "jwt expired") thunkApi.dispatch(logout());
 
       showErrorToast(error as Error, "Ошибка авторизации");

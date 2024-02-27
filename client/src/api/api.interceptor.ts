@@ -20,16 +20,14 @@ $axios.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    console.log(error);
-
-    // Не авторизирован / что-то с jwt
     if (
-      (error.response?.status === 401 ||
-        errorCatch(error) === "jwt expired" ||
-        errorCatch(error) === "jwt must be provided") &&
+      error.response?.status === 401 &&
+      (errorCatch(error).includes("jwt expired") ||
+        errorCatch(error).includes("jwt must be provided")) &&
       error.config &&
       !error.config._isRetry
     ) {
+      // Не авторизирован / что-то с jwt
       originalRequest._isRetry = true;
 
       try {

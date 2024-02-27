@@ -1,5 +1,5 @@
+import type { IOrder } from "@/types/features/order.types";
 import { $axios } from "@/api/api.interceptor";
-import { IOrder } from "@/types/features/order.types";
 
 class OrderService {
   private url = "/order";

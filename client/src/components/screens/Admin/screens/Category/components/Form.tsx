@@ -18,7 +18,7 @@ const profileFormSchema = z.object({
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>;
 
-export function AdminCategoryForm() {
+export function AdminCategoryForm({ onSuccess }: { onSuccess: () => void }) {
   // Валидация и настройка формы
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
@@ -31,6 +31,8 @@ export function AdminCategoryForm() {
 
   // Функции
   async function onSubmit(data: ProfileFormValues) {
+    console.log("category has created");
+    onSuccess();
     // dispatch(createCategory(data.name));
   }
   // Функции END
@@ -43,9 +45,9 @@ export function AdminCategoryForm() {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Наименование категории</FormLabel>
+              <FormLabel>Название категории</FormLabel>
               <FormControl>
-                <Input placeholder="Название..." {...field} />
+                <Input placeholder="Машины" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

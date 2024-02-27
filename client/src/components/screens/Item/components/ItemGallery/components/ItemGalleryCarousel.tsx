@@ -1,5 +1,5 @@
-import { IProductGallery } from "../product-gallery.type";
 import ItemImage from "./ItemImage";
+import type { IProductGallery } from "../product-gallery.type";
 import {
   Carousel,
   CarouselContent,

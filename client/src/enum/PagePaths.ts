@@ -8,8 +8,7 @@ export const PagePaths = {
   SERVICE_CONDITIONS: "/conditions",
   ADMIN: {
     HOME: "/admin",
-    CATEGORY: "/admin/category",
-    USER: "/admin/create-user"
+    CATEGORY: "/admin/category"
   },
   AUTHENTICATION: "authentication"
 };

@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { AuthFormSchema } from "./auth.constants";
-import { AuthFormValuesType, AuthType } from "./auth.types";
+import type { AuthFormValuesType, AuthType } from "./auth.types";
 import { useActions } from "@/hooks/general/useActions";
 import { PagePaths } from "@/enum/PagePaths";
 import { Input } from "@/components/ui/shadcn/input";
@@ -31,7 +31,7 @@ const textFields = {
   }
 };
 
-export function AuthForm() {
+export function Auth() {
   const navigate = useNavigate();
   const { auth } = useActions();
   const [type, setType] = useState<AuthType>("login");
@@ -111,4 +111,4 @@ export function AuthForm() {
   );
 }
 
-export default AuthForm;
+export default Auth;

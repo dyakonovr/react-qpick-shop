@@ -1,10 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import BasketItemService from "@/services/basket-item/basket-item.service";
-import { IUpdateBasketItemData } from "@/services/basket-item/basket-item.types";
+import type { IUpdateBasketItemData } from "@/services/basket-item/basket-item.types";
+import type { IBasketResponse } from "@/services/basket/basket.types";
+import type { RootType } from "@/store/store";
+import type { IBasketItem } from "@/types/features/basket-item.types";
 import BasketService from "@/services/basket/basket.service";
-import { IBasketResponse } from "@/services/basket/basket.types";
-import { RootType } from "@/store/store";
-import { IBasketItem } from "@/types/features/basket-item.types";
+import BasketItemService from "@/services/basket-item/basket-item.service";
 import { showErrorToast } from "@/store/show-error-toast.helper";
 
 export const fetchBasketAndItems = createAsyncThunk<IBasketResponse>(

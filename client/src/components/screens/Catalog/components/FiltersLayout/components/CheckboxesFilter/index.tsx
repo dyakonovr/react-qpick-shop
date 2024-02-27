@@ -1,5 +1,5 @@
 import FilterCheckbox from "./FilterCheckbox";
-import { INameAndIdObject } from "./checkboxes-filter.types";
+import type { INameAndIdObject } from "./checkboxes-filter.types";
 import { ScrollArea } from "@/components/ui/shadcn/scroll-area";
 
 interface ICategoryFilterProps {

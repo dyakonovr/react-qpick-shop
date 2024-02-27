@@ -11,6 +11,7 @@
   "plugins": ["react-refresh", "import"],
   "rules": {
     "@typescript-eslint/ban-ts-comment": "warn",
+    "@typescript-eslint/consistent-type-imports": "error",
     "react-hooks/exhaustive-deps": "off",
     "react/prop-types": "off",
     "react-refresh/only-export-components": "warn",

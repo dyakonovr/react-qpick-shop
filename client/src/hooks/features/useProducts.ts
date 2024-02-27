@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
+import type { IProductQueryData } from "@/types/features/product/query-data.types";
 import ProductService from "@/services/product/product.service";
-import { IProductQueryData } from "@/types/features/product/query-data.types";
 
 export const useProducts = (filters?: IProductQueryData) => {
   const { data, isLoading, isSuccess, isError } = useQuery({

@@ -6,6 +6,7 @@ import { useProducts } from "@/hooks/features/useProducts";
 
 function Home() {
   const { data, isLoading, isSuccess, isError } = useProducts();
+  const isProductsExist = data?.products && data?.products.length !== 0;
 
   return (
     <section className="rows-container">
@@ -16,9 +17,11 @@ function Home() {
         isError={isError}
         products={data?.products}
       />
-      <Link to={PagePaths.CATALOG} className="link w-fit p-3 mx-auto mt-4">
-        Посмотреть больше товаров в каталоге
-      </Link>
+      {isProductsExist && (
+        <Link to={PagePaths.CATALOG} className="link w-fit p-3 mx-auto mt-4">
+          Посмотреть больше товаров в каталоге
+        </Link>
+      )}
     </section>
   );
 }

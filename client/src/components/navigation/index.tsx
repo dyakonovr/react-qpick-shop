@@ -1,51 +1,52 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Layout from "../layout";
 import ScrollToTop from "../other/ScrollToTop";
-import Admin from "../screens/Admin";
-import { AdminCategoryForm } from "../screens/Admin/components/CategoryForm";
-import { AdminProductForm } from "../screens/Admin/components/ProductForm";
-import { AdminUserForm } from "../screens/Admin/components/UserForm";
-import AuthForm from "../screens/Auth";
-import Basket from "../screens/Basket";
-import Catalog from "../screens/Catalog";
-import ErrorPage from "../screens/ErrorPage";
-import Favourites from "../screens/Favourites";
-import Home from "../screens/Home";
-import Item from "../screens/Item";
 import { Toaster } from "../ui/shadcn/sonner";
 import PrivateRoutes from "./components/ProtectedRoutes";
+import {
+  LazyLayout,
+  LazyAuth,
+  LazyHome,
+  LazyCatalog,
+  LazyItem,
+  LazyFavourites,
+  LazyBasket,
+  LazyAdmin,
+  LazyAdminProductForm,
+  LazyAdminCategoryPage,
+  LazyErrorPage
+} from "./lazy-pages";
 import { PagePaths } from "@/enum/PagePaths";
 
 function Navigation() {
   return (
     <div className="container">
-      {/* <AnimatePresence mode="wait" initial={false}> */}
       <BrowserRouter>
         <ScrollToTop />
         <Toaster />
         <Routes>
-          <Route path={PagePaths.HOME} element={<Layout />}>
-            <Route path={PagePaths.AUTHENTICATION} element={<AuthForm />} />
-            <Route index element={<Home />} />
-            <Route path={PagePaths.CATALOG} element={<Catalog />} />
-            <Route path={PagePaths.ITEM} element={<Item />} />
+          <Route path={PagePaths.HOME} element={<LazyLayout />}>
+            <Route path={PagePaths.AUTHENTICATION} element={<LazyAuth />} />
+            <Route index element={<LazyHome />} />
+            <Route path={PagePaths.CATALOG} element={<LazyCatalog />} />
+            <Route path={PagePaths.ITEM} element={<LazyItem />} />
 
             <Route element={<PrivateRoutes />}>
-              <Route path={PagePaths.FAVOURITES} element={<Favourites />} />
-              <Route path={PagePaths.BASKET} element={<Basket />} />
-              <Route path={PagePaths.ADMIN.HOME} element={<Admin />}>
-                <Route path={PagePaths.ADMIN.HOME} element={<AdminProductForm />} />
-                <Route path={PagePaths.ADMIN.CATEGORY} element={<AdminCategoryForm />} />
-                <Route path={PagePaths.ADMIN.USER} element={<AdminUserForm />} />
+              <Route path={PagePaths.FAVOURITES} element={<LazyFavourites />} />
+              <Route path={PagePaths.BASKET} element={<LazyBasket />} />
+              <Route path={PagePaths.ADMIN.HOME} element={<LazyAdmin />}>
+                <Route path={PagePaths.ADMIN.HOME} element={<LazyAdminProductForm />} />
+                <Route
+                  path={PagePaths.ADMIN.CATEGORY}
+                  element={<LazyAdminCategoryPage />}
+                />
               </Route>
             </Route>
             {/* <Route path={PagePaths.ORDER} element={<Order />} /> */}
 
-            <Route path="*" element={<ErrorPage />} />
+            <Route path="*" element={<LazyErrorPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
-      {/* </AnimatePresence> */}
     </div>
   );
 }

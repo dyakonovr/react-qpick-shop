@@ -1,4 +1,6 @@
 import { sortTypes } from "./sort-types.constant";
+import type { ProductSortType } from "@/services/product/product.types";
+import type { IProductQueryData } from "@/types/features/product/query-data.types";
 import {
   Select,
   SelectContent,
@@ -6,8 +8,6 @@ import {
   SelectTrigger,
   SelectValue
 } from "@/components/ui/shadcn/select";
-import { ProductSortType } from "@/services/product/product.types";
-import { IProductQueryData } from "@/types/features/product/query-data.types";
 
 interface ICatalogSortSelectProps {
   sort: ProductSortType | undefined;

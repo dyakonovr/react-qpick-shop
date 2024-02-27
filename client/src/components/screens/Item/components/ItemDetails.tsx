@@ -1,7 +1,7 @@
 import classes from "../styles.module.scss";
+import type { IExtendedProduct } from "@/types/features/product/product.types";
 import Price from "@/components/ui/local/Price";
 import Rating from "@/components/ui/local/Rating";
-import { IExtendedProduct } from "@/types/features/product/product.types";
 
 type IItemDetailsProps = Pick<
   IExtendedProduct,

@@ -1,5 +1,5 @@
-import { InputHTMLAttributes } from "react";
 import { useFormContext } from "react-hook-form";
+import type { InputHTMLAttributes } from "react";
 
 interface IRangeFitlerProps extends InputHTMLAttributes<HTMLInputElement> {
   filterTitle: string;

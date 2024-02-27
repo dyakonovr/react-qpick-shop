@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { auth, checkAuth, logout } from "./user.actions";
-import { IUser } from "@/types/features/user.types";
-import { Nullable } from "@/types/general/nullable.type";
+import type { IUser } from "@/types/features/user.types";
+import type { Nullable } from "@/types/general/nullable.type";
 
 type Status = "unauthorized" | "loading" | "success" | "error";
 

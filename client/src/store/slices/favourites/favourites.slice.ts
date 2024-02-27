@@ -4,8 +4,8 @@ import {
   deleteProductFromFavourites,
   fetchFavourites
 } from "./favourites.actions";
-import { IProduct } from "@/types/features/product/product.types";
-import { Nullable } from "@/types/general/nullable.type";
+import type { IProduct } from "@/types/features/product/product.types";
+import type { Nullable } from "@/types/general/nullable.type";
 
 interface IFavouritesInitialState {
   data: Nullable<IProduct[]>;

@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import classes from "./styles.module.scss";
 import BasketItemQuantity from "./BasketItemQuantity";
+import type { IBasketItem } from "@/types/features/basket-item.types";
 import { Skeleton } from "@/components/ui/shadcn/skeleton";
 import { normalizePrice } from "@/functions/normalizePrice";
 import { useActions } from "@/hooks/general/useActions";
 import { useImageLoader } from "@/hooks/general/useImageLoader";
-import { IBasketItem } from "@/types/features/basket-item.types";
 
 interface IBasketItemProps {
   basketItem: IBasketItem;

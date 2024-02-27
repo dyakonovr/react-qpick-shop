@@ -3,10 +3,13 @@ import { FormProvider, useForm } from "react-hook-form";
 import { getDirtyValues } from "./get-dirty-values.helper";
 import RangeFilter from "./components/RangeFilter";
 import CheckboxesFilter from "./components/CheckboxesFilter";
-import { IMinMaxRange, IProductFitlers } from "@/types/features/product/filters.types";
+import type {
+  IMinMaxRange,
+  IProductFitlers
+} from "@/types/features/product/filters.types";
+import type { IProductQueryData } from "@/types/features/product/query-data.types";
 import { useCategories } from "@/hooks/features/useCategories";
 import { SheetClose } from "@/components/ui/shadcn/sheet";
-import { IProductQueryData } from "@/types/features/product/query-data.types";
 
 interface IFiltersFormValues {
   categories?: string[]; // number[] after getDirtyValues();

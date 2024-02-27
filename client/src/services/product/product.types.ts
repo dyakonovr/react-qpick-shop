@@ -1,4 +1,4 @@
-import { IExtendedProduct, IProduct } from "@/types/features/product/product.types";
+import type { IExtendedProduct, IProduct } from "@/types/features/product/product.types";
 
 export type ProductSortType =
   | "high-price"

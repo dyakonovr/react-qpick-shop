@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import BasketItem from "./BasketItem";
 import classes from "./styles.module.scss";
+import type { IBasketItem } from "@/types/features/basket-item.types";
 import { normalizePrice } from "@/functions/normalizePrice";
-import { IBasketItem } from "@/types/features/basket-item.types";
 
 interface IFilledBasketPageProps {
   basketItems: IBasketItem[];

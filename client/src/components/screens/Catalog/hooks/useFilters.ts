@@ -1,13 +1,10 @@
 import { useSearchParams } from "react-router-dom";
-import { useEffect, useRef } from "react";
 import { configurateUrlParams, parseParamsFromUrl } from "../helpers/catalog.helpers";
-import { IProductQueryData } from "@/types/features/product/query-data.types";
+import type { IProductQueryData } from "@/types/features/product/query-data.types";
 
 export const useFilters = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams();
   const params = window.location.search.slice(1);
-
-  const queryDataRef = useRef<string | null>(null);
 
   const { filters, page, searchTerm, sort } = parseParamsFromUrl<IProductQueryData>(
     params,
@@ -17,14 +14,6 @@ export const useFilters = () => {
       tryToParsePrimitive: true
     }
   );
-
-  // console.log(searchParams);
-
-  useEffect(() => {
-    // queryDataRef.current = "my filters";
-    // console.log("useFilters started work!");
-    // console.log("searchParams changed");
-  }, [searchParams]);
 
   // Функции
   function changeQueryParams(queryData: IProductQueryData) {
@@ -43,7 +32,6 @@ export const useFilters = () => {
     result.sort = queryData.sort ?? sort;
 
     setSearchParams(configurateUrlParams(result));
-    queryDataRef.current = "new filters!!!";
   }
   // Функции END
 

@@ -1,4 +1,4 @@
-import { IUpdateBasketItemData } from "./basket-item.types";
+import type { IUpdateBasketItemData } from "./basket-item.types";
 import { $axios } from "@/api/api.interceptor";
 
 class BasketItemService {
