@@ -3,7 +3,7 @@ export const PagePaths = {
   ITEM: "/item",
   CATALOG: "/catalog",
   BASKET: "/basket",
-  ORDER: "/order",
+  ORDERS: "/orders",
   FAVOURITES: "/favourites",
   SERVICE_CONDITIONS: "/conditions",
   ADMIN: {

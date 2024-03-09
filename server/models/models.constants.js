@@ -5,4 +5,4 @@ export const customCreatedAndUpdatedFields = {
   updatedAt: "updated_at"
 };
 
-export const idSettingsObj = { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true };
+export const idSettingsObject = { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true };

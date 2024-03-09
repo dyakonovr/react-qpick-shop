@@ -1,4 +1,5 @@
 import { toast } from "sonner";
+import { Link, useNavigate } from "react-router-dom";
 import Quantity from "./components/Quantity";
 import SearchInput from "./components/SearchInput";
 import classes from "./styles.module.scss";
@@ -10,7 +11,7 @@ import { getBasketInfoAndStatusSelector } from "@/store/slices/basket/basket.sel
 import { getFavouriteQuantitySelector } from "@/store/slices/favourites/favourites.selectors";
 import { getUserInfoSelector } from "@/store/slices/user/user.selectors";
 import { useNotifyUnauthorizedAction } from "@/hooks/general/useNotifyUnauthorizedAction";
-import { Link, useNavigate } from "react-router-dom";
+import { getOrdersQuantitySelector } from "@/store/slices/orders/orders.selectors";
 
 function Header() {
   const navigate = useNavigate();
@@ -18,9 +19,8 @@ function Header() {
 
   const { isAuth, isAdmin } = useTypedSelector(getUserInfoSelector);
   const favouritesQuantity = useTypedSelector(getFavouriteQuantitySelector);
-  const { basketItemsQuantity } = useTypedSelector(
-    getBasketInfoAndStatusSelector
-  );
+  const { basketItemsQuantity } = useTypedSelector(getBasketInfoAndStatusSelector);
+  const ordersQuantity = useTypedSelector(getOrdersQuantitySelector);
 
   const notifyUnauthorizedAction = useNotifyUnauthorizedAction();
 
@@ -40,21 +40,26 @@ function Header() {
       <div className={classes.header__right}>
         <button
           onClick={
-            isAuth
-              ? () => navigate(PagePaths.FAVOURITES)
-              : notifyUnauthorizedAction
+            isAuth ? () => navigate(PagePaths.FAVOURITES) : notifyUnauthorizedAction
           }
           className={[classes.header__btn, classes.header__favourite].join(" ")}
+          title="Избранные товары"
         >
           <Quantity quantity={favouritesQuantity} />
         </button>
         <button
-          onClick={
-            isAuth ? () => navigate(PagePaths.BASKET) : notifyUnauthorizedAction
-          }
+          onClick={isAuth ? () => navigate(PagePaths.BASKET) : notifyUnauthorizedAction}
           className={[classes.header__btn, classes.header__basket].join(" ")}
+          title="Корзина"
         >
           <Quantity quantity={basketItemsQuantity} />
+        </button>
+        <button
+          onClick={isAuth ? () => navigate(PagePaths.ORDERS) : notifyUnauthorizedAction}
+          className={[classes.header__btn, classes.header__orders].join(" ")}
+          title="Заказы"
+        >
+          <Quantity quantity={ordersQuantity} />
         </button>
         <button onClick={handleButton}>{isAuth ? "Выйти" : "Войти"}</button>
         {isAdmin && <Link to={PagePaths.ADMIN.HOME}>Админка</Link>}

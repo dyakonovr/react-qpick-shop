@@ -16,7 +16,7 @@ function AdminCategoryModal() {
   return (
     <Modal
       title="Создание категории"
-      buttonElement={
+      openModalElement={
         <Button type="submit" className="mb-3" ref={closeModalButtonRef}>
           Создать категорию
         </Button>

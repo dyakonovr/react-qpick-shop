@@ -1,10 +1,10 @@
 import { DataTypes } from "sequelize";
 
-import { customCreatedAndUpdatedFields, idSettingsObj } from "./models.constants.js";
+import { customCreatedAndUpdatedFields, idSettingsObject } from "./models.constants.js";
 import { sequelize } from "../db.js";
 
 export const User = sequelize.define('user', {
-  id: idSettingsObj,
+  id: idSettingsObject,
   email: {
     type: DataTypes.STRING, allowNull: false,
     unique: { msg: 'Email уже используется' },
@@ -17,7 +17,7 @@ export const User = sequelize.define('user', {
 }, customCreatedAndUpdatedFields);
 
 export const Product = sequelize.define('product', {
-  id: idSettingsObj,
+  id: idSettingsObject,
   name: {
     type: DataTypes.STRING,
     unique: { msg: 'Такое имя уже существует' },
@@ -44,18 +44,18 @@ export const Product = sequelize.define('product', {
 }, { timestamps: false });
 
 export const ProductImage = sequelize.define('product_image', {
-  id: idSettingsObj,
+  id: idSettingsObject,
   url: DataTypes.STRING
 }, { timestamps: false });
 
 export const ProductCharacteristic = sequelize.define('product_characteristic', {
-  id: idSettingsObj,
+  id: idSettingsObject,
   name: DataTypes.STRING,
   value: DataTypes.STRING,
 }, { timestamps: false });
 
 export const Category = sequelize.define('category', {
-  id: idSettingsObj,
+  id: idSettingsObject,
   name: {
     type: DataTypes.STRING,
     unique: { msg: 'Такое название категории уже существует' },
@@ -64,22 +64,32 @@ export const Category = sequelize.define('category', {
   slug: { type: DataTypes.STRING, unique: true, allowNull: false },
 }, { timestamps: false });
 
-
-export const Order = sequelize.define('order', {
-  id: idSettingsObj,
-  ordered_products: { type: DataTypes.JSONB, allowNull: false },
-}, customCreatedAndUpdatedFields);
-
 export const Basket = sequelize.define('basket', {
-  id: idSettingsObj,
+  id: idSettingsObject,
 }, { timestamps: false });
 
 export const BasketItem = sequelize.define('basket_item', {
-  id: idSettingsObj,
+  id: idSettingsObject,
   quantity: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 1 }
 }, { timestamps: false });
 
-export const models = { Product, ProductImage, ProductCharacteristic, BasketItem, Basket, Category, User, Order};
+export const Order = sequelize.define('order', {
+  id: idSettingsObject,
+}, customCreatedAndUpdatedFields);
+
+export const OrderSellingItem = sequelize.define('order_selling_item', {
+  quantity: { type: DataTypes.INTEGER, allowNull: false }
+}, { timestamps: false });
+
+export const SellingItem = sequelize.define('selling_item', {
+  id: idSettingsObject,
+  old_product_name: { type: DataTypes.STRING, allowNull: false },
+  old_product_price: { type: DataTypes.INTEGER, allowNull: false },
+  old_product_image: { type: DataTypes.STRING, allowNull: false },
+  is_active: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: true }
+}, { timestamps: false });
+
+export const models = { Product, ProductImage, ProductCharacteristic, BasketItem, Basket, Category, User, Order, SellingItem, OrderSellingItem };
 
 // Связи
 
@@ -106,3 +116,19 @@ Order.belongsTo(User, { foreignKey: 'user_id' });
 
 User.belongsToMany(Product, { through: "favourites" });
 Product.belongsToMany(User, { through: "favourites" });
+
+User.hasMany(Order, { foreignKey: 'user_id' });
+Order.belongsTo(User, { foreignKey: 'user_id' });
+
+// SellingItem.hasMany(OrderItem, { foreignKey: 'selling_item_id' });
+// OrderItem.belongsTo(SellingItem, { foreignKey: 'selling_item_id' });
+
+Order.belongsToMany(SellingItem, {
+  through: OrderSellingItem, foreignKey: "order_id"
+});
+SellingItem.belongsToMany(Order, {
+  through: OrderSellingItem, foreignKey: "selling_item_id"
+});
+
+Product.hasMany(SellingItem, { foreignKey: 'product_id' });
+SellingItem.belongsTo(Product, { foreignKey: 'product_id' });

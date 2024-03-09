@@ -8,7 +8,7 @@ import { getUserInfoSelector } from "@/store/slices/user/user.selectors";
 
 function Layout() {
   const { id } = useTypedSelector(getUserInfoSelector);
-  const { checkAuth, fetchFavourites, fetchBasketAndItems } = useActions();
+  const { checkAuth, fetchFavourites, fetchBasketAndItems, fetchOrders } = useActions();
 
   useEffect(() => {
     checkAuth();
@@ -19,6 +19,7 @@ function Layout() {
 
     fetchFavourites();
     fetchBasketAndItems();
+    fetchOrders();
   }, [id]);
 
   return (

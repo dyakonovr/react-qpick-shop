@@ -28,7 +28,7 @@ class BasketItemController {
   update = async (req, res, next) => {
     try {
       const { id } = req.params;
-      await BasketItem.update(req.body, { where: { id }});
+      await BasketItem.update(req.body, { where: { id } });
       // const [_, updated] = await BasketItem.update(req.body, { where: { id }, returning: true, plain: true });
       // const { basketId, ...object } = updated.dataValues;
       // return res.json(object);
@@ -72,7 +72,7 @@ class BasketItemController {
 
   // getAll = async (basketId) => {
   //   try {
-      
+
 
   //     return formattedBasketItems;
   //   } catch (error) {

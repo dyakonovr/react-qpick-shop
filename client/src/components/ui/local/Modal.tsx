@@ -3,17 +3,17 @@ import type { ReactNode } from "react";
 import { Dialog, DialogContent, DialogHeader } from "@/components/ui/shadcn/dialog";
 
 interface IModalProps {
-  buttonElement: ReactNode;
+  openModalElement?: ReactNode;
   children: ReactNode;
   title?: string;
 }
 
-function Modal({ buttonElement, title, children }: IModalProps) {
+function Modal({ openModalElement, title, children }: IModalProps) {
   return (
     <Dialog>
-      <DialogTrigger asChild>{buttonElement}</DialogTrigger>
+      <DialogTrigger asChild>{openModalElement}</DialogTrigger>
       <DialogContent>
-        {title && <DialogHeader>{title}</DialogHeader>}
+        {title && <DialogHeader className="font-bold text-xl">{title}</DialogHeader>}
         {children}
       </DialogContent>
     </Dialog>

@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "../other/ScrollToTop";
 import { Toaster } from "../ui/shadcn/sonner";
+import Orders from "../screens/Orders";
 import PrivateRoutes from "./components/ProtectedRoutes";
 import {
   LazyLayout,
@@ -40,9 +41,8 @@ function Navigation() {
                   element={<LazyAdminCategoryPage />}
                 />
               </Route>
+              <Route path={PagePaths.ORDERS} element={<Orders />} />
             </Route>
-            {/* <Route path={PagePaths.ORDER} element={<Order />} /> */}
-
             <Route path="*" element={<LazyErrorPage />} />
           </Route>
         </Routes>
