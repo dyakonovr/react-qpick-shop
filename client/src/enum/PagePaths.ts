@@ -6,9 +6,6 @@ export const PagePaths = {
   ORDERS: "/orders",
   FAVOURITES: "/favourites",
   SERVICE_CONDITIONS: "/conditions",
-  ADMIN: {
-    HOME: "/admin",
-    CATEGORY: "/admin/category"
-  },
+  ADMIN: import.meta.env.VITE_ADMIN_APP_URL,
   AUTHENTICATION: "authentication"
 };

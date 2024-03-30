@@ -2,30 +2,10 @@ import { Op } from "sequelize";
 
 import { ApiErrorHandler } from "../../error/api-error.handler.js";
 import { Category, Product, ProductCharacteristic, ProductImage } from "../../models/models.js";
-import { generateSlug } from "../../helpers/generate-slug.helper.js";
 import { getFilters } from "./helpers/product-filter.helper.js";
 import { getOrderArray } from './helpers/get-order-array.helper.js';
 
 class ProductController {
-  create = async (req, res, next) => {
-    try {
-      const { name, price, categoryId: category_id, info, rating, image, gallery } = req.body;
-      const product = await Product.create({ name, price, category_id, info, rating, image, slug: generateSlug(name) });
-
-      for (let index = 0; index < gallery.length; index++) {
-        await ProductImage.create({ url: gallery[index], product_id: product.id })
-      }
-
-      for (let index = 0; index < info.length; index++) {
-        await ProductCharacteristic.create({ ...info[index], product_id: product.id })
-      }
-
-      return res.json();
-    } catch (e) {
-      next(ApiErrorHandler.internal(e.message));
-    }
-  }
-
   getById = async (req, res, next) => {
     try {
       const { id } = req.params;
@@ -119,39 +99,6 @@ class ProductController {
         totalPages,
         currentPage: page,
       });
-    } catch (error) {
-      next(ApiErrorHandler.internal(error.message));
-    }
-  }
-
-  update = async (req, res, next) => {
-    try {
-      const { id } = req.params;
-      // TODO Доделать обновление
-      const { name } = req.body;
-      const product = await Product.findByPk(id);
-
-      if (!product) return next(ApiErrorHandler.notFound("Такого продукта не найдено"));
-
-      product.name = name;
-      product.slug = generateSlug(name);
-      await product.save();
-
-      return res.json(product);
-    } catch (error) {
-      next(ApiErrorHandler.internal(error.message));
-    }
-  }
-
-  delete = async (req, res, next) => {
-    try {
-      const { id } = req.params;
-      const product = await Product.findByPk(id);
-      if (!product) return next(ApiErrorHandler.notFound("Такого продукта не найдено"));
-
-      await product.destroy();
-
-      return res.json();
     } catch (error) {
       next(ApiErrorHandler.internal(error.message));
     }

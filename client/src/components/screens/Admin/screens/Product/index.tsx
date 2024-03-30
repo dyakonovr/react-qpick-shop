@@ -3,6 +3,7 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { X as DeleteIcon } from "lucide-react";
 import { toast } from "sonner";
 import { productFormDefaultValues, productFormSchema } from "./product-form.constants";
+import AdminProductFormPhotosGrid from "./components/PhotosGrid";
 import type { ProductFormValues } from "./product-form.constants";
 import type { IProductForCreating } from "@/types/features/product/product.types";
 import { Button } from "@/components/ui/shadcn/button";
@@ -147,12 +148,19 @@ function AdminProductForm() {
           )}
         />
 
+        <AdminProductFormPhotosGrid
+          images={[
+            form.getValues().image,
+            ...form.getValues().gallery.map((el) => el.value)
+          ]}
+        />
+
         <FormField
           control={form.control}
           name="image"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Ссылка на фото (превью)</FormLabel>
+              <FormLabel>Ссылка на фото-превью (1)</FormLabel>
               <FormControl>
                 <Input
                   placeholder="https://loremflickr.com/300/300"
@@ -174,15 +182,18 @@ function AdminProductForm() {
               key={field.id + index}
               name={`gallery.${index}.value`}
               render={({ field }) => (
-                <FormItem className="flex gap-2 align-center mt-3 space-y-0">
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <button className="mt-0" onClick={() => galleryRemoveItem(index)}>
-                    <DeleteIcon />
-                  </button>
+                <>
+                  <FormItem className="flex gap-2 align-center mt-3 space-y-0 items-center">
+                    <span>({index + 2})</span>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <button className="mt-0" onClick={() => galleryRemoveItem(index)}>
+                      <DeleteIcon />
+                    </button>
+                  </FormItem>
                   <FormMessage />
-                </FormItem>
+                </>
               )}
             />
           ))}

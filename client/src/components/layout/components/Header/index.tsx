@@ -62,7 +62,7 @@ function Header() {
           <Quantity quantity={ordersQuantity} />
         </button>
         <button onClick={handleButton}>{isAuth ? "Выйти" : "Войти"}</button>
-        {isAdmin && <Link to={PagePaths.ADMIN.HOME}>Админка</Link>}
+        {isAdmin && <a href={PagePaths.ADMIN}>Админка</a>}
       </div>
     </header>
   );

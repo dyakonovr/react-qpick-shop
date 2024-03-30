@@ -111,17 +111,11 @@ ProductCharacteristic.belongsTo(Product, { foreignKey: 'product_id' });
 Category.hasMany(Product, { foreignKey: 'category_id' });
 Product.belongsTo(Category, { foreignKey: 'category_id' });
 
-User.hasMany(Order, { foreignKey: 'user_id' });
-Order.belongsTo(User, { foreignKey: 'user_id' });
-
 User.belongsToMany(Product, { through: "favourites" });
 Product.belongsToMany(User, { through: "favourites" });
 
 User.hasMany(Order, { foreignKey: 'user_id' });
 Order.belongsTo(User, { foreignKey: 'user_id' });
-
-// SellingItem.hasMany(OrderItem, { foreignKey: 'selling_item_id' });
-// OrderItem.belongsTo(SellingItem, { foreignKey: 'selling_item_id' });
 
 Order.belongsToMany(SellingItem, {
   through: OrderSellingItem, foreignKey: "order_id"

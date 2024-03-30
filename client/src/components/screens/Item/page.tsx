@@ -30,18 +30,12 @@ function ItemPage({ data }: IItemPageProps) {
         <div className={classes.content__main}>
           <LikeButton productId={id} />
           <ItemGallery gallery={[...gallery, image]} productName={name} />
-          <ItemDetails
-            id={id}
-            name={name}
-            category={category}
-            price={price}
-            rating={rating}
-          />
+          <ItemDetails id={id} name={name} category={category} />
         </div>
       </div>
       <div className={classes.info}>
         <ItemInfo info={info} />
-        <ItemButtons productId={id} />
+        <ItemButtons productId={id} price={price} rating={rating} />
       </div>
       <ItemSimilarProducts products={similarProducts} />
     </section>
