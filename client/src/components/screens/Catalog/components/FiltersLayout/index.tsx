@@ -42,6 +42,8 @@ function FiltersLayout({ filters, changeQueryParams }: IFiltersLayoutProps) {
   }
 
   function setAllFormValues() {
+    // reset() ???
+
     try {
       let filterKey: keyof IFiltersFormValues;
       for (filterKey in filters) {
@@ -90,13 +92,13 @@ function FiltersLayout({ filters, changeQueryParams }: IFiltersLayoutProps) {
         />
         <div className="flex gap-3">
           <SheetClose asChild>
-            <button type="submit" className="link w-fit px-5 py-1">
+            <button type="submit" className="link w-fit px-4 py-1">
               Показать
             </button>
           </SheetClose>
           <button
             type="button"
-            className="link w-fit px-5 py-1"
+            className="link w-fit px-4 py-1"
             onClick={() => changeQueryParams({})}
           >
             Очистить фильтры

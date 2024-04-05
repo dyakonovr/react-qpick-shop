@@ -1,0 +1,45 @@
+.mobile_menu {
+  display: none;
+  position: fixed;
+  right: 0;
+  top: 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--medium-offset);
+  width: max-content;
+  padding: 0 var(--big-offset);
+  height: 100%;
+  background-color: var(--color-site-background);
+  z-index: 5;
+  transition: opacity 0.15s linear, visibility 0.15s linear;
+  user-select: none;
+  visibility: hidden;
+
+  &__item {
+    font-size: 25px;
+    user-select: none;
+
+    @media (max-width: 576px) {
+      font-size: 30px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    display: flex;
+    opacity: 0;
+  }
+
+  @media (max-width: 576px) {
+    left: 0;
+    width: 100%;
+    min-width: var(--screen-min-width);
+  }
+
+  &--active {
+    display: flex;
+    opacity: 1;
+    user-select: all;
+    visibility: visible;
+  }
+}

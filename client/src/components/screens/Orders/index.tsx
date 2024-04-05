@@ -1,4 +1,5 @@
 import { OrdersTable } from "./components/Table";
+import OrdersView from "./components/View";
 import { useTypedSelector } from "@/hooks/general/useTypedSelector";
 
 function Orders() {
@@ -10,7 +11,8 @@ function Orders() {
       {!orders || orders.length === 0 ? (
         <p>Заказов пока нет...</p>
       ) : (
-        <OrdersTable orders={orders} />
+        // <OrdersTable orders={orders} />
+        <OrdersView orders={orders} />
       )}
     </div>
   );

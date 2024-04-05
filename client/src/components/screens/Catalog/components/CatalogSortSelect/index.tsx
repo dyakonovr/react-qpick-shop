@@ -20,7 +20,7 @@ function CatalogSortSelect({ sort, changeQueryParams }: ICatalogSortSelectProps)
       onValueChange={(value) => changeQueryParams({ sort: value as ProductSortType })}
       defaultValue={sort}
     >
-      <SelectTrigger className="w-[180px] ms-auto">
+      <SelectTrigger className="w-[180px]">
         <SelectValue placeholder="Sort by" />
       </SelectTrigger>
       <SelectContent>

@@ -1,4 +1,3 @@
-// @ts-ignore
 import LikeButtonSkeleton from "../../LikeButton/skeleton";
 import PriceSkeleton from "../../Price/skeleton";
 import classes from "./styles.module.scss";
@@ -8,18 +7,18 @@ function CardSkeleton() {
   return (
     <li className={classes.card}>
       <LikeButtonSkeleton />
-      <a>
+      <div>
         <div className={classes.card__img}>
-          <Skeleton className="w-[300px] h-[300px]" />
+          <Skeleton className="w-full max-w-[300px] h-[300px] mx-auto" />
         </div>
         <div className={classes.card__wrapper}>
-          <Skeleton className="w-[150px] h-[25px]" />
+          <Skeleton className="w-full max-w-[150px] h-[25px]" />
           <PriceSkeleton />
         </div>
         <span className={classes.card__grade}>
-          <Skeleton className="w-[35px] h-[25px]" />
+          <Skeleton className="w-full max-w-[35px] h-[25px]" />
         </span>
-      </a>
+      </div>
     </li>
   );
 }

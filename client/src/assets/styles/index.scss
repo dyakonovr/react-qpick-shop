@@ -93,29 +93,6 @@
   }
 }
 
-// react-select
-
-.select {
-  &__control {
-    height: 45px !important;
-    border-radius: 15px !important;
-    background-color: var(--color-input-background) !important;
-    font-weight: 500 !important;
-  }
-
-  &__indicator {
-    color: #8e8e8e !important;
-  }
-
-  &__menu {
-    border-radius: var(--border-radius);
-    background-color: var(--color-input-background) !important;
-  }
-
-  &__option {
-    cursor: pointer !important;
-  }
-}
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -133,23 +110,3 @@ input[type=number] {
 input[type="search"]::-webkit-search-cancel-button {
   display: none;
 }
-
-// .slide-in {
-//   position: fixed;
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-//   height: 100vh;
-//   background: #0f0f0f;
-//   transform-origin: bottom;
-// }
-
-// .slide-out {
-//   position: fixed;
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-//   height: 100vh;
-//   background: #0f0f0f;
-//   transform-origin: top;
-// }

@@ -20,7 +20,7 @@ function SearchInput({ placeholder }: SearchInputProps) {
   // Функции END
 
   return (
-    <div className="flex relative max-w-[400px] w-full">
+    <div className="flex relative max-w-[400px] w-full z-[6]">
       <input
         className="w-full py-1 ps-3 pe-6 rounded-md"
         type="text"

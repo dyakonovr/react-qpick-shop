@@ -18,10 +18,9 @@ body {
   display: flex;
   flex-direction: column;
   margin: 0;
-  min-width: 380px;
+  min-width: var(--screen-min-width);
   min-height: 100%;
   font-size: 16px;
-  // background-color: var(--color-site-background);
 }
 
 img {
@@ -68,4 +67,14 @@ a {
   margin: 0 auto;
   padding: 0 var(--container-offset);
   max-width: var(--container-width) !important;
+}
+
+.dis-scroll {
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100vh;
+  overscroll-behavior: none;
 }

@@ -27,9 +27,9 @@ function FiltersSheet({
 }: IFiltersSheetProps) {
   return (
     <Sheet>
-      <div className="flex gap-5 items-center mb-3">
+      <div className="flex gap-5 items-center mb-3 flex-wrap">
         <strong className="subtitle">Каталог</strong>
-        <SheetTrigger className="link flex items-center gap-2 py-1 px-2 rounded-md">
+        <SheetTrigger className="link flex items-center gap-2 py-1 px-2 rounded-md me-auto">
           <FiltersIcon />
           Посмотреть фильтры
         </SheetTrigger>
@@ -37,7 +37,7 @@ function FiltersSheet({
           <CatalogSortSelect sort={sort} changeQueryParams={changeQueryParams} />
         )}
       </div>
-      <SheetWrapper>
+      <SheetWrapper className="w-full sm:w-content">
         <SheetHeader className="mb-7">
           <SheetTitle className="flex items-center gap-2">
             <FiltersIcon /> Фильтры

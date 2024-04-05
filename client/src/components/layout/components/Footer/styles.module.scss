@@ -13,6 +13,10 @@
     margin: 0 0 0 var(--big-offset);
     padding: 0;
     list-style-type: none;
+
+    @media (max-width: 576px) {
+      margin-left: 0;
+    }
   }
 
   &__link {
@@ -32,6 +36,10 @@
     margin: 0 0 0 auto;
     padding: 0;
     list-style-type: none;
+
+    @media (max-width: 576px) {
+      margin-left: 0;
+    }
   }
 
   &__social {
@@ -58,5 +66,9 @@
     &_whatsapp {
       background-image: url("@/assets/img/svg/icon-whatsapp.svg");
     }
+  }
+
+  @media (max-width: 576px) {
+    flex-direction: column;
   }
 }
