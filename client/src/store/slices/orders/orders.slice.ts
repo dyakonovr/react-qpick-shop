@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createOrder, fetchOrders } from "./orders.actions";
+import { createOrder } from "./orders.actions";
 import type { Nullable } from "@/types/general/nullable.type";
 import type { IOrder } from "@/types/features/order.types";
+import { checkAuth } from "../user/user.actions";
 
 interface IOrdersInitialState {
   data: Nullable<IOrder[]>;
@@ -19,16 +20,16 @@ const ordersSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchOrders.pending, (state) => {
+      .addCase(checkAuth.pending, (state) => {
         state.isLoading = true;
       })
 
-      .addCase(fetchOrders.fulfilled, (state, action) => {
+      .addCase(checkAuth.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.data = action.payload;
+        state.data = action.payload.orders;
       })
 
-      .addCase(fetchOrders.rejected, (state) => {
+      .addCase(checkAuth.rejected, (state) => {
         state.isLoading = false;
         state.data = null;
       })

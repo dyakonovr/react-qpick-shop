@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { checkAuth } from "../user/user.actions";
 import {
   addProductToFavourites,
-  deleteProductFromFavourites,
-  fetchFavourites
+  deleteProductFromFavourites
 } from "./favourites.actions";
 import type { IProduct } from "@/types/features/product/product.types";
 import type { Nullable } from "@/types/general/nullable.type";
@@ -28,16 +28,16 @@ const favouritesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchFavourites.pending, (state) => {
+      .addCase(checkAuth.pending, (state) => {
         state.isLoading = true;
       })
 
-      .addCase(fetchFavourites.fulfilled, (state, action) => {
+      .addCase(checkAuth.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.data = action.payload;
+        state.data = action.payload.favourites;
       })
 
-      .addCase(fetchFavourites.rejected, (state) => {
+      .addCase(checkAuth.rejected, (state) => {
         state.isLoading = false;
         state.data = null;
       })

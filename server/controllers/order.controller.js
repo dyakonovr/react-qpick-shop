@@ -4,13 +4,12 @@ import { ApiErrorHandler } from "../error/api-error.handler.js";
 import { Basket, BasketItem, Order, OrderSellingItem, SellingItem } from "../models/models.js";
 
 class OrderController {
-  getAll = async (req, res, next) => {
+  getAll = async (userId) => {
     try {
-      const { id } = req.user;
-      if (!id) next(ApiErrorHandler.internal("Попробуйте перезайти в аккаунт"));
+      if (!userId) throw ApiErrorHandler.internal("Попробуйте перезайти в аккаунт");
 
       const orders = await Order.findAll({
-        where: { user_id: id },
+        where: { user_id: userId },
         attributes: {
           exclude: ["user_id", "updated_at", "created_at"],
           include: [[literal('"created_at"'), "createdAt"]]
@@ -39,11 +38,11 @@ class OrderController {
         })
       });
 
-      if (!orders) next(ApiErrorHandler.internal("Ошибка при поиске заказов"));
+      if (!orders) throw ApiErrorHandler.internal("Ошибка при поиске заказов");
 
-      return res.json({ orders });
+      return { orders };
     } catch (error) {
-      return next(ApiErrorHandler.internal(error.message));
+      return ApiErrorHandler.internal(error.message);
     }
   }
 

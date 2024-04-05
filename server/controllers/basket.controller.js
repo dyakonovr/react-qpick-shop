@@ -2,24 +2,22 @@ import { ApiErrorHandler } from "../error/api-error.handler.js";
 import { Basket, BasketItem, Product } from "../models/models.js";
 
 class BasketController {
-  create = async (req, res, next) => {
+  create = async (userId) => {
     try {
-      const { userId } = req.params;
       const basket = await Basket.create({ user_id: userId });
-      return res.json(basket);
+      return basket;
     } catch (error) {
-      next(ApiErrorHandler.internal(error.message));
+      return ApiErrorHandler.internal(error.message);
     }
   }
 
-  getById = async (req, res, next) => {
+  getById = async (userId) => {
     try {
-      const { id } = req.user;
-      if (!id) next(ApiErrorHandler.notFound("Не указан id пользователя"));
+      if (!userId) throw ApiErrorHandler.notFound("Не указан id пользователя");
 
-      const basket = await Basket.findOne({ where: { user_id: id } });
+      const basket = await Basket.findOne({ where: { user_id: userId } });
 
-      if (!basket) next(ApiErrorHandler.notFound("Такой корзины не найдено"));
+      if (!basket) throw ApiErrorHandler.notFound("Такой корзины не найдено");
 
       const basketItems = await BasketItem.findAll({
         where: { basket_id: basket.id },
@@ -30,14 +28,13 @@ class BasketController {
         },
       });
 
-      // const formattedBasketItems = basketItems.map(formatBasketItemData);
 
-      return res.json({
-        id: basket.id,
-        products: basketItems
-      });
+      return {
+          id: basket.id,
+          products: basketItems
+      };
     } catch (error) {
-      next(ApiErrorHandler.internal(error.message));
+      return ApiErrorHandler.internal(error.message);
     }
   }
 }

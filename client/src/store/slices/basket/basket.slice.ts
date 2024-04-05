@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { checkAuth } from "../user/user.actions";
 import {
   addProductToBasket,
   deleteProductFromBasket,
-  fetchBasketAndItems,
   updateBasketItemQuantity
 } from "./basket.actions";
 import type { IBasketItem } from "@/types/features/basket-item.types";
@@ -32,17 +32,17 @@ const basketSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchBasketAndItems.pending, (state) => {
+      .addCase(checkAuth.pending, (state) => {
         state.isLoading = true;
       })
 
-      .addCase(fetchBasketAndItems.fulfilled, (state, action) => {
+      .addCase(checkAuth.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.id = action.payload.id;
-        state.items = action.payload.products;
+        state.id = action.payload.basket.id;
+        state.items = action.payload.basket.products;
       })
 
-      .addCase(fetchBasketAndItems.rejected, (state) => {
+      .addCase(checkAuth.rejected, (state) => {
         state.isLoading = false;
         state.items = null;
         state.id = null;

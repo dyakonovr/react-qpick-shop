@@ -1,24 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import type { IUpdateBasketItemData } from "@/services/basket-item/basket-item.types";
-import type { IBasketResponse } from "@/services/basket/basket.types";
 import type { RootType } from "@/store/store";
 import type { IBasketItem } from "@/types/features/basket-item.types";
-import BasketService from "@/services/basket/basket.service";
 import BasketItemService from "@/services/basket-item/basket-item.service";
 import { showErrorToast } from "@/store/show-error-toast.helper";
-
-export const fetchBasketAndItems = createAsyncThunk<IBasketResponse>(
-  "basket/get-all",
-  async (_, thunkApi) => {
-    try {
-      const response = await BasketService.getById();
-      return response;
-    } catch (error) {
-      showErrorToast(error as Error, "Ошибка получения товаров корзины");
-      return thunkApi.rejectWithValue(error);
-    }
-  }
-);
 
 export const addProductToBasket = createAsyncThunk<IBasketItem, number>(
   "basket/add-product",

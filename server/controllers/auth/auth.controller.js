@@ -4,6 +4,9 @@ import jwt from 'jsonwebtoken';
 import { ApiErrorHandler } from "../../error/api-error.handler.js";
 import { Basket, User } from "../../models/models.js";
 import { generateJWT } from './generate-jwt.helper.js';
+import FavouritesController from "../favourites.controller.js";
+import OrderController from "../order.controller.js";
+import BasketController from "../basket.controller.js";
 
 class AuthController {
   registration = async (req, res, next) => {
@@ -12,15 +15,24 @@ class AuthController {
       if (!email || !password) return next(ApiErrorHandler.notFound("Неккоректный email или пароль"));
 
       const candidate = await User.findOne({ where: { email } });
-      if (candidate) return next(ApiErrorHandler.badRequest("Пользователь с таким email уже существует"));
+      if (candidate) return next(ApiErrorHandler.internal("Пользователь с таким email уже существует"));
 
       const hashPassword = await hash(password);
       const user = await User.create({ email, role: (role || "USER"), password: hashPassword });
 
-      await Basket.create({ user_id: user.id });
+      const basket = await BasketController.create(user.id);
       const tokens = this.issueTokens(user.id, user.role, user.email);
 
-      return res.json({ user: this.returnUserFields(user), ...tokens });
+      return res.json({
+        user: this.returnUserFields(user),
+        basket: {
+          id: basket.id,
+          products: []
+        },
+        favourites: [],
+        orders: [],
+        ...tokens
+      });
     } catch (error) {
       return next(ApiErrorHandler.internal(error));
     }
@@ -36,22 +48,31 @@ class AuthController {
       const comparePassword = await verify(user.password, password);
       if (!comparePassword) return next(ApiErrorHandler.forbidden("Указан неверный пароль"));
 
+      const favourites = await FavouritesController.getAll(user.id);
+      const basket = await BasketController.getById(user.id);
+      const orders = await OrderController.getAll(user.id);
+
       const tokens = this.issueTokens(user.id, user.role, user.email);
-      return res.json({ user: this.returnUserFields(user), ...tokens });
+      return res.json({ user: this.returnUserFields(user), favourites, basket, orders, ...tokens });
     } catch (error) {
       return next(ApiErrorHandler.internal(error.message));
     }
   }
 
-  getNewTokens = (req, res, next) => {
+  getNewTokens = async (req, res, next) => {
     try {
       const accessToken = req.headers.authorization.split(' ')[1]; // Удаляю Bearer
       if (!accessToken) return next(ApiErrorHandler.forbidden("Не авторизован"));
 
-      const decodedUser = jwt.verify(accessToken, process.env.SECRET_KEY);
+      const { id, role, email } = jwt.verify(accessToken, process.env.SECRET_KEY);
 
-      const tokens = this.issueTokens(decodedUser.id, decodedUser.role, decodedUser.email);
-      return res.json({ user: decodedUser, ...tokens });
+      const tokens = this.issueTokens(id, role, email);
+
+      const favourites = await FavouritesController.getAll(id);
+      const basket = await BasketController.getById(id);
+      const orders = await OrderController.getAll(id);
+
+      return res.json({ user: { id, role, email }, favourites, basket, ...orders, ...tokens });
     } catch (error) {
       return next(ApiErrorHandler.forbidden(error.message));
     }

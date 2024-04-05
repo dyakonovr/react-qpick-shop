@@ -2,12 +2,11 @@ import { ApiErrorHandler } from "../error/api-error.handler.js";
 import { Product, User } from "../models/models.js";
 
 class FavouritesController {
-  getAll = async (req, res, next) => {
+  getAll = async (userId) => {
     try {
-      const { id } = req.user;
-      const user = await User.findByPk(id);
+      const user = await User.findByPk(userId);
 
-      if (!user) return next(ApiErrorHandler.notFound("Пользователь не найден"));
+      if (!user) throw ApiErrorHandler.notFound("Пользователь не найден");
 
       const favourites = await user.getProducts({
         attributes: { exclude: ["slug", "category_id"] }
@@ -15,13 +14,13 @@ class FavouritesController {
 
       const productsWithoutFavourites = favourites.map(({ dataValues }) => {
         // favourites - объект, связывающий пользователя и товар из соответствующей таблицы
-        const { favourites, ...rest } = dataValues; 
+        const { favourites, ...rest } = dataValues;
         return rest;
       });
 
-      return res.json(productsWithoutFavourites);
+      return productsWithoutFavourites;
     } catch (error) {
-      return next(ApiErrorHandler.internal(error.message));
+      return ApiErrorHandler.internal(error.message);
     }
   };
 
