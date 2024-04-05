@@ -1,4 +1,5 @@
 import { useSearchParams } from "react-router-dom";
+import { useMemo } from "react";
 import { configurateUrlParams, parseParamsFromUrl } from "../helpers/catalog.helpers";
 import type { IProductQueryData } from "@/types/features/product/query-data.types";
 
@@ -6,13 +7,14 @@ export const useFilters = () => {
   const [, setSearchParams] = useSearchParams();
   const params = window.location.search.slice(1);
 
-  const { filters, page, searchTerm, sort } = parseParamsFromUrl<IProductQueryData>(
-    params,
-    {
-      tryToParseNumbersInArray: true,
-      tryToParseNumbersInObject: true,
-      tryToParsePrimitive: true
-    }
+  const { filters, page, searchTerm, sort } = useMemo(
+    () =>
+      parseParamsFromUrl<IProductQueryData>(params, {
+        tryToParseNumbersInArray: true,
+        tryToParseNumbersInObject: true,
+        tryToParsePrimitive: true
+      }),
+    [params]
   );
 
   // Функции

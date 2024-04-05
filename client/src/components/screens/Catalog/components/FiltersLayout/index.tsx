@@ -24,13 +24,13 @@ interface IFiltersLayoutProps {
 
 function FiltersLayout({ filters, changeQueryParams }: IFiltersLayoutProps) {
   const methods = useForm<IFiltersFormValues>({ mode: "onChange" });
-  const { handleSubmit, setValue, reset } = methods;
+  const { handleSubmit, reset } = methods;
   const { categories } = useCategories();
 
   useEffect(() => {
     if (Object.keys(filters).length === 0) return reset();
 
-    setAllFormValues();
+    reset({ ...filters, categories: filters.categories?.map((el) => String(el)) });
   }, [filters]);
 
   // Функции
@@ -39,34 +39,6 @@ function FiltersLayout({ filters, changeQueryParams }: IFiltersLayoutProps) {
       tryToParseNumbersInArray: true
     }) as IProductFitlers;
     changeQueryParams({ filters: dirtyValues });
-  }
-
-  function setAllFormValues() {
-    // reset() ???
-
-    try {
-      let filterKey: keyof IFiltersFormValues;
-      for (filterKey in filters) {
-        const filter = filters[filterKey];
-
-        if (filter instanceof Object && !Array.isArray(filter)) {
-          let innerObjectKey: keyof typeof filter;
-          for (innerObjectKey in filter) {
-            // Я не знаю, как иначе ＞﹏＜
-            // @ts-ignore
-            setValue(`${filterKey}.${innerObjectKey}`, filter[innerObjectKey]);
-          }
-          continue;
-        } else if (Array.isArray(filter)) {
-          setValue(
-            filterKey,
-            filter.map((el) => String(el))
-          );
-        } else setValue(filterKey, filter);
-      }
-    } catch (e) {
-      console.log(e);
-    }
   }
   // Функции END
 

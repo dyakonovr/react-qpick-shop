@@ -1,5 +1,4 @@
-import { OrdersTable } from "./components/Table";
-import OrdersView from "./components/View";
+import OrdersList from "./OrderList/List";
 import { useTypedSelector } from "@/hooks/general/useTypedSelector";
 
 function Orders() {
@@ -11,8 +10,7 @@ function Orders() {
       {!orders || orders.length === 0 ? (
         <p>Заказов пока нет...</p>
       ) : (
-        // <OrdersTable orders={orders} />
-        <OrdersView orders={orders} />
+        <OrdersList orders={orders} />
       )}
     </div>
   );

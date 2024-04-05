@@ -25,8 +25,7 @@ export const getDirtyValues = <T extends object>(
     }
 
     if (filter instanceof Object) {
-      // @ts-ignore
-      removeInvalidFieldsFromObject(filter);
+      removeInvalidFieldsFromObject(filter as INestedObject);
 
       if (Object.keys(filter).length === 0) {
         delete data[filterKey];
