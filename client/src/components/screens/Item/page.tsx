@@ -15,7 +15,7 @@ interface IItemPageProps {
 
 function ItemPage({ data }: IItemPageProps) {
   const { product, similarProducts } = data;
-  const { id, name, info, category, price, rating, image, gallery } = product;
+  const { id, name, info, categoryName, price, rating, image, gallery } = product;
   const navigate = useNavigate();
 
   return (
@@ -30,7 +30,7 @@ function ItemPage({ data }: IItemPageProps) {
         <div className={classes.content__main}>
           <LikeButton productId={id} />
           <ItemGallery gallery={[...gallery, image]} productName={name} />
-          <ItemDetails id={id} name={name} category={category} />
+          <ItemDetails id={id} name={name} categoryName={categoryName} />
         </div>
       </div>
       <div className={classes.info}>

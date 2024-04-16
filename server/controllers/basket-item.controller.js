@@ -14,7 +14,7 @@ class BasketItemController {
           attributes: { exclude: ['basket_id', 'product_id'] },
           include: {
             model: Product,
-            attributes: { exclude: ['slug', 'rating', 'info', 'category_id'] }
+            attributes: { exclude: ['rating', 'info', 'category_id'] }
           },
         }
       )

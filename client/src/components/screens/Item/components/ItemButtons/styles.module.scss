@@ -3,6 +3,17 @@
   flex-direction: column;
   gap: var(--small-offset);
   grid-column: span 2;
+
+  @media (max-width: 992px) {
+    grid-column: span 4;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--medium-offset);
+  }
+
+  @media (max-width: 768px) {
+    grid-column: span 8;
+  }
 }
 
 .info_btn {
@@ -10,6 +21,10 @@
   font-size: 15px;
   font-weight: 500;
   cursor: pointer;
+  width: 100%;
+  padding: 0 5px;
+  max-width: 300px;
+  margin: 0 0 0 auto;
 
   &:disabled {
     color: var(--color-black);

@@ -49,6 +49,11 @@
     flex-direction: column;
     margin: var(--small-offset) 0 0;
     gap: var(--small-offset);
+    max-width: 50%;
+
+    @media (max-width: 576px) {
+      margin: var(--medium-offset) 0 0;
+    }
   }
 
   &__title {

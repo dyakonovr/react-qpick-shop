@@ -2,6 +2,7 @@ import { Op } from "sequelize";
 
 import { Category } from "../../../models/models.js";
 import { generateSlug } from "../../../helpers/generate-slug.helper.js";
+import { sequelize } from "../../../db.js";
 
 export const getFilters = async (oldFilters, searchTerm) => {
   const filters = {};
@@ -37,9 +38,12 @@ export const getFilters = async (oldFilters, searchTerm) => {
   }
 
   if (searchTerm) {
-    filters.slug = {
-      [Op.like]: `%${generateSlug(searchTerm)}%`
-    }
+    filters.name = sequelize.where(
+      sequelize.fn('LOWER', sequelize.col('name')),
+      {
+        [Op.like]: `%${generateSlug(searchTerm)}%`
+      }
+    );
   }
 
 

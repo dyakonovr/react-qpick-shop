@@ -1,5 +1,4 @@
 import { ApiErrorHandler } from "../../error/api-error.handler.js";
-import { generateSlug } from "../../helpers/generate-slug.helper.js";
 import { User } from "../../models/models.js";
 
 class AdminUserController {

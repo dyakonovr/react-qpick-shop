@@ -1,5 +1,4 @@
 import { ApiErrorHandler } from "../../error/api-error.handler.js";
-import { generateSlug } from "../../helpers/generate-slug.helper.js";
 import { Category } from "../../models/models.js";
 
 class AdminCategoryController {
@@ -9,7 +8,6 @@ class AdminCategoryController {
       const sort = JSON.parse(req.query.sort || []);
 
       const categories = await Category.findAndCountAll({
-        attributes: { exclude: ["slug"] },
         offset: range[0],
         limit: range[1] - range[0] + 1,
         order: [sort]
@@ -23,7 +21,7 @@ class AdminCategoryController {
   getMany = async (req, res, next) => {
     try {
       const filter = JSON.parse(req.query.filter);
-      const categories = await Category.findAll({ attributes: { exclude: ["slug"] }, where: { id: filter.ids } });
+      const categories = await Category.findAll({where: { id: filter.ids } });
       return res.json({ data: categories });
     } catch (error) {
       next(ApiErrorHandler.internal(error.message));
@@ -33,7 +31,7 @@ class AdminCategoryController {
   create = async (req, res, next) => {
     try {
       const { name } = req.body;
-      const category = await Category.create({ name, slug: generateSlug(name) });
+      const category = await Category.create({ name });
       return res.json(category);
     } catch (error) {
       next(ApiErrorHandler.internal(error.message));
@@ -61,7 +59,6 @@ class AdminCategoryController {
       if (!category) return next(ApiError.internal("Такой категории не найдено"));
 
       category.name = name;
-      category.slug = generateSlug(name);
       await category.save();
 
       return res.json(category);

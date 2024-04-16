@@ -9,7 +9,7 @@ class FavouritesController {
       if (!user) throw ApiErrorHandler.notFound("Пользователь не найден");
 
       const favourites = await user.getProducts({
-        attributes: { exclude: ["slug", "category_id"] }
+        attributes: { exclude: ["category_id"] }
       });
 
       const productsWithoutFavourites = favourites.map(({ dataValues }) => {

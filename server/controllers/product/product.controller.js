@@ -14,7 +14,6 @@ class ProductController {
           include: [
             {
               model: Category,
-              attributes: { exclude: ["slug"] }
             },
             {
               model: ProductImage,
@@ -25,7 +24,7 @@ class ProductController {
               attributes: { exclude: ["id", "product_id"] },
             },
           ],
-          attributes: { exclude: ["category_id", "slug"] }
+          attributes: { exclude: ["category_id"] }
         }
       );
 
@@ -36,7 +35,7 @@ class ProductController {
           category_id: product.category.id,
           id: { [Op.ne]: id }
         },
-        attributes: { exclude: ["slug", "category_id"] },
+        attributes: { exclude: ["category_id"] },
         limit: 3
       });
 
@@ -44,7 +43,7 @@ class ProductController {
       return res.json({
         product: {
           ...restProductData,
-          category: product.category.name,
+          categoryName: product.category.name,
           gallery: product.product_images.map(obj => obj.url),
           info,
         },
@@ -69,7 +68,7 @@ class ProductController {
       const config = {
         limit: perPage,
         offset,
-        attributes: { exclude: ["slug", "category_id"] }
+        attributes: { exclude: ["category_id"] }
       };
 
       if (whereOption) {

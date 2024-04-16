@@ -2,6 +2,7 @@ import { DataTypes } from "sequelize";
 
 import { customCreatedAndUpdatedFields, idSettingsObject } from "./models.constants.js";
 import { sequelize } from "../db.js";
+import { generateSlug } from './../helpers/generate-slug.helper.js';
 
 export const User = sequelize.define('user', {
   id: idSettingsObject,
@@ -23,7 +24,12 @@ export const Product = sequelize.define('product', {
     unique: { msg: 'Такое имя уже существует' },
     allowNull: false,
   },
-  slug: { type: DataTypes.STRING, allowNull: false },
+  slug: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      return generateSlug(this.name)
+    }
+  },
   price: {
     type: DataTypes.INTEGER, allowNull: false,
     validate: {
@@ -61,7 +67,12 @@ export const Category = sequelize.define('category', {
     unique: { msg: 'Такое название категории уже существует' },
     allowNull: false,
   },
-  slug: { type: DataTypes.STRING, unique: true, allowNull: false },
+  slug: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      return generateSlug(this.name)
+    }
+  },
 }, { timestamps: false });
 
 export const Basket = sequelize.define('basket', {

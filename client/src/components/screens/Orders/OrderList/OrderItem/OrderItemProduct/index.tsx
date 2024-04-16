@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import OrderItemProductImage from "./Image";
 import type { IOrderItem } from "@/types/features/order.types";
 import { PagePaths } from "@/enum/PagePaths";
 import { normalizePrice } from "@/functions/normalizePrice";
@@ -6,10 +7,7 @@ import { normalizePrice } from "@/functions/normalizePrice";
 function OrderItemProduct({ orderItemProduct }: { orderItemProduct: IOrderItem }) {
   return (
     <li className="flex gap-3">
-      <img
-        src={orderItemProduct.oldProductImage}
-        className="max-w-[100px] max-h-[100px]"
-      />
+      <OrderItemProductImage imagePath={orderItemProduct.oldProductImage} />
       <div>
         <p>
           <Link to={`${PagePaths.ITEM}?id=${orderItemProduct.productId}`}>

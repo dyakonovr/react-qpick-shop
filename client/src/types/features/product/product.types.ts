@@ -16,7 +16,7 @@ interface IProductInfo {
 export interface IExtendedProduct extends IProduct {
   gallery: string[];
   info: IProductInfo[];
-  category: string;
+  categoryName: string;
 }
 
 export interface IProductForCreating extends Omit<IExtendedProduct, "id" | "category"> {

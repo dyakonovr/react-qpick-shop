@@ -1,4 +1,4 @@
-import OrderItemProduct from "./OrderItemProduct";
+import OrderItemProduct from "./OrderItemProduct/OrderItemProduct";
 import classes from "./styles.module.scss";
 import type { IOrder } from "@/types/features/order.types";
 import { normalizePrice } from "@/functions/normalizePrice";

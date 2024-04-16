@@ -29,6 +29,7 @@ function SearchInput({ placeholder }: SearchInputProps) {
         onKeyDown={handleEnterDown}
         value={value}
         onChange={(e) => setValue(e.target.value)}
+        id="header-search-input"
       />
       {value && (
         <button

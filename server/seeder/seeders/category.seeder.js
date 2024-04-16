@@ -1,4 +1,3 @@
-import { generateSlug } from "../../helpers/generate-slug.helper.js";
 import { Category } from "../../models/models.js";
 import { faker } from "@faker-js/faker";
 
@@ -7,9 +6,7 @@ export async function seedCategories(length) {
     const categories = [];
 
     for (let i = 0; i < length; i++) {
-      const name = faker.commerce.productName();
-
-      categories.push({ name, slug: generateSlug(name) });
+      categories.push({ name: faker.commerce.productName() });
     }
 
     await Category.bulkCreate(categories);

@@ -33,7 +33,7 @@ function ItemButtons({ productId, price, rating }: IItemButtonsProps) {
 
   return (
     <div className={[classes.info__btns, "rounded_white_block h-max"].join(" ")}>
-      <div className="flex flex-col items-end">
+      <div className="flex flex-col">
         <Rating rating={rating} />
         <Price price={price} isBigFont={true} />
       </div>

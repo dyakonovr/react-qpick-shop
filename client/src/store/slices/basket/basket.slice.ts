@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { checkAuth } from "../user/user.actions";
+import { auth, checkAuth } from "../user/user.actions";
 import {
   addProductToBasket,
   deleteProductFromBasket,
@@ -43,6 +43,22 @@ const basketSlice = createSlice({
       })
 
       .addCase(checkAuth.rejected, (state) => {
+        state.isLoading = false;
+        state.items = null;
+        state.id = null;
+      })
+
+      .addCase(auth.pending, (state) => {
+        state.isLoading = true;
+      })
+
+      .addCase(auth.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.id = action.payload.basket.id;
+        state.items = action.payload.basket.products;
+      })
+
+      .addCase(auth.rejected, (state) => {
         state.isLoading = false;
         state.items = null;
         state.id = null;

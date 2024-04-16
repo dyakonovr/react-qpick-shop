@@ -1,6 +1,5 @@
 import { ApiErrorHandler } from "../../error/api-error.handler.js";
 import { Category, Product, ProductCharacteristic, ProductImage } from "../../models/models.js";
-import { generateSlug } from "../../helpers/generate-slug.helper.js";
 
 class AdminProductController {
   getAll = async (req, res, next) => {
@@ -9,7 +8,6 @@ class AdminProductController {
       const sort = JSON.parse(req.query.sort);
 
       const products = await Product.findAndCountAll({
-        attributes: { exclude: ["slug"] },
         include: Category,
         offset: range[0],
         limit: range[1] - range[0] + 1,
@@ -28,7 +26,6 @@ class AdminProductController {
       const sort = JSON.parse(req.query.sort);
 
       const products = await Product.findAndCountAll({
-        attributes: { exclude: ["slug"] },
         where: filter,
         offset: range[0],
         limit: range[1] - range[0] + 1,
@@ -43,7 +40,7 @@ class AdminProductController {
     try {
       const { name, price, category_id, info, rating, image, gallery } = req.body;
 
-      const product = await Product.create({ name, price, category_id, info, rating, image, slug: generateSlug(name) });
+      const product = await Product.create({ name, price, category_id, info, rating, image });
 
       for (let index = 0; index < gallery.length; index++) {
         await ProductImage.create({ url: gallery[index].url, product_id: product.id });
@@ -97,7 +94,6 @@ class AdminProductController {
       if (!product) return next(ApiError.internal("Такого продукта не найдено"));
 
       product.name = name;
-      product.slug = generateSlug(name);
       product.price = price;
       product.category_id = category_id;
       product.rating = rating;

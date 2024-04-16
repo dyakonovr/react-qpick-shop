@@ -1,16 +1,12 @@
 import { faker } from "@faker-js/faker";
 
-import { generateSlug } from './../../helpers/generate-slug.helper.js';
 import { Product, ProductCharacteristic, ProductImage } from "../../models/models.js";
 
 export async function seedProducts(length, categoriesLength) {
   try {
     for (let i = 0; i < length; i++) {
-      const name = faker.commerce.productName();
-
       const product = await Product.create({
-        name,
-        slug: generateSlug(name),
+        name: faker.commerce.productName(),
         price: faker.number.int({ min: 20, max: 10000 }),
         rating: faker.number.float({ min: 0, max: 5, precision: 0.1 }),
         image: getImage(),
@@ -37,7 +33,8 @@ export async function seedProducts(length, categoriesLength) {
 };
 
 function getImage() {
-  return faker.image.urlLoremFlickr({ category: 'technics', width: 300, height: 300 });
+  const size = faker.number.int({ min: 300, max: 450, precision: 10 });
+  return faker.image.urlLoremFlickr({ category: 'goods', width: size, height: size });
 }
 
 function getCharacteristic() {
