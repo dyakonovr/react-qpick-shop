@@ -1,0 +1,32 @@
+:root {
+  --screen-min-width: 380px;
+
+  // Цвета
+  --color-site-background: #eaeaea;
+  --color-white: #fff;
+  --color-black: #1c1c27;
+  --color-orange: #ffa542;
+  --color-yellow: #ffce7f;
+  --color-red: #df6464;
+  --color-gray: #838383;
+  --color-input-background: #d6d6d6;
+
+  // Шрифты
+  --font-family: "Montserrat";
+
+  // Размеры контейнера
+  --content-width: 1110px;
+  --container-offset: 15px;
+  --container-width: calc(var(--content-width) + (var(--container-offset) * 2));
+
+  // Отступы
+  --big-offset: 30px;
+  --medium-offset: 20px;
+  --small-offset: 10px;
+
+  // Тень
+  --box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+
+  // Скругление
+  --border-radius: 30px;
+}

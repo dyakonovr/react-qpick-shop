@@ -1,0 +1,16 @@
+.prices {
+  display: flex;
+  flex-direction: column;
+
+  .price {
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--color-orange);
+  }
+
+  &--big {
+    .price {
+      font-size: 28px;
+    }
+  }
+}

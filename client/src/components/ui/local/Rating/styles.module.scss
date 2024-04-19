@@ -1,0 +1,18 @@
+.rating {
+  display: flex;
+  color: var(--color-gray);
+  font-size: 17px;
+  font-weight: 600;
+
+  &::before {
+    content: "";
+    display: block;
+    margin: 0 var(--small-offset) 0 0;
+    width: 23px;
+    height: 23px;
+    background-image: url("@/assets/img/svg/icon-star.svg");
+    background-position: center;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
+}

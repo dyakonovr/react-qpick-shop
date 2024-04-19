@@ -1,0 +1,31 @@
+.btn_like {
+  width: 25px;
+  height: 25px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  margin: 0 0 0 auto;
+
+  svg {
+    width: 25px;
+    height: 25px;
+  }
+
+  path {
+    fill: transparent;
+    stroke: var(--color-black);
+    stroke-width: 2px;
+    transition: all 0.2s ease-in-out;
+  }
+
+  &:hover path {
+    fill: var(--color-black);
+  }
+
+  &--active {
+    path {
+      fill: var(--color-black);
+      stroke-width: 2px;
+    }
+  }
+}

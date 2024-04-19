@@ -1,0 +1,101 @@
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--medium-offset);
+
+  &__back_link {
+    display: flex !important;
+    align-items: center;
+    gap: var(--small-offset);
+    cursor: pointer;
+    width: fit-content;
+  }
+
+  .content {
+    padding: var(--big-offset);
+
+    &__photos {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--medium-offset);
+
+      @media (max-width: 992px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @media (max-width: 576px) {
+        grid-template-columns: repeat(1, 1fr);
+      }
+    }
+
+    &__photo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &__footer {
+      margin: var(--big-offset) 0 0;
+      display: flex;
+      justify-content: space-between;
+      gap: var(--medium-offset);
+    }
+
+    &__title {
+      font-size: 25px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    &__main {
+      display: flex;
+      flex-direction: column;
+      gap: var(--small-offset);
+    }
+  }
+
+  .info {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: var(--big-offset);
+
+    &__wrapper {
+      box-shadow: var(--box-shadow);
+      border-radius: var(--border-radius);
+      background-color: #f9f9f9;
+      grid-column: span 6;
+
+      @media (max-width: 992px) {
+        grid-column: span 4;
+      }
+
+      @media (max-width: 768px) {
+        grid-column: span 8;
+      }
+    }
+
+    &__title {
+      padding: var(--medium-offset);
+      border-radius: 15px;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--color-black);
+      background-color: var(--color-white);
+    }
+
+    &__container {
+      display: flex;
+      flex-direction: column;
+      gap: var(--small-offset);
+      border-radius: 0 0 15px 15px;
+      padding: var(--medium-offset);
+    }
+
+    &__text {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--color-black);
+    }
+  }
+}

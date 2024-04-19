@@ -1,0 +1,84 @@
+import { useEffect } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { getDirtyValues } from "./get-dirty-values.helper";
+import RangeFilter from "./components/RangeFilter";
+import CheckboxesFilter from "./components/CheckboxesFilter";
+import type {
+  IMinMaxRange,
+  IProductFitlers
+} from "@/types/features/product/filters.types";
+import type { IProductQueryData } from "@/types/features/product/query-data.types";
+import { useCategories } from "@/hooks/features/useCategories";
+import { SheetClose } from "@/components/ui/shadcn/sheet";
+
+interface IFiltersFormValues {
+  categories?: string[]; // number[] after getDirtyValues();
+  price?: IMinMaxRange;
+  rating?: IMinMaxRange;
+}
+
+interface IFiltersLayoutProps {
+  changeQueryParams: (queryData: IProductQueryData) => void;
+  filters: IProductFitlers;
+}
+
+function FiltersLayout({ filters, changeQueryParams }: IFiltersLayoutProps) {
+  const methods = useForm<IFiltersFormValues>({ mode: "onChange" });
+  const { handleSubmit, reset } = methods;
+  const { categories } = useCategories();
+
+  useEffect(() => {
+    if (Object.keys(filters).length === 0) return reset();
+
+    reset({ ...filters, categories: filters.categories?.map((el) => String(el)) });
+  }, [filters]);
+
+  // Функции
+  function onSubmit(data: IFiltersFormValues) {
+    const dirtyValues = getDirtyValues<IFiltersFormValues>(data, {
+      tryToParseNumbersInArray: true
+    }) as IProductFitlers;
+    changeQueryParams({ filters: dirtyValues });
+  }
+  // Функции END
+
+  return (
+    <FormProvider {...methods}>
+      <form className="flex flex-col gap-5" onSubmit={handleSubmit(onSubmit)}>
+        <RangeFilter
+          filterTitle="Цена"
+          registerMinInputKey="price.min"
+          registerMaxInputKey="price.max"
+          min={0}
+          max={10000}
+          step={1}
+        />
+        {categories && <CheckboxesFilter filterTitle="Категория" data={categories} />}
+        <RangeFilter
+          filterTitle="Рейтинг"
+          registerMinInputKey="rating.min"
+          registerMaxInputKey="rating.max"
+          min={0}
+          max={5}
+          step={0.1}
+        />
+        <div className="flex gap-3">
+          <SheetClose asChild>
+            <button type="submit" className="link w-fit px-4 py-1">
+              Показать
+            </button>
+          </SheetClose>
+          <button
+            type="button"
+            className="link w-fit px-4 py-1"
+            onClick={() => changeQueryParams({})}
+          >
+            Очистить фильтры
+          </button>
+        </div>
+      </form>
+    </FormProvider>
+  );
+}
+
+export default FiltersLayout;

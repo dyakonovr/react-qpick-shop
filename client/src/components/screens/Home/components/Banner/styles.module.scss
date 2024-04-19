@@ -1,0 +1,9 @@
+.banner {
+  img {
+    border-radius: var(--border-radius);
+  }
+
+  @media (max-width: 576px) {
+    display: none;
+  }
+}
