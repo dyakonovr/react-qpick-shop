@@ -1,3 +1,4 @@
+import { toast } from "sonner";
 import BasketItem from "./BasketItem";
 import classes from "./styles.module.scss";
 import type { IBasketItem } from "@/types/features/basket-item.types";
@@ -16,6 +17,9 @@ function FilledBasketPage({ basketItems, total }: IFilledBasketPageProps) {
   function createOrderFx() {
     if (!confirm("Вы точно хотите оформить заказ?")) return;
 
+    toast("Заказ оформлен!", {
+      description: `Больше информации смотрите на странице Заказов`
+    });
     createOrder({ items: basketItems });
   }
 

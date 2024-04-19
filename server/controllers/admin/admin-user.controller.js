@@ -18,16 +18,6 @@ class AdminUserController {
     }
   }
 
-  // getMany = async (req, res, next) => {
-  //   try {
-  //     const filter = JSON.parse(req.query.filter);
-  //     const users = await User.findAll({ attributes: { exclude: ["slug"] }, where: { id: filter.ids } });
-  //     return res.json({ data: users });
-  //   } catch (error) {
-  //     next(ApiErrorHandler.internal(error.message));
-  //   }
-  // }
-
   create = async (req, res, next) => {
     try {
       const { name, role } = req.body;
@@ -78,33 +68,6 @@ class AdminUserController {
       next(ApiErrorHandler.internal(error.message));
     }
   }
-
-  // delete = async (req, res, next) => {
-  //   try {
-  //     const { id } = req.params;
-  //     const category = await Category.findByPk(id);
-  //     await category.destroy();
-
-  //     return res.json();
-  //   } catch (error) {
-  //     next(ApiErrorHandler.internal(error.message));
-  //   }
-  // }
-
-  // deleteMany = async (req, res, next) => {
-  //   try {
-  //     const filter = JSON.parse(req.query.filter);
-  //     const categories = await Category.findAll({ where: filter });
-
-  //     for (let index = 0; index < categories.length; index++) {
-  //       categories[index].destroy();
-  //     }
-
-  //     return res.json({ data: categories });
-  //   } catch (error) {
-  //     next(ApiErrorHandler.internal(error.message));
-  //   }
-  // }
 }
 
 export default new AdminUserController();
