@@ -19,6 +19,13 @@
 - **Sequelize**
 - **JsonWebToken**
 
+_Дополнительно:_ Конфигурация проекта (Admin Panel):
+- **TypeScript**
+- **React**
+- **React Admin**
+- **ESLint, Prettier**
+- **Vite**
+
 
 Для того чтобы запустить проект, необходимо:
 

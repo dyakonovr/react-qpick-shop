@@ -1,8 +1,8 @@
 {
     "scripts": {
-        "app": "concurrently \"cd client && npm run dev\" \"cd server && npm run server\"",
-        "installation": "concurrently \"cd client && npm i\" \"cd server && npm i\"",
-        "build": "concurrently \"cd client && npm run build\" \"cd server && npm run build\""
+        "app": "concurrently \"cd client && npm run dev\" \"cd server && npm run server\" \"cd admin && npm run dev\"",
+        "installation": "concurrently \"cd client && npm i\" \"cd server && npm i\" \"cd admin && npm i\"",
+        "build": "concurrently \"cd client && npm run build\" \"cd server && npm run build\" \"cd admin && npm run build\""
     },
     "devDependencies": {
         "concurrently": "^8.2.2"
