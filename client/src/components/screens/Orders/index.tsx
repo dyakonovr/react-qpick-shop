@@ -1,5 +1,5 @@
 import OrdersList from "./OrderList/List";
-import { useTypedSelector } from "@/hooks/general/useTypedSelector";
+import { useTypedSelector } from "@/shared/hooks/useTypedSelector";
 
 function Orders() {
   const { data: orders } = useTypedSelector((state) => state.orders);

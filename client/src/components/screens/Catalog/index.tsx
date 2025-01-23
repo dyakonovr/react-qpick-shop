@@ -2,7 +2,7 @@ import CatalogPagination from "./components/CatalogPagination";
 import { useFilters } from "./hooks/useFilters";
 import FiltersSheet from "./components/FiltersSheet";
 import CardsContainer from "@/components/ui/local/CardsContainer";
-import { useProducts } from "@/hooks/features/useProducts";
+import { useProducts } from "@/entities/product/hooks/useProducts";
 
 function Catalog() {
   const { filters, changeQueryParams, page, sort, searchTerm } = useFilters();

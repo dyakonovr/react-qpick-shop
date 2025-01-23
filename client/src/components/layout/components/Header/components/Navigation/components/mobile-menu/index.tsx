@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import HeaderNavigationBurgerButton from "./components/burger";
 import HeaderMobileNavigationMenu from "./components/menu";
 import type { IHeaderNavigationProps } from "../../navigation-props.type";
-import { useOutsideClick } from "@/hooks/general/useOutsideClick";
+import { useOutsideClick } from "@/shared/hooks/useOutsideClick";
 
 function HeaderMobileNavigation({
   notifyUnauthorizedAction,

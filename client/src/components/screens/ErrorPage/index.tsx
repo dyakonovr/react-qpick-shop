@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { PagePaths } from "@/enum/PagePaths";
+import { PagePaths } from "@/shared/enum/PagePaths";
 
 function ErrorPage() {
   return (

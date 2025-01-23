@@ -3,7 +3,7 @@ import BasketItem from "./BasketItem";
 import classes from "./styles.module.scss";
 import type { IBasketItem } from "@/types/features/basket-item.types";
 import { normalizePrice } from "@/functions/normalizePrice";
-import { useActions } from "@/hooks/general/useActions";
+import { useActions } from "@/shared/hooks/useActions";
 
 interface IFilledBasketPageProps {
   basketItems: IBasketItem[];

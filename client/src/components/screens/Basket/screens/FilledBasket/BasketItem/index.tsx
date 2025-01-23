@@ -4,8 +4,8 @@ import BasketItemQuantity from "./BasketItemQuantity";
 import type { IBasketItem } from "@/types/features/basket-item.types";
 import { Skeleton } from "@/components/ui/shadcn/skeleton";
 import { normalizePrice } from "@/functions/normalizePrice";
-import { useActions } from "@/hooks/general/useActions";
-import { useImageLoader } from "@/hooks/general/useImageLoader";
+import { useActions } from "@/shared/hooks/useActions";
+import { useImageLoader } from "@/shared/hooks/useImageLoader";
 
 interface IBasketItemProps {
   basketItem: IBasketItem;

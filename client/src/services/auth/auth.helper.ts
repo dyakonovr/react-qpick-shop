@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 import type { IAuthResponse } from "@/services/auth/user.types";
-import { TokenNames } from "@/enum/TokenNames";
+import { TokenNames } from "@/shared/enum/TokenNames";
 
 export const checkAccessToken = () => {
   return !!Cookies.get(TokenNames.ACCESS_TOKEN);

@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { X as CloseIcon } from "lucide-react";
 import type { InputHTMLAttributes, KeyboardEvent } from "react";
-import { PagePaths } from "@/enum/PagePaths";
-import { useQueryParams } from "@/hooks/general/useQueryParams";
+import { PagePaths } from "@/shared/enum/PagePaths";
+import { useQueryParams } from "@/shared/hooks/useQueryParams";
 
 type SearchInputProps = InputHTMLAttributes<HTMLInputElement>;
 

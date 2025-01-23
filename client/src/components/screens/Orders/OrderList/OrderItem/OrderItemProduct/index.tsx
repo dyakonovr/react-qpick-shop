@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import OrderItemProductImage from "./Image";
 import type { IOrderItem } from "@/types/features/order.types";
-import { PagePaths } from "@/enum/PagePaths";
+import { PagePaths } from "@/shared/enum/PagePaths";
 import { normalizePrice } from "@/functions/normalizePrice";
 
 function OrderItemProduct({ orderItemProduct }: { orderItemProduct: IOrderItem }) {

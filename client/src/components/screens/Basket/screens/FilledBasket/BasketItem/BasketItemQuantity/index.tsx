@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import classes from "../styles.module.scss";
 import BasketItemQuantityInput from "./BasketItemQuantityInput";
 import type { IBasketItem } from "@/types/features/basket-item.types";
-import useDebounce from "@/hooks/general/useDebounce";
-import { useActions } from "@/hooks/general/useActions";
+import useDebounce from "@/shared/hooks/useDebounce";
+import { useActions } from "@/shared/hooks/useActions";
 
 type IBasketItemQuantityProps = Pick<IBasketItem, "quantity" | "id">;
 

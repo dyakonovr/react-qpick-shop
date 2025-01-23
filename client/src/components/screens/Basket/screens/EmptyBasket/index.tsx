@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import classes from "./styles.module.scss";
 import cartImage from "@/assets/img/svg/cart.svg";
-import { PagePaths } from "@/enum/PagePaths";
+import { PagePaths } from "@/shared/enum/PagePaths";
 
 function EmptyBasket() {
   return (

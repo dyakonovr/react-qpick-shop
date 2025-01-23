@@ -2,11 +2,11 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import HeaderDesktopNavigation from "./components/desktop-menu";
 import HeaderMobileNavigation from "./components/mobile-menu";
-import { useActions } from "@/hooks/general/useActions";
-import { useNotifyUnauthorizedAction } from "@/hooks/general/useNotifyUnauthorizedAction";
-import { useTypedSelector } from "@/hooks/general/useTypedSelector";
+import { useActions } from "@/shared/hooks/useActions";
+import { useNotifyUnauthorizedAction } from "@/shared/hooks/useNotifyUnauthorizedAction";
+import { useTypedSelector } from "@/shared/hooks/useTypedSelector";
 import { getUserInfoSelector } from "@/store/slices/user/user.selectors";
-import { PagePaths } from "@/enum/PagePaths";
+import { PagePaths } from "@/shared/enum/PagePaths";
 
 function HeaderNavigation() {
   const navigate = useNavigate();

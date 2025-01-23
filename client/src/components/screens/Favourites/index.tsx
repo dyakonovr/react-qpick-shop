@@ -1,5 +1,5 @@
 import CardsContainer from "@/components/ui/local/CardsContainer";
-import { useTypedSelector } from "@/hooks/general/useTypedSelector";
+import { useTypedSelector } from "@/shared/hooks/useTypedSelector";
 import { getFavouritesSelector } from "@/store/slices/favourites/favourites.selectors";
 
 function Favourites() {

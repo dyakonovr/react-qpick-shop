@@ -1,7 +1,7 @@
 import classes from "./styles.module.scss";
-import { useNotifyUnauthorizedAction } from "@/hooks/general/useNotifyUnauthorizedAction";
-import { useActions } from "@/hooks/general/useActions";
-import { useTypedSelector } from "@/hooks/general/useTypedSelector";
+import { useNotifyUnauthorizedAction } from "@/shared/hooks/useNotifyUnauthorizedAction";
+import { useActions } from "@/shared/hooks/useActions";
+import { useTypedSelector } from "@/shared/hooks/useTypedSelector";
 import { isProductInBasketSelector } from "@/store/slices/basket/basket.selectors";
 import { getUserInfoSelector } from "@/store/slices/user/user.selectors";
 import Rating from "@/components/ui/local/Rating";

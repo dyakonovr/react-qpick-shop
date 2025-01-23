@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-import { useActions } from "@/hooks/general/useActions";
-import { useTypedSelector } from "@/hooks/general/useTypedSelector";
+import { useActions } from "@/shared/hooks/useActions";
+import { useTypedSelector } from "@/shared/hooks/useTypedSelector";
 import { getUserInfoSelector } from "@/store/slices/user/user.selectors";
 
 function Layout() {

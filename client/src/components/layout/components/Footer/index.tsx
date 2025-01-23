@@ -1,9 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import classes from "./styles.module.scss";
-import { PagePaths } from "./../../../../enum/PagePaths";
+import { PagePaths } from "../../../../shared/enum/PagePaths";
 import Logo from "@/components/layout/components/Logo";
-import { useNotifyUnauthorizedAction } from "@/hooks/general/useNotifyUnauthorizedAction";
-import { useTypedSelector } from "@/hooks/general/useTypedSelector";
+import { useNotifyUnauthorizedAction } from "@/shared/hooks/useNotifyUnauthorizedAction";
+import { useTypedSelector } from "@/shared/hooks/useTypedSelector";
 import { getUserInfoSelector } from "@/store/slices/user/user.selectors";
 
 function Footer() {

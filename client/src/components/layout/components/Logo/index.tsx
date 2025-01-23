@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import classes from "./styles.module.scss";
 import type { HTMLAttributes } from "react";
-import { PagePaths } from "@/enum/PagePaths";
+import { PagePaths } from "@/shared/enum/PagePaths";
 import { cn } from "@/functions/shadcn-utils";
 
 function Logo({ className: classNames }: HTMLAttributes<HTMLSpanElement>) {

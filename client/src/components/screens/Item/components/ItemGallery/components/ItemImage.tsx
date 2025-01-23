@@ -1,6 +1,6 @@
 import classes from "../../../styles.module.scss";
 import { Skeleton } from "@/components/ui/shadcn/skeleton";
-import { useImageLoader } from "@/hooks/general/useImageLoader";
+import { useImageLoader } from "@/shared/hooks/useImageLoader";
 
 interface IItemImageProps {
   src: string;

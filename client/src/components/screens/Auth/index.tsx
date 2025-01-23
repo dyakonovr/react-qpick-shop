@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { AuthFormSchema } from "./auth.constants";
 import type { AuthFormValuesType, AuthType } from "./auth.types";
-import { useActions } from "@/hooks/general/useActions";
-import { PagePaths } from "@/enum/PagePaths";
+import { useActions } from "@/shared/hooks/useActions";
+import { PagePaths } from "@/shared/enum/PagePaths";
 import { Input } from "@/components/ui/shadcn/input";
 import {
   Form,

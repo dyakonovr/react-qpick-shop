@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 import classes from "./styles.module.scss";
 import type { ForwardedRef, LegacyRef } from "react";
 import type { IHeaderNavigationProps } from "../../../../navigation-props.type";
-import { PagePaths } from "@/enum/PagePaths";
+import { PagePaths } from "@/shared/enum/PagePaths";
 
 interface IHeaderMobileNavigationMenuProps extends IHeaderNavigationProps {
   isMenuShowed: boolean;

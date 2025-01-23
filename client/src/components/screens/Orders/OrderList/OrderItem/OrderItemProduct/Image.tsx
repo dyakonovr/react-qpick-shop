@@ -1,5 +1,5 @@
 import { Skeleton } from "@/components/ui/shadcn/skeleton";
-import { useImageLoader } from "@/hooks/general/useImageLoader";
+import { useImageLoader } from "@/shared/hooks/useImageLoader";
 
 function OrderItemProductImage({ imagePath }: { imagePath: string }) {
   const { isImageLoaded } = useImageLoader(imagePath);

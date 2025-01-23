@@ -2,7 +2,7 @@ import classes from "./styles.module.scss";
 import EmptyBasket from "./screens/EmptyBasket";
 import FilledBasket from "./screens/FilledBasket";
 import { getBasketInfoAndStatusSelector } from "@/store/slices/basket/basket.selectors";
-import { useTypedSelector } from "@/hooks/general/useTypedSelector";
+import { useTypedSelector } from "@/shared/hooks/useTypedSelector";
 
 function Basket() {
   const { basketItemsQuantity, isLoading } = useTypedSelector(

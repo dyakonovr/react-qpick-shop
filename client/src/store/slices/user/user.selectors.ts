@@ -1,6 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
 import type { RootType } from "@/store/store";
-import { Roles } from "@/enum/Roles";
+import { Roles } from "@/shared/enum/Roles";
 
 const getUser = (state: RootType) => state.user;
 

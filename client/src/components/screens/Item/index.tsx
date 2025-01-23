@@ -1,7 +1,7 @@
 import { Navigate, useNavigate } from "react-router-dom";
 import ItemPage from "./page";
 import ItemSkeleton from "./skeleton";
-import { useQueryParams } from "@/hooks/general/useQueryParams";
+import { useQueryParams } from "@/shared/hooks/useQueryParams";
 import { useProduct } from "@/hooks/features/useProduct";
 
 function Item() {

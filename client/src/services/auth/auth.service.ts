@@ -4,7 +4,7 @@ import type { AuthType } from "@/components/screens/Auth/auth.types";
 import type { IAuthResponse, IEmailPassword } from "@/services/auth/user.types";
 import { getContentType } from "@/api/api.helper";
 import { $axios } from "@/api/api.interceptor";
-import { TokenNames } from "@/enum/TokenNames";
+import { TokenNames } from "@/shared/enum/TokenNames";
 
 class AuthSerice {
   private url = "auth";

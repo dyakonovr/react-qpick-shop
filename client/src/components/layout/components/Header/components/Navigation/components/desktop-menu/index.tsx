@@ -1,8 +1,8 @@
 import Quantity from "../../../Quantity";
 import classes from "./styles.module.scss";
 import type { IHeaderNavigationProps } from "../../navigation-props.type";
-import { PagePaths } from "@/enum/PagePaths";
-import { useTypedSelector } from "@/hooks/general/useTypedSelector";
+import { PagePaths } from "@/shared/enum/PagePaths";
+import { useTypedSelector } from "@/shared/hooks/useTypedSelector";
 import { getBasketInfoAndStatusSelector } from "@/store/slices/basket/basket.selectors";
 import { getFavouriteQuantitySelector } from "@/store/slices/favourites/favourites.selectors";
 import { getOrdersQuantitySelector } from "@/store/slices/orders/orders.selectors";
